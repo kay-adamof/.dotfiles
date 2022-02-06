@@ -1,0 +1,25 @@
+{
+  "title": "command_to_option.json",
+  "rules": [
+    {
+      "description": "command_to_option.json",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "c",
+            "modifiers": {
+                "mandatory": ["left_option"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "c",
+              "modifiers": ["left_command"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
