@@ -1,0 +1,24 @@
+{
+  "title": "012_tab.json",
+  "rules": [
+    {
+      "description": "012_tab.json",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "quote",
+            "modifiers": {
+                "mandatory": ["left_control"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "tab"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
