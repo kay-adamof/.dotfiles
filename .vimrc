@@ -46,6 +46,8 @@ let g:terminal_ansi_colors = [
 "" ============================================================================
 "" BASIC SETTINGS {{{
 "" ============================================================================
+" -- Only show file name in tab
+set guitablabel=%t
 
 "-- set folding method"
 set fdm=syntax
@@ -171,9 +173,8 @@ nnoremap <CR> :noh<CR>
 " nnoremap <CR> :noh<CR><CR>:<backspace> <- Delete later unless problems
 
 " f, F means find
-map f /
-map F ?
-
+nnoremap f /
+nnoremap F ?
 " make n/N always go in the same direction
 nnoremap <expr> n 'Nn'[v:searchforward] . "zv"
 nnoremap <expr> N 'nN'[v:searchforward] . "zv"
