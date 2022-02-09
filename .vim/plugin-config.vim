@@ -23,7 +23,7 @@ nnoremap <leader>fa :Ag<CR>
     " ag search result (ALT-A to select all, ALT-D to deselect all)
 nnoremap <leader>fr :Rg<CR>
     " rg search result (ALT-A to select all, ALT-D to deselect all)
-nnoremap <leader>fl :Lines<CR>
+nnoremap <leader>fln :Lines<CR>
     " Lines in loaded buffers
 nnoremap <leader>fbl :BLines<CR>
     " Lines in the current buffer
