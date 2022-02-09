@@ -1,7 +1,7 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'mhinz/vim-startify'
-Plug 'tpope/vim-fugitive '
+Plug 'tpope/vim-fugitive'
 Plug 'mileszs/ack.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
