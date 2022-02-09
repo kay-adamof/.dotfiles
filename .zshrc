@@ -136,3 +136,4 @@ alias stat='git status'  # 'status' is protected name so using 'stat' instead
 alias tag='git tag'
 alias newtag='git tag -a'
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias memo='/usr/bin/git --git-dir=$HOME/.memo/ --work-tree=$HOME'
