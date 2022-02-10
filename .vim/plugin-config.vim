@@ -1,61 +1,60 @@
 "-- FZF.VIM CONFIG
 " Mapping selecting mappings
-nmap <leader><tab> <plug>(fzf-maps-n)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
+nmap <leader><Space> <plug>(fzf-maps-n)
+xmap <leader><Space> <plug>(fzf-maps-x)
+omap <leader><Space> <plug>(fzf-maps-o)
 
 " Insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
-nnoremap <leader>ff :Files<CR>
-    " Files (runs $FZF_DEFAULT_COMMAND if defined)
-nnoremap <leader>fgf :GFiles<CR>
+nnoremap <leader>f :Files<CR>
+nnoremap <leader>gl :GFiles<CR>
      " Git files (git ls-files)
-nnoremap <leader>fgf? :GFiles?<CR>
+nnoremap <leader>gs :GFiles?<CR>
     " Git files (git status)
-nnoremap <leader>fb :Buffers<CR>
+nnoremap <leader>b :Buffers<CR>
     " Open buffers
 " nnoremap <leader> :Colors<CR>
     " Color schemes
-nnoremap <leader>fa :Ag<CR>
+nnoremap <leader>a :Ag<CR>
     " ag search result (ALT-A to select all, ALT-D to deselect all)
-nnoremap <leader>fr :Rg<CR>
+nnoremap <leader>r :Rg<CR>
     " rg search result (ALT-A to select all, ALT-D to deselect all)
-nnoremap <leader>fln :Lines<CR>
+nnoremap <leader>l :Lines<CR>
     " Lines in loaded buffers
-nnoremap <leader>fbl :BLines<CR>
+nnoremap <leader>bl :BLines<CR>
     " Lines in the current buffer
-nnoremap <leader>ft :Tags<CR>
+nnoremap <leader>t :Tags<CR>
     " Tags in the project (ctags -R)
-nnoremap <leader>fbt :BTags<CR>
+nnoremap <leader>bt :BTags<CR>
     " Tags in the current buffer
-nnoremap <leader>fm :Marks<CR>
+nnoremap <leader>m :Marks<CR>
     " Marks
-nnoremap <leader>fw :Windows<CR>
+nnoremap <leader>w :Windows<CR>
     " Windows
-nnoremap <leader>flc :Locate<CR>
+nnoremap <leader>lc :Locate<CR>
     " locate command output
-nnoremap <leader>fhf :History<CR>
+nnoremap <leader>fh :History<CR>
     " v:oldfiles and open buffers
-nnoremap <leader>fhc :History:<CR>
+nnoremap <leader>ch :History:<CR>
     " Command history
-nnoremap <leader>fhs :History/<CR>
+nnoremap <leader>sh :History/<CR>
     " Search history
 " nnoremap <leader> :Snippets<CR>
     " Snippets (UltiSnips)
-nnoremap <leader>fct :Commits<CR>
+nnoremap <leader>gc :Commits<CR>
     " Git commits (requires fugitive.vim)
-nnoremap <leader>fbc :BCommits<CR>
+nnoremap <leader>bc :BCommits<CR>
     " Git commits for the current buffer; visual-select lines to track changes in the range
-nnoremap <leader>fcm :Commands<CR>
+nnoremap <leader>c :Commands<CR>
     " Commands
-nnoremap <leader>fm :Maps<CR>
+nnoremap <leader>m :Maps<CR>
     " Normal mode mappings
-nnoremap <leader>fht :Helptags<CR>
+nnoremap <leader>ht :Helptags<CR>
     " Help tags 1
-nnoremap <leader>fft :Filetypes<CR>
+nnoremap <leader>ft :Filetypes<CR>
     " File types
   " CTRL-T / CTRL-X / CTRL-V 
     " key bindings to open in a new tab, a new split, or in a new vertical split
