@@ -38,10 +38,10 @@ let g:terminal_ansi_colors = [
 
 
 
-"augroup AUTOSAVE
-"  au!
-"  autocmd InsertLeave,TextChanged,FocusLost * silent! write
-"augroup END
+augroup AUTOSAVE
+  au!
+  autocmd InsertLeave,TextChanged * silent! write
+augroup END
 
 "" ============================================================================
 "" BASIC SETTINGS {{{
@@ -158,9 +158,7 @@ set clipboard=unnamed
 "" ----------------------------------------------------------------------------
 "" hjkl "
 nnoremap j <C-d>
-nnoremap J G
 nnoremap k <C-u>
-nnoremap K gg
 " go tab next"
 nnoremap h gT
 nnoremap l gt
