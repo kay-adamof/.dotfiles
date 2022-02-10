@@ -12,7 +12,7 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 nnoremap <leader>ff :Files<CR>
     " Files (runs $FZF_DEFAULT_COMMAND if defined)
 nnoremap <leader>fgf :GFiles<CR>
-    " Git files (git ls-files)
+     " Git files (git ls-files)
 nnoremap <leader>fgf? :GFiles?<CR>
     " Git files (git status)
 nnoremap <leader>fb :Buffers<CR>
