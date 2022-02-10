@@ -35,7 +35,7 @@ nnoremap <leader>fm :Marks<CR>
     " Marks
 nnoremap <leader>fw :Windows<CR>
     " Windows
-nnoremap <leader>fl :Locate<CR>
+nnoremap <leader>flc :Locate<CR>
     " locate command output
 nnoremap <leader>fhf :History<CR>
     " v:oldfiles and open buffers
