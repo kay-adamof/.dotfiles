@@ -1,8 +1,8 @@
 "-- STARTIFY CONFIG
-nnoremap startify_load_a_session :SLoad
-nnoremap startify_save_a_session :SSave
-nnoremap startify_delete_a_session :SDelete
-nnoremap startify_close_a_session :SClose
+nnoremap startify_load_a_session :SLoad<CR>
+nnoremap startify_save_a_session :SSave<CR>
+nnoremap startify_delete_a_session :SDelete<CR>
+nnoremap startify_close_a_session :SClose<CR>
 
 "-- FZF.VIM CONFIG
 " Mapping selecting mappings
@@ -15,52 +15,52 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
-nnoremap <leader>f :Files<CR>
-nnoremap <leader>gl :GFiles<CR>
+nnoremap fzf_search_files :Files<CR>
+nnoremap fzf_git_ls_files :GFiles<CR>
      " Git files (git ls-files)
-nnoremap <leader>gs :GFiles?<CR>
+nnoremap fzf_git_status :GFiles?<CR>
     " Git files (git status)
-nnoremap <leader>b :Buffers<CR>
+nnoremap fzf_open_buffers :Buffers<CR>
     " Open buffers
 " nnoremap <leader> :Colors<CR>
     " Color schemes
-nnoremap <leader>a :Ag<CR>
+nnoremap fzf_silver_search :Ag<CR>
     " ag search result (ALT-A to select all, ALT-D to deselect all)
-nnoremap <leader>r :Rg<CR>
+nnoremap fzf_repgrep :Rg<CR>
     " rg search result (ALT-A to select all, ALT-D to deselect all)
-nnoremap <leader>l :Lines<CR>
+nnoremap fzf_search_lines_in_loaded_buffers :Lines<CR>
     " Lines in loaded buffers
-nnoremap <leader>bl :BLines<CR>
+nnoremap fzf_search_lines_in_current_buffer :BLines<CR>
     " Lines in the current buffer
-nnoremap <leader>t :Tags<CR>
+nnoremap fzf_search_tags_in_project :Tags<CR>
     " Tags in the project (ctags -R)
-nnoremap <leader>bt :BTags<CR>
+nnoremap fzf_search_tags_in_current_buffer :BTags<CR>
     " Tags in the current buffer
-nnoremap <leader>m :Marks<CR>
+nnoremap fzf_search_marks :Marks<CR>
     " Marks
-nnoremap <leader>w :Windows<CR>
+nnoremap fzf_windows :Windows<CR>
     " Windows
-nnoremap <leader>lc :Locate<CR>
+nnoremap fzf_locate :Locate<CR>
     " locate command output
-nnoremap <leader>fh :History<CR>
+nnoremap fzf_search_oldfiles_history_in_viminfo :History<CR>
     " v:oldfiles and open buffers
-nnoremap <leader>ch :History:<CR>
+nnoremap fzf_search_command_history :History:<CR>
     " Command history
-nnoremap <leader>sh :History/<CR>
+nnoremap fzf_search_search_history :History/<CR>
     " Search history
 " nnoremap <leader> :Snippets<CR>
     " Snippets (UltiSnips)
-nnoremap <leader>gc :Commits<CR>
+nnoremap fzf_git_commits_using_fugitive :Commits<CR>
     " Git commits (requires fugitive.vim)
-nnoremap <leader>bc :BCommits<CR>
+nnoremap fzf_git_commits_current_buffer_can_use_visual :BCommits<CR>
     " Git commits for the current buffer; visual-select lines to track changes in the range
-nnoremap <leader>c :Commands<CR>
+nnoremap fzf_search_all_commands :Commands<CR>
     " Commands
-nnoremap <leader>m :Maps<CR>
+nnoremap fzf_search_normal_mode_mappings :Maps<CR>
     " Normal mode mappings
-nnoremap <leader>ht :Helptags<CR>
+nnoremap fzf_search_helptags :Helptags<CR>
     " Help tags 1
-nnoremap <leader>ft :Filetypes<CR>
+nnoremap fzf_search_filetypes :Filetypes<CR>
     " File types
   " CTRL-T / CTRL-X / CTRL-V 
     " key bindings to open in a new tab, a new split, or in a new vertical split
