@@ -1,3 +1,9 @@
+"-- STARTIFY CONFIG
+nnoremap startify_load_a_session :SLoad
+nnoremap startify_save_a_session :SSave
+nnoremap startify_delete_a_session :SDelete
+nnoremap startify_close_a_session :SClose
+
 "-- FZF.VIM CONFIG
 " Mapping selecting mappings
 nmap <leader><Space> <plug>(fzf-maps-n)
