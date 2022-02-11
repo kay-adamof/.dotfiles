@@ -38,7 +38,7 @@ let g:terminal_ansi_colors = [
 
 
 
-augroup AUTOSAVE
+augroup vimrc
   au!
   autocmd InsertLeave,TextChanged * silent! write
 augroup END
@@ -46,9 +46,9 @@ augroup END
 "" ============================================================================
 "" BASIC SETTINGS {{{
 "" ============================================================================
+"-- Configure a word searchin"
 " -- Only show file name in tab
 set guitablabel=%t
-
 "-- set folding method"
 set fdm=syntax
 
