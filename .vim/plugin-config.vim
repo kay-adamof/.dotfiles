@@ -1,3 +1,6 @@
+"-- GOYO CONFIG
+nnoremap turn_goyo_off :Goyo!<CR> :hi Normal guibg=NONE ctermbg=NONE<CR>
+
 "-- STARTIFY CONFIG
 nnoremap startify_load_a_session :SLoad<CR>
 nnoremap startify_save_a_session :SSave<CR>
