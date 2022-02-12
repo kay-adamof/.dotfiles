@@ -192,7 +192,7 @@ nnoremap <NL> i<CR><ESC>
 "" switch next tab"
 "map <leader>t gt
 "" open terminal in the directory of the current file"
-map <leader>c :let $VIM_DIR=expand('%:p:h')<CR>:terminal<CR>cd $VIM_DIR<CR>
+map <leader>c :let $VIM_DIR=expand('%:p:h')<CR>:vert terminal<CR>cd $VIM_DIR<CR>
 "" buffer delete"
 "" map <leader>; :bd<cr> 
 
