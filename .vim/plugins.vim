@@ -19,7 +19,6 @@ Plug 'tpope/vim-surround'
 Plug 'dense-analysis/ale'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'preservim/tagbar'
-Plug 'junegunn/fzf' | Plug 'junegunn/fzf.vim'
 "Plug 'SirVer/ultisnips'
 Plug 'yggdroot/indentline'
 
