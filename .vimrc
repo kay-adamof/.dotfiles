@@ -153,6 +153,8 @@ set clipboard=unnamed
 "" ----------------------------------------------------------------------------
 "" Basic mappings
 "" ----------------------------------------------------------------------------
+" to soft-wrap at the edge of the screen, but not break in the middle of a word
+nnoremap warp_edge_screen_not_break_word :set wrap linebreak nolist<CR>
 "" hjkl "
 nnoremap j <C-d>
 nnoremap k <C-u>
