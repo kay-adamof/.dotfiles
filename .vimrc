@@ -153,6 +153,37 @@ set clipboard=unnamed
 "" ----------------------------------------------------------------------------
 "" Basic mappings
 "" ----------------------------------------------------------------------------
+" butterfly search
+cnoremap <expr> ; ButterflySemicolon()
+function! ButterflySemicolon()
+    let cmdtype = getcmdtype()
+    if cmdtype == ':'
+        " Perform Ex command map action
+    elseif cmdtype == '/'
+        return "\<C-G>"
+    elseif cmdtype == '?'
+        return "\<C-T>"
+    elseif cmdtype == '@'
+        " Perform input() prompt map action
+    else
+        " Perform other command-line prompt action
+    endif
+endfunction
+cnoremap <expr> + ButterflyPlus()
+function! ButterflyPlus()
+    let cmdtype = getcmdtype()
+    if cmdtype == ':'
+        " Perform Ex command map action
+    elseif cmdtype == '/'
+        return "\<C-T>"
+    elseif cmdtype == '?'
+        return "\<C-G>"
+    elseif cmdtype == '@'
+        " Perform input() prompt map action
+    else
+        " Perform other command-line prompt action
+    endif
+endfunction
 " to soft-wrap at the edge of the screen, but not break in the middle of a word
 nnoremap warp_edge_screen_not_break_word :set wrap linebreak nolist<CR>
 "" hjkl "
