@@ -138,7 +138,7 @@ let g:user_emmet_settings = {
 \}
 
 "-- NERDTree CONFIG
-nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-t> :NERDTreeToggle %<CR>
 let NERDTreeShowHidden=1
 let NERDTreeRespectWildIgnore=1
 set wildignore+=*.DS_Store,*.min.*
