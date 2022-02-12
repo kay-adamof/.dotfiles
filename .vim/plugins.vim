@@ -1,5 +1,6 @@
 call plug#begin('~/.vim/plugged')
 
+Plug 'junegunn/goyo.vim'
 Plug 'mhinz/vim-startify'
 Plug 'tpope/vim-fugitive'
 Plug 'mileszs/ack.vim'
