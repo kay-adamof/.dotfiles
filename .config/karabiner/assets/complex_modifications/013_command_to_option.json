@@ -130,10 +130,9 @@
             "key_code": "c"
           },
           "parameters": {
-              "basic.to_if_alone_timeout_milliseconds": 250,
               "basic.to_if_held_down_threshold_milliseconds": 250
           },
-          "to_if_alone": [
+          "to": [
               {
                   "key_code": "c"
               }
@@ -155,10 +154,9 @@
             "key_code": "v"
           },
           "parameters": {
-              "basic.to_if_alone_timeout_milliseconds": 250,
               "basic.to_if_held_down_threshold_milliseconds": 250
           },
-          "to_if_alone": [
+          "to": [
               {
                   "key_code": "v"
               }
