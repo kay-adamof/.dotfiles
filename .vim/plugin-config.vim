@@ -1,5 +1,34 @@
+"-- LIMELIGHT CONFIG
+" Color name (:help cterm-colors) or ANSI code
+let g:limelight_conceal_ctermfg = 'gray'
+let g:limelight_conceal_ctermfg = 240
+
+" Color name (:help gui-colors) or RGB color
+" let g:limelight_conceal_guifg = 'DarkGray'
+" let g:limelight_conceal_guifg = '#777777'
+
+" Default: 0.5
+let g:limelight_default_coefficient = 0.5
+
+" Number of preceding/following paragraphs to include (default: 0)
+let g:limelight_paragraph_span = 0
+
+" Beginning/end of paragraph
+"   When there's no empty line between the paragraphs
+"   and each paragraph starts with indentation
+" let g:limelight_bop = '^\s'
+" let g:limelight_eop = '\ze\n^\s'
+
+" Highlighting priority (default: 10)
+"   Set it to -1 not to overrule hlsearch
+let g:limelight_priority = 10
+
 "-- GOYO CONFIG
+" revert default colorscheme when exit goyo
 nnoremap turn_goyo_off :Goyo!<CR> :hi Normal guibg=NONE ctermbg=NONE<CR>
+" goyo and limelight integration
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
 
 "-- STARTIFY CONFIG
 nnoremap startify_load_a_session :SLoad<CR>
@@ -29,7 +58,7 @@ nnoremap fzf_open_buffers :Buffers<CR>
     " Color schemes
 nnoremap fzf_silver_search :Ag<CR>
     " ag search result (ALT-A to select all, ALT-D to deselect all)
-nnoremap fzf_repgrep :Rg<CR>
+nnoremap fzf_ripgrep :Rg<CR>
     " rg search result (ALT-A to select all, ALT-D to deselect all)
 nnoremap fzf_search_lines_in_loaded_buffers :Lines<CR>
     " Lines in loaded buffers
