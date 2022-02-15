@@ -1,4 +1,9 @@
-"-- LIMELIGHT CONFIG
+"-- Plug 'junegunn/vim-easy-align'
+nmap easy_align_inner_paragraph              <Plug>(EasyAlign)ip
+nmap easy_align_inner_paragraph_ignore_group <Plug>(EasyAlign)ip<C-G>
+
+"-- Plug 'junegunn/limelight.vim'
+
 " Color name (:help cterm-colors) or ANSI code
 let g:limelight_conceal_ctermfg = 'gray'
 let g:limelight_conceal_ctermfg = 240
@@ -37,6 +42,17 @@ nnoremap startify_delete_a_session :SDelete<CR>
 nnoremap startify_close_a_session :SClose<CR>
 
 "-- FZF.VIM CONFIG
+" fzf.vim ripgrep advanced option command RG"
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
 " Mapping selecting mappings
 nmap <leader><Space> <plug>(fzf-maps-n)
 xmap <leader><Space> <plug>(fzf-maps-x)
