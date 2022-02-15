@@ -111,8 +111,18 @@ alias zshrc="vi ~/.zshrc"
 alias vimrc="vi ~/.vimrc"
 alias ldd="l -d */" # Show only directory
 
+### FZF default settings
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
+
+# --files      List files that would be searched but do not search
+# --no-ignore  Do not respect .gitignore, etc...
+# --hidden     Search hidden files and folders
+# --follow     Follow symlinks
+# --glob       Additional conditions for search (in this case ignore everything in the .git/ folder)
+
+# export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 export FZF_DEFAULT_OPTS='--height 60% --layout=reverse --border'
 
 ### "bat" as manpager
@@ -138,3 +148,5 @@ alias newtag='git tag -a'
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias memo='/usr/bin/git --git-dir=$HOME/.memo/ --work-tree=$HOME'
 export PATH="$(pwd)/git-fuzzy/bin:$PATH"
+alias memo_fuzzy='$HOME/git-fuzzy/bin --git-dir=$HOME/.memo/ --work-tree=$HOME'
+ 
