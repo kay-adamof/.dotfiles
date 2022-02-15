@@ -1,5 +1,9 @@
 call plug#begin('~/.vim/plugged')
 
+Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/limelight.vim'
+Plug 'mzlogin/vim-markdown-toc'
+Plug 'tpope/vim-repeat'
 Plug 'junegunn/goyo.vim'
 Plug 'mhinz/vim-startify'
 Plug 'tpope/vim-fugitive'
