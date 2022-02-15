@@ -3,35 +3,29 @@ nmap easy_align_inner_paragraph              <Plug>(EasyAlign)ip
 nmap easy_align_inner_paragraph_ignore_group <Plug>(EasyAlign)ip<C-G>
 
 "-- Plug 'junegunn/limelight.vim'
-
-" Color name (:help cterm-colors) or ANSI code
+  " Color name (:help cterm-colors) or ANSI code
 let g:limelight_conceal_ctermfg     = 'gray'
 let g:limelight_conceal_ctermfg     = 240
-
-" Color name (:help gui-colors) or RGB color
+  " Color name (:help gui-colors) or RGB color
 " let g:limelight_conceal_guifg = 'DarkGray'
 " let g:limelight_conceal_guifg = '#777777'
-
-" Default: 0.5
+  " default: 0.5
 let g:limelight_default_coefficient = 0.5
-
-" Number of preceding/following paragraphs to include (default: 0)
+  " Number of preceding/following paragraphs to include (default: 0)
 let g:limelight_paragraph_span      = 0
-
-" Beginning/end of paragraph
-"   When there's no empty line between the paragraphs
-"   and each paragraph starts with indentation
+  " Beginning/end of paragraph
+  " When there's no empty line between the paragraphs
+  " and each paragraph starts with indentation
 " let g:limelight_bop = '^\s'
 " let g:limelight_eop = '\ze\n^\s'
-
-" Highlighting priority (default: 10)
-"   Set it to -1 not to overrule hlsearch
+  " Highlighting priority (default: 10)
+  " Set it to -1 not to overrule hlsearch
 let g:limelight_priority            = 10
 
 "-- GOYO CONFIG
-" revert default colorscheme when exit goyo
+  " revert default colorscheme when exit goyo
 nnoremap turn_goyo_off :Goyo!<CR> :hi Normal guibg=NONE ctermbg=NONE<CR>
-" goyo and limelight integration
+  " goyo and limelight integration
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 
@@ -43,7 +37,7 @@ nnoremap startify_close_a_session  :SClose<CR>
 
 "-- FZF.VIM CONFIG
 command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
-" fzf.vim ripgrep advanced option command RG"
+  " fzf.vim ripgrep advanced option command RG"
 function! RipgrepFzf(query, fullscreen)
   let command_fmt     = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
   let initial_command = printf(command_fmt, shellescape(a:query))
@@ -54,12 +48,12 @@ endfunction
 
 command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 
-" Mapping selecting mappings
+  " Mapping selecting mappings
 nmap <leader><Space> <plug>(fzf-maps-n)
 xmap <leader><Space> <plug>(fzf-maps-x)
 omap <leader><Space> <plug>(fzf-maps-o)
 
-" Insert mode completion
+  " Insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-l> <plug>(fzf-complete-line)
@@ -217,7 +211,7 @@ let g:tagbar_type_javascriptreact = {
 nmap <silent> <leader>I ^vio<C-V>I
 nmap <silent> <leader>A ^vio<C-V>$A
 
-" ack.vim --- {{{
+"-- ack.vim --- {{{
 
 " Use ripgrep for searching ⚡️
 " Options include:
