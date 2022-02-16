@@ -38,6 +38,8 @@ let g:terminal_ansi_colors = [
 augroup vimrc
   au!
   autocmd InsertLeave,TextChanged * silent! write
+  autocmd InsertEnter,WinLeave * set nocursorline nocursorcolumn
+  autocmd InsertLeave,WinEnter * set cursorline cursorcolumn
 augroup END
 
 "" ============================================================================
@@ -156,8 +158,8 @@ set clipboard=unnamed
 " hide corner
 nnoremap <expr> hide_corner HideCorner()
 function! HideCorner()
-    set laststatus  = 0
-    set showtabline = 0
+    set laststatus=0
+    set showtabline=0
     set norelativenumber
     set nonumber
     set noruler
