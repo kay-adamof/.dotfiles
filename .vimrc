@@ -45,7 +45,7 @@ augroup END
 "" ============================================================================
 "-- Configure a word searchin"
 " -- Only show file name in tab
-set guitablabel=%t
+" set guitablabel=%t
 "-- set folding method"
 set fdm=syntax
 
@@ -153,6 +153,16 @@ set clipboard=unnamed
 "" ----------------------------------------------------------------------------
 "" Basic mappings
 "" ----------------------------------------------------------------------------
+" hide corner
+nnoremap <expr> hide_corner HideCorner()
+function! HideCorner()
+    set laststatus  = 0
+    set showtabline = 0
+    set norelativenumber
+    set nonumber
+    set noruler
+endfunction
+
 " butterfly search
 cnoremap <expr> ; ButterflySemicolon()
 function! ButterflySemicolon()
