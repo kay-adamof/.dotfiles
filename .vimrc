@@ -155,6 +155,9 @@ set clipboard=unnamed
 "" ----------------------------------------------------------------------------
 "" Basic mappings
 "" ----------------------------------------------------------------------------
+nnoremap match_a_line_break /\n
+nnoremap match_a_line_break_or_a_space /\_s
+
 nnoremap open_help_right_vertically :vert help<CR> <C-W>x
 
 " hide corner
