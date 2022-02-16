@@ -38,8 +38,8 @@ let g:terminal_ansi_colors = [
 augroup vimrc
   au!
   autocmd InsertLeave,TextChanged * silent! write
-  autocmd InsertEnter,WinLeave * set nocursorline nocursorcolumn
-  autocmd InsertLeave,WinEnter * set cursorline cursorcolumn
+  autocmd InsertEnter,WinLeave * set nocursorline 
+  autocmd InsertLeave,WinEnter * set cursorline 
 augroup END
 
 "" ============================================================================
@@ -155,13 +155,28 @@ set clipboard=unnamed
 "" ----------------------------------------------------------------------------
 "" Basic mappings
 "" ----------------------------------------------------------------------------
+
+nnoremap <expr> change_directory_of_current_buffer ChangeToLocalDir()
+function! ChangeToLocalDir()
+  lchdir %:p:h
+  return ''
+endfunction
+
 nnoremap match_a_line_break /\n
 nnoremap match_a_line_break_or_a_space /\_s
 
-nnoremap open_help_right_vertically :vert help<CR> <C-W>x
+nnoremap Open_help_right_vertically :vert help<CR> <C-W>x
 
-" hide corner
-nnoremap <expr> hide_corner HideCorner()
+nnoremap <expr> show_corner ShowCorner()
+function! ShowCorner()
+    set laststatus=2
+    set showtabline=2
+    set relativenumber
+    set number
+    set ruler
+endfunction
+
+nnoremap <expr> Hide_corner HideCorner()
 function! HideCorner()
     set laststatus=0
     set showtabline=0
@@ -202,13 +217,13 @@ function! ButterflyPlus()
     endif
 endfunction
 " to soft-wrap at the edge of the screen, but not break in the middle of a word
-nnoremap warp_edge_screen_not_break_word :set wrap linebreak nolist<CR>
+nnoremap Warp_edge_screen_not_break_word :set wrap linebreak nolist<CR>
 "" hjkl "
 nnoremap j <C-d>
 nnoremap k <C-u>
 " go tab next"
-nnoremap h gT
-nnoremap l gt
+nnoremap <silent> h :tabp<CR>
+nnoremap <silent> l :tabn<CR>
 nnoremap H :bN<CR>
 nnoremap L :bn<CR>
 
@@ -306,3 +321,46 @@ map <leader>c :let $VIM_DIR=expand('%:p:h')<CR>:vert terminal<CR>cd $VIM_DIR<CR>
 "" ----------------------------------------------------------------------------
 "nnoremap <tab>   <c-w>w
 "nnoremap <S-tab> <c-w>W
+
+" " - BLines
+" function! s:buffer_line_handler(lines)
+"   if len(a:lines) < 2
+"     return
+"   endif
+"   let qfl = []
+"   for line in a:lines[1:]
+"     let chunks = split(line, "\t", 1)
+"     let ln = chunks[0]
+"     let ltxt = join(chunks[1:], "\t")
+"     call add(qfl, {'filename': expand('%'), 'lnum': str2nr(ln), 'text': ltxt})
+"   endfor
+"   call s:fill_quickfix(qfl, 'cfirst')
+"   normal! m'
+"   let cmd = s:action_for(a:lines[0])
+"   if !empty(cmd)
+"     execute 'silent' cmd
+"   endif
+
+"   execute split(a:lines[1], '\t')[0]
+"   normal! ^zvzz
+" endfunction
+
+" function! s:buffer_lines(query)
+"   let linefmt = s:yellow(" %4d ", "LineNr")."\t%s"
+"   let fmtexpr = 'printf(linefmt, v:key + 1, v:val)'
+"   let lines = getline(1, '$')
+"   if empty(a:query)
+"     return map(lines, fmtexpr)
+"   end
+"   return filter(map(lines, 'v:val =~ a:query ? '.fmtexpr.' : ""'), 'len(v:val)')
+" endfunction
+
+" function! fzf#vim#buffer_lines(...)
+"   let [query, args] = (a:0 && type(a:1) == type('')) ?
+"         \ [a:1, a:000[1:]] : ['', a:000]
+"   return s:fzf('blines', {
+"   \ 'source':  s:buffer_lines(query),
+"   \ 'sink*':   s:function('s:buffer_line_handler'),
+"   \ 'options': s:reverse_list(['+m', '--tiebreak=index', '--multi', '--prompt', 'BLines> ', '--ansi', '--extended', '--nth=2..', '--tabstop=1'])
+"   \}, args)
+" endfunction
