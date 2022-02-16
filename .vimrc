@@ -165,7 +165,7 @@ endfunction
 nnoremap match_a_line_break /\n
 nnoremap match_a_line_break_or_a_space /\_s
 
-nnoremap Open_help_right_vertically :vert help<CR> <C-W>x
+nnoremap _open_help_right_vertically :vert help<CR> <C-W>x
 
 nnoremap <expr> show_corner ShowCorner()
 function! ShowCorner()

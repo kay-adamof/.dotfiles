@@ -58,32 +58,32 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
-nnoremap fzf_search_files                              :Files<CR>
-nnoremap fzf_git_ls_files                              :GFiles<CR>
-nnoremap fzf_git_status                                :GFiles?<CR>
-nnoremap fzf_open_buffers                              :Buffers<CR>
+nnoremap Fzf_search_files                              :Files<CR>
+nnoremap Fzf_git_ls_files                              :GFiles<CR>
+nnoremap Fzf_git_status                                :GFiles?<CR>
+nnoremap Fzf_open_buffers                              :Buffers<CR>
 " nnoremap <leader> :Colors<CR>
     " Color schemes
-nnoremap fzf_silver_search                             :Ag<CR>
-nnoremap fzf_ripgrep                                   :Rg<CR>
-nnoremap fzf_search_lines_in_loaded_buffers            :Lines<CR>
-nnoremap fzf_search_lines_in_current_buffer            :BLines<CR>
-nnoremap fzf_search_tags_in_project                    :Tags<CR>
-nnoremap fzf_search_tags_in_current_buffer             :BTags<CR>
-nnoremap fzf_search_marks                              :Marks<CR>
-nnoremap fzf_open_tab                                  :Windows<CR>
-nnoremap fzf_locate                                    :Locate<CR>
-nnoremap fzf_search_oldfiles_history_in_viminfo        :History<CR>
-nnoremap fzf_search_command_history                    :History:<CR>
-nnoremap fzf_search_search_history                     :History/<CR>
+nnoremap Fzf_silver_search                             :Ag<CR>
+nnoremap Fzf_ripgrep                                   :Rg<CR>
+nnoremap Fzf_search_lines_in_loaded_buffers            :Lines<CR>
+nnoremap Fzf_search_lines_in_current_buffer            :BLines<CR>
+nnoremap Fzf_search_tags_in_project                    :Tags<CR>
+nnoremap Fzf_search_tags_in_current_buffer             :BTags<CR>
+nnoremap Fzf_search_marks                              :Marks<CR>
+nnoremap Fzf_open_tab                                  :Windows<CR>
+nnoremap Fzf_locate                                    :Locate<CR>
+nnoremap Fzf_search_oldfiles_history_in_viminfo        :History<CR>
+nnoremap Fzf_search_command_history                    :History:<CR>
+nnoremap Fzf_search_search_history                     :History/<CR>
 " nnoremap <leader> :Snippets<CR>
     " Snippets (UltiSnips)
-nnoremap fzf_git_commits_using_fugitive                :Commits<CR>
-nnoremap fzf_git_commits_current_buffer_can_use_visual :BCommits<CR>
-nnoremap fzf_search_all_commands                       :Commands<CR>
-nnoremap fzf_search_normal_mode_mappings               :Maps<CR>
-nnoremap fzf_search_helptags                           :Helptags<CR>
-nnoremap fzf_search_filetypes                          :Filetypes<CR>
+nnoremap Fzf_git_commits_using_fugitive                :Commits<CR>
+nnoremap Fzf_git_commits_current_buffer_can_use_visual :BCommits<CR>
+nnoremap Fzf_search_all_commands                       :Commands<CR>
+nnoremap Fzf_search_normal_mode_mappings               :Maps<CR>
+nnoremap Fzf_search_helptags                           :Helptags<CR>
+nnoremap Fzf_search_filetypes                          :Filetypes<CR>
   " CTRL-T / CTRL-X / CTRL-V 
     " key bindings to open in a new tab, a new split, or in a new vertical split
   " Bang-versions of the commands (e.g. Ag!) will open fzf in fullscreen
