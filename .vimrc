@@ -155,6 +155,8 @@ set clipboard=unnamed
 "" ----------------------------------------------------------------------------
 "" Basic mappings
 "" ----------------------------------------------------------------------------
+nnoremap open_help_right_vertically :vert help<CR> <C-W>x
+
 " hide corner
 nnoremap <expr> hide_corner HideCorner()
 function! HideCorner()
