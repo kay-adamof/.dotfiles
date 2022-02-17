@@ -193,7 +193,19 @@ function! HideCorner()
 endfunction
 
 " butterfly search
+" f, F means find
+nnoremap f /
+nnoremap F ?
+vnoremap f /
+vnoremap F ?
+" make n/N always go in the same direction
+nnoremap <expr> n 'Nn'[v:searchforward] . "zv"
+nnoremap <expr> N 'nN'[v:searchforward] . "zv"
+vnoremap <expr> n 'Nn'[v:searchforward] . "zv"
+vnoremap <expr> N 'nN'[v:searchforward] . "zv"
+" search like a butterfly
 cnoremap <expr> ; ButterflySemicolon()
+cnoremap <expr> + ButterflyPlus()
 function! ButterflySemicolon()
     let cmdtype = getcmdtype()
     if cmdtype == ':'
@@ -208,7 +220,6 @@ function! ButterflySemicolon()
         " Perform other command-line prompt action
     endif
 endfunction
-cnoremap <expr> + ButterflyPlus()
 function! ButterflyPlus()
     let cmdtype = getcmdtype()
     if cmdtype == ':'
@@ -239,12 +250,6 @@ nnoremap ; :
 nnoremap <CR> :noh<CR>
 " nnoremap <CR> :noh<CR><CR>:<backspace> <- Delete later unless problems
 
-" f, F means find
-nnoremap f /
-nnoremap F ?
-" make n/N always go in the same direction
-nnoremap <expr> n 'Nn'[v:searchforward] . "zv"
-nnoremap <expr> N 'nN'[v:searchforward] . "zv"
 
 nnoremap <NL> i<CR><ESC>
 " then just press Ctrl-J whenever you want to split a line.
