@@ -1,6 +1,6 @@
 "-- Plug 'junegunn/vim-easy-align'
-nmap easy_align_inner_paragraph              <Plug>(EasyAlign)ip
-nmap easy_align_inner_paragraph_ignore_group <Plug>(EasyAlign)ip<C-G>
+nmap <leader>easy_align_inner_paragraph              <Plug>(EasyAlign)ip
+nmap <leader>easy_align_inner_paragraph_ignore_group <Plug>(EasyAlign)ip<C-G>
 
 "-- Plug 'junegunn/limelight.vim'
   " Color name (:help cterm-colors) or ANSI code
