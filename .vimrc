@@ -42,6 +42,13 @@ augroup vimrc
   autocmd InsertLeave,WinEnter * set cursorline 
 augroup END
 
+augroup vimrc-incsearch-highlight
+  autocmd!
+  autocmd CmdlineEnter /,\? :set hlsearch
+  autocmd CmdlineLeave /,\? :set nohlsearch
+augroup END
+
+
 "" ============================================================================
 "" BASIC SETTINGS {{{
 "" ============================================================================
