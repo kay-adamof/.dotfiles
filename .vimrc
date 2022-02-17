@@ -38,8 +38,8 @@ let g:terminal_ansi_colors = [
 augroup vimrc
   au!
   autocmd InsertLeave,TextChanged * silent! write
-  autocmd InsertEnter,WinLeave * set nocursorline 
-  autocmd InsertLeave,WinEnter * set cursorline 
+  autocmd InsertEnter,WinLeave * set nocursorline nocursorcolumn
+  autocmd InsertLeave,WinEnter * set cursorline cursorcolumn
 augroup END
 
 augroup vimrc-incsearch-highlight
@@ -169,8 +169,8 @@ function! ChangeToLocalDir()
   return ''
 endfunction
 
-nnoremap match_a_line_break /\n
-nnoremap match_a_line_break_or_a_space /\_s
+nnoremap <leader>match_a_line_break /\n
+nnoremap <leader>match_a_line_break_or_a_space /\_s
 
 nnoremap _open_help_right_vertically :vert help<CR> <C-W>x
 
