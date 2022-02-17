@@ -163,6 +163,8 @@ let g:user_emmet_settings = {
 nnoremap <C-t> :NERDTreeToggle %<CR>
 let NERDTreeShowHidden        = 1
 let NERDTreeRespectWildIgnore = 1
+let g:NERDTreeMapToggleFiles = '_F'
+let g:NERDTreeMapToggleFilters = '_f'
 set wildignore+=*.DS_Store,*.min.*
       " Start NERDTree when Vim is started without file arguments.
 " autocmd StdinReadPre * let s:std_in=1
