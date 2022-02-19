@@ -10,7 +10,7 @@
               "type": "input_source_if",
               "input_sources": [
                 {
-                  "language": "ja"
+                  "input_source_id": "^com\\.justsystems\\.inputmethod\\.atok32\\.Roman$"
                 }
               ]
             }
@@ -27,8 +27,8 @@
           ],
           "to_if_alone": [
             {
-              "key_code": "spacebar",
-              "modifiers": [ "left_control" ]
+              "key_code": "z",
+              "modifiers": [ "left_control","left_shift" ]
             }
           ]
         },
@@ -38,7 +38,7 @@
               "type": "input_source_unless",
               "input_sources": [
                 {
-                  "language": "ja"
+                  "input_source_id": "^com\\.justsystems\\.inputmethod\\.atok32\\.Roman$"
                 }
               ]
             }
@@ -55,8 +55,8 @@
           ],
           "to_if_alone": [
             {
-              "key_code": "spacebar",
-              "modifiers": [ "left_control" ]
+              "key_code": "c",
+              "modifiers": [ "left_control","left_shift" ]
             }
           ]
         }
