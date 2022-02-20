@@ -37,7 +37,11 @@ let g:terminal_ansi_colors = [
 
 augroup vimrc
   au!
-  autocmd InsertLeave,TextChanged * silent! write
+  autocmd InsertLeave,TextChanged,FocusLost * silent! write
+  " https://stackoverflow.com/questions/2490227/how-does-vims-autoread-work
+  autocmd FocusGained,BufEnter * :silent! !
+  autocmd FocusGained,BufEnter * :silent! 
+  
   autocmd InsertEnter,WinLeave * set nocursorline nocursorcolumn
   autocmd InsertLeave,WinEnter * set cursorline cursorcolumn
 augroup END
@@ -62,7 +66,7 @@ set fdm=syntax
 set autoread
 set autowrite
 set autowriteall
-	"see this article: https://vimtricks.com/p/what-is-set-hidden/ 
+	"see this article: https://vimtricks.com/p/what-is-set-hidden/
 set hidden
 
 set wrap
@@ -162,6 +166,7 @@ set clipboard=unnamed
 "" ----------------------------------------------------------------------------
 "" Basic mappings
 "" ----------------------------------------------------------------------------
+nnoremap <silent> <leader>close_all_nerdtree_tabs :tabdo NERDTreeClose
 
 nnoremap <expr> change_directory_of_current_buffer ChangeToLocalDir()
 function! ChangeToLocalDir()
@@ -247,7 +252,7 @@ nnoremap L :bn<CR>
 
 nnoremap ; :
 
-nnoremap <CR> :noh<CR>
+" nnoremap <CR> :noh<CR>
 " nnoremap <CR> :noh<CR><CR>:<backspace> <- Delete later unless problems
 
 
@@ -268,7 +273,7 @@ nnoremap <NL> i<CR><ESC>
 "" open terminal in the directory of the current file"
 map <leader>c :let $VIM_DIR=expand('%:p:h')<CR>:vert terminal<CR>cd $VIM_DIR<CR>
 "" buffer delete"
-"" map <leader>; :bd<cr> 
+"" map <leader>; :bd<cr>
 
 "" Save
 "inoremap <C-s>     <C-O>:update<cr>
@@ -312,7 +317,7 @@ map <leader>c :let $VIM_DIR=expand('%:p:h')<CR>:vert terminal<CR>cd $VIM_DIR<CR>
 "nnoremap Y y$
 
 "" qq to record, Q to replay
-"nnoremap Q @q
+nnoremap Q @q
 
 "" Zoom
 "function! s:zoom()
@@ -376,6 +381,18 @@ map <leader>c :let $VIM_DIR=expand('%:p:h')<CR>:vert terminal<CR>cd $VIM_DIR<CR>
 "   \ 'options': s:reverse_list(['+m', '--tiebreak=index', '--multi', '--prompt', 'BLines> ', '--ansi', '--extended', '--nth=2..', '--tabstop=1'])
 "   \}, args)
 " endfunction
+
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+command! -bang -nargs=* BLines call fzf#vim#buffer_lines(<q-args>, fzf#vim#with_preview(), <bang>0)
+" command! -nargs=* -bang BLines call fzf#vim#blines(fzf#vim#with_preview())
+
 set tabline=%!MyTabLine()  " custom tab pages line
 function! MyTabLine()
   let s = ''
