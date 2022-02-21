@@ -178,7 +178,7 @@ set clipboard=unnamed
 "" ----------------------------------------------------------------------------
 "" Basic mappings
 "" ----------------------------------------------------------------------------
-nnoremap <silent> <leader>close_all_nerdtree_tabs :tabdo NERDTreeClose
+nnoremap <silent> <leader>close_all_nerdtree_tabs :tabdo NERDTreeClose<CR>
 
 nnoremap <expr> change_directory_of_current_buffer ChangeToLocalDir()
 function! ChangeToLocalDir()
