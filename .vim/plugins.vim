@@ -1,5 +1,8 @@
 call plug#begin('~/.vim/plugged')
 
+Plug 'haya14busa/incsearch.vim'
+Plug 'haya14busa/incsearch-fuzzy.vim'
+Plug 'mzlogin/vim-markdown-toc'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/limelight.vim'
 Plug 'mzlogin/vim-markdown-toc'
