@@ -1,3 +1,16 @@
+"-- Plug 'haya14busa/incsearch-fuzzy.vim'
+"-- Plug 'haya14busa/incsearch.vim'
+" map f /
+" map / <Plug>(incsearch-fuzzy-/)
+" map F /
+" map ? <Plug>(incsearch-fuzzy-?)
+" cnoremap ; <Over>(incsearch-next)
+" cnoremap + <Over>(incsearch-prev)
+" nnoremap zg/ <Plug>(incsearch-fuzzy-stay)
+" map / <Plug>(incsearch-fuzzy-/)
+" map ? <Plug>(incsearch-fuzzy-?)
+" map zg/ <Plug>(incsearch-fuzzy-stay)
+
 "-- Plug 'junegunn/vim-easy-align'
 nmap <leader>easy_align_inner_paragraph              <Plug>(EasyAlign)ip
 nmap <leader>easy_align_inner_paragraph_ignore_group <Plug>(EasyAlign)ip<C-G>
@@ -45,8 +58,22 @@ function! RipgrepFzf(query, fullscreen)
   let spec            = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
   call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
-
 command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
+command! -bang -nargs=* BLines
+    \ call fzf#vim#grep(
+    \   'rg --with-filename --column --line-number --no-heading --smart-case . '.fnameescape(expand('%:p')), 1,
+    \   fzf#vim#with_preview({'options': '--layout reverse --query '.shellescape(<q-args>).' --with-nth=4.. --delimiter=":"'}, 'right:50%'))
+    " \   fzf#vim#with_preview({'options': '--layout reverse  --with-nth=-1.. --delimiter="/"'}, 'right:50%'))
+command! -bang -nargs=* LinesWithPreview
+    \ call fzf#vim#grep(
+    \   'rg --with-filename --column --line-number --no-heading --color=always --smart-case . '.fnameescape(expand('%')), 1,
+    \   fzf#vim#with_preview({'options': '--delimiter : --nth 4.. --no-sort'}, 'up:50%', '?'),
+    \   1)
+" nnoremap H :LinesWithPreview<CR>
+
+" command! -bang -nargs=* BLines call fzf#vim#buffer_lines(<q-args>, fzf#vim#with_preview(), <bang>0)
+" command! -nargs=* -bang BLines call fzf#vim#blines(fzf#vim#with_preview())
 
   " Mapping selecting mappings
 nmap <leader><Space> <plug>(fzf-maps-n)
@@ -101,6 +128,10 @@ let g:ale_fixers = {
 \}
 
 "-- AIRLINE CONFIG
+      " show current working directory in c section"
+let g:airline_section_b = '%-0.20{getcwd()}'
+let g:airline_section_c = '%t'
+
       " the separator used on the left side
 let g:airline_left_sep  = ''
       " the separator used on the right side
