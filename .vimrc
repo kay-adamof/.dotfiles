@@ -56,6 +56,18 @@ augroup END
 "" ============================================================================
 "" BASIC SETTINGS {{{
 "" ============================================================================
+" - Cursor Mode Settings
+let &t_SI.="\e[6 q" "SI = INSERT mode
+let &t_SR.="\e[4 q" "SR = REPLACE mode
+let &t_EI.="\e[2 q" "EI = NORMAL mode (ELSE)
+" - Cursor settings:
+"  1 -> blinking block
+"  2 -> solid block
+"  3 -> blinking underscore
+"  4 -> solid underscore
+"  5 -> blinking vertical bar
+"  6 -> solid vertical bar
+
 "-- Configure a word searchin"
 " -- Only show file name in tab
 " set guitablabel=%t
@@ -197,7 +209,7 @@ function! HideCorner()
     set noruler
 endfunction
 
-" butterfly search
+" butterfly  search
 " f, F means find
 nnoremap f /
 nnoremap F ?
@@ -239,6 +251,7 @@ function! ButterflyPlus()
         " Perform other command-line prompt action
     endif
 endfunction
+
 " to soft-wrap at the edge of the screen, but not break in the middle of a word
 nnoremap Warp_edge_screen_not_break_word :set wrap linebreak nolist<CR>
 "" hjkl "
@@ -382,16 +395,6 @@ nnoremap Q @q
 "   \}, args)
 " endfunction
 
-function! RipgrepFzf(query, fullscreen)
-  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
-  let initial_command = printf(command_fmt, shellescape(a:query))
-  let reload_command = printf(command_fmt, '{q}')
-  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
-endfunction
-command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
-command! -bang -nargs=* BLines call fzf#vim#buffer_lines(<q-args>, fzf#vim#with_preview(), <bang>0)
-" command! -nargs=* -bang BLines call fzf#vim#blines(fzf#vim#with_preview())
 
 set tabline=%!MyTabLine()  " custom tab pages line
 function! MyTabLine()
@@ -457,3 +460,4 @@ function! MyTabLine()
   " endif
   return s
 endfunction
+
