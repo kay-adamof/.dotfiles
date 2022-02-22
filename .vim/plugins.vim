@@ -1,5 +1,5 @@
 call plug#begin('~/.vim/plugged')
-
+Plug 'luochen1990/rainbow'
 Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'mzlogin/vim-markdown-toc'
