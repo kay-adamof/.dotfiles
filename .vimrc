@@ -57,9 +57,9 @@ augroup END
 "" BASIC SETTINGS {{{
 "" ============================================================================
 " - Cursor Mode Settings
-let &t_SI.="\e[6 q" "SI = INSERT mode
-let &t_SR.="\e[4 q" "SR = REPLACE mode
-let &t_EI.="\e[2 q" "EI = NORMAL mode (ELSE)
+let &t_SI.="\e[5 q" "SI = INSERT mode
+let &t_SR.="\e[3 q" "SR = REPLACE mode
+let &t_EI.="\e[6 q" "EI = NORMAL mode (ELSE)
 " - Cursor settings:
 "  1 -> blinking block
 "  2 -> solid block
