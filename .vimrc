@@ -40,8 +40,8 @@ augroup vimrc
   autocmd InsertLeave,TextChanged,FocusLost * silent! write
   " https://stackoverflow.com/questions/2490227/how-does-vims-autoread-work
   autocmd FocusGained,BufEnter * :silent! !
-  autocmd FocusGained,BufEnter * :silent! 
-  
+  autocmd FocusGained,BufEnter * :silent!
+
   autocmd InsertEnter,WinLeave * set nocursorline nocursorcolumn
   autocmd InsertLeave,WinEnter * set cursorline cursorcolumn
 augroup END
@@ -178,6 +178,9 @@ set clipboard=unnamed
 "" ----------------------------------------------------------------------------
 "" Basic mappings
 "" ----------------------------------------------------------------------------
+" experimental
+nmap del d$
+
 nnoremap <silent> <leader>close_all_nerdtree_tabs :tabdo NERDTreeClose<CR>
 
 nnoremap <expr> change_directory_of_current_buffer ChangeToLocalDir()
@@ -188,6 +191,9 @@ endfunction
 
 nnoremap <leader>match_a_line_break /\n
 nnoremap <leader>match_a_line_break_or_a_space /\_s
+nnoremap <leader>Delete_all_blank_lines g/^\s*$/d
+xnoremap <leader>Delete_all_blank_lines :g/^\s*$/d
+
 
 nnoremap _open_help_right_vertically :vert help<CR> <C-W>x
 
@@ -349,8 +355,66 @@ nnoremap Q @q
 "" ----------------------------------------------------------------------------
 "" <tab> / <s-tab> | Circular windows navigation
 "" ----------------------------------------------------------------------------
-"nnoremap <tab>   <c-w>w
-"nnoremap <S-tab> <c-w>W
+nnoremap <tab>   <c-w>w
+nnoremap <S-tab> <c-w>W
+
+" ----------------------------------------------------------------------------
+" Markdown headings
+" ----------------------------------------------------------------------------
+nnoremap <leader>1 m`yypVr=``
+nnoremap <leader>2 m`yypVr-``
+nnoremap <leader>3 m`^i### <esc>``4l
+nnoremap <leader>4 m`^i#### <esc>``5l
+nnoremap <leader>5 m`^i##### <esc>``6l
+
+" ----------------------------------------------------------------------------
+" Moving lines
+" ----------------------------------------------------------------------------
+nnoremap <silent> <C-k> :move-2<cr>
+nnoremap <silent> <C-j> :move+<cr>
+nnoremap <silent> <C-h> <<
+nnoremap <silent> <C-l> >>
+xnoremap <silent> <C-k> :move-2<cr>gv
+xnoremap <silent> <C-j> :move'>+<cr>gv
+xnoremap <silent> <C-h> <gv
+xnoremap <silent> <C-l> >gv
+xnoremap < <gv
+xnoremap > >gv
+" ----------------------------------------------------------------------------
+" Readline-style key bindings in command-line (excerpt from rsi.vim)
+" ----------------------------------------------------------------------------
+cnoremap <expr> <C-D> getcmdpos()>strlen(getcmdline())?"\<Lt>C-D>":"\<Lt>Del>"
+cnoremap <expr> <C-F> getcmdpos()>strlen(getcmdline())?&cedit:"\<Lt>Right>"
+" cnoremap        <M-b> <S-Left>
+" cnoremap        <M-f> <S-Right>
+" silent! exe "set <S-Left>=\<Esc>b"
+" silent! exe "set <S-Right>=\<Esc>f"
+
+" }}}
+" ============================================================================
+" FUNCTIONS & COMMANDS {{{
+" ============================================================================
+
+" ----------------------------------------------------------------------------
+" :NL
+" ----------------------------------------------------------------------------
+command! -range=% -nargs=1 NL
+  \ <line1>,<line2>!nl -w <args> -s '. ' | perl -pe 's/^.{<args>}..$//'
+
+" ----------------------------------------------------------------------------
+" :Chomp
+" ----------------------------------------------------------------------------
+command! Chomp %s/\s\+$// | normal! ``
+
+" ----------------------------------------------------------------------------
+" :Count
+" ----------------------------------------------------------------------------
+command! -nargs=1 Count execute printf('%%s/%s//gn', escape(<q-args>, '/')) | normal! ``
+
+" ----------------------------------------------------------------------------
+" :M
+" ----------------------------------------------------------------------------
+command! M execute printf('!bundle exec m %s:%d', expand('%'), line('.'))
 
 " " - BLines
 " function! s:buffer_line_handler(lines)
