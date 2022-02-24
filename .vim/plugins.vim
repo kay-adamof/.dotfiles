@@ -1,8 +1,10 @@
 call plug#begin('~/.vim/plugged')
+
+Plug 'godlygeek/tabular'
+Plug 'preservim/vim-markdown'
 Plug 'luochen1990/rainbow'
 Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
-Plug 'mzlogin/vim-markdown-toc'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/limelight.vim'
 Plug 'mzlogin/vim-markdown-toc'

@@ -1,3 +1,6 @@
+" Plug 'mzlogin/vim-markdown-toc'
+" let g:vim_markdown_follow_anchor = 1
+
 " Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
 
@@ -194,7 +197,9 @@ let g:user_emmet_settings = {
 \}
 
 "-- NERDTree CONFIG
-nnoremap <C-t> :NERDTreeToggle %<CR>
+" <leader>n | NERD Tree
+nnoremap <leader>n :NERDTreeToggle %<cr>
+" nnoremap <C-t> :NERDTreeToggle %<CR>
 let NERDTreeShowHidden        = 1
 let NERDTreeRespectWildIgnore = 1
 let g:NERDTreeMapToggleFiles = '_F'
