@@ -43,7 +43,9 @@ augroup vimrc
   autocmd FocusGained,BufEnter * :silent!
 
   autocmd InsertEnter,WinLeave * set nocursorline nocursorcolumn
-  autocmd InsertLeave,WinEnter * set cursorline cursorcolumn
+  autocmd CmdlineEnter : set nocursorline nocursorcolumn | redraw
+  autocmd InsertLeave,WinEnter * set cursorline cursorcolumn 
+  autocmd CmdlineLeave : set cursorline cursorcolumn
 augroup END
 
 augroup vimrc-incsearch-highlight

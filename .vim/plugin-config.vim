@@ -198,7 +198,7 @@ let g:user_emmet_settings = {
 
 "-- NERDTree CONFIG
 " <leader>n | NERD Tree
-nnoremap <leader>n :NERDTreeToggle %<cr>
+nnoremap <leader>n :NERDTree %<cr>
 " nnoremap <C-t> :NERDTreeToggle %<CR>
 let NERDTreeShowHidden        = 1
 let NERDTreeRespectWildIgnore = 1
