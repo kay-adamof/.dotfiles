@@ -180,6 +180,7 @@ set clipboard=unnamed
 "" ----------------------------------------------------------------------------
 "" Basic mappings
 "" ----------------------------------------------------------------------------
+
 " experimental
 nmap del d$
 
@@ -195,7 +196,13 @@ nnoremap <leader>match_a_line_break /\n
 nnoremap <leader>match_a_line_break_or_a_space /\_s
 nnoremap <leader>Delete_all_blank_lines g/^\s*$/d
 xnoremap <leader>Delete_all_blank_lines :g/^\s*$/d
-
+xnoremap <leader>Delete_all_lines_matching_a_pattern :g/pattern/d
+xnoremap <leader>Delete_all_lines_not_matching_a_pattern :g!/pattern/d
+" xnoremap <leader>Double_space_the_file_(`^`_is_start_of_line_which_matches_each_line) :g/^/pu__
+xnoremap <leader>Copy_all_lines_matching_a_pattern_to_end_of_file :g/pattern/t$
+xnoremap <leader>Move_all_lines_matching_a_pattern_to_end_of_file :g/pattern/m$
+xnoremap <leader>delete_whitespaces_at_the_beginning_of_line :s/^\s\+//g<cr>
+xnoremap <leader>substitute_whitespace_to_underbar :'<,'>s/ /_/g
 
 nnoremap _open_help_right_vertically :vert help<CR> <C-W>x
 
@@ -368,6 +375,16 @@ nnoremap <leader>2 m`yypVr-``
 nnoremap <leader>3 m`^i### <esc>``4l
 nnoremap <leader>4 m`^i#### <esc>``5l
 nnoremap <leader>5 m`^i##### <esc>``6l
+
+" ----------------------------------------------------------------------------
+" AsciiDoc headings
+" ----------------------------------------------------------------------------
+" nnoremap <leader>0 m`^i= <esc>``1l
+" nnoremap <leader>1 m`^i== <esc>``2l
+" nnoremap <leader>2 m`^i=== <esc>``3l
+" nnoremap <leader>3 m`^i==== <esc>``4l
+" nnoremap <leader>4 m`^i===== <esc>``5l
+" nnoremap <leader>5 m`^i====== <esc>``6l
 
 " ----------------------------------------------------------------------------
 " Moving lines
