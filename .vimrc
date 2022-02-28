@@ -192,19 +192,19 @@ function! ChangeToLocalDir()
   return ''
 endfunction
 
-nnoremap <leader>match_a_line_break /\n
-nnoremap <leader>match_a_line_break_or_a_space /\_s
-nnoremap <leader>Delete_all_blank_lines g/^\s*$/d
-xnoremap <leader>Delete_all_blank_lines :g/^\s*$/d
-xnoremap <leader>Delete_all_lines_matching_a_pattern :g/pattern/d
-xnoremap <leader>Delete_all_lines_not_matching_a_pattern :g!/pattern/d
-" xnoremap <leader>Double_space_the_file_(`^`_is_start_of_line_which_matches_each_line) :g/^/pu__
+nnoremap <leader>match_a_line_break                               /\n
+nnoremap <leader>match_a_line_break_or_a_space                    /\_s
+nnoremap <leader>Delete_all_blank_lines                           g/^\s*$/d
+xnoremap <leader>Delete_all_blank_lines                           :g/^\s*$/d
+xnoremap <leader>Delete_all_lines_matching_a_pattern              :g/pattern/d
+xnoremap <leader>Delete_all_lines_not_matching_a_pattern          :g!/pattern/d
+xnoremap <leader>Double_space_the_file_                           :g/^/pu__
 xnoremap <leader>Copy_all_lines_matching_a_pattern_to_end_of_file :g/pattern/t$
+xnoremap <leader>delete_whitespaces_at_the_beginning_of_line      :s/^\s\+//g<cr>
+xnoremap <leader>substitute_whitespace_to_underbar                :s/ /_/g<cr>
+xnoremap <leader>Add_text_to_end_string                           :g/^pattern/s/$/mytext
+xnoremap <leader>Run_a_macro_on_matching_lines                    :g/pattern/normal @q
 xnoremap <leader>Move_all_lines_matching_a_pattern_to_end_of_file :g/pattern/m$
-xnoremap <leader>delete_whitespaces_at_the_beginning_of_line :s/^\s\+//g<cr>
-xnoremap <leader>substitute_whitespace_to_underbar :s/ /_/g<cr>
-xnoremap <leader>Add_text_to_end_string :g/^pattern/s/$/mytext
-xnoremap <leader>Run_a_macro_on_matching_lines :g/pattern/normal @q
 
 
 nnoremap _open_help_right_vertically :vert help<CR> <C-W>x
