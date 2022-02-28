@@ -5,16 +5,6 @@
       "description": "switch inpur source",
       "manipulators": [
         {
-          "conditions": [
-            {
-              "type": "input_source_if",
-              "input_sources": [
-                {
-                  "input_source_id": "^com\\.justsystems\\.inputmethod\\.atok32\\.Japanese\\.HalfWidthEiji$"
-                }
-              ]
-            }
-          ],
           "type": "basic",
           "from": {
             "key_code": "left_control"
@@ -22,62 +12,6 @@
           "to": [
               {
                   "key_code": "left_control",
-                  "lazy": true
-              }
-          ],
-          "to_if_alone": [
-            {
-              "key_code": "z",
-              "modifiers": [ "left_control","left_shift" ]
-            }
-          ]
-        },
-        {
-          "conditions": [
-            {
-              "type": "input_source_unless",
-              "input_sources": [
-                {
-                  "input_source_id": "^com\\.justsystems\\.inputmethod\\.atok32\\.Japanese\\.HalfWidthEiji$"
-                }
-              ]
-            }
-          ],
-          "type": "basic",
-          "from": {
-            "key_code": "left_control"
-          },
-          "to": [
-              {
-                  "key_code": "left_control",
-                  "lazy": true
-              }
-          ],
-          "to_if_alone": [
-            {
-              "key_code": "b",
-              "modifiers": [ "left_control","left_shift" ]
-            }
-          ]
-        },
-        {
-          "conditions": [
-            {
-              "type": "input_source_if",
-              "input_sources": [
-                {
-                  "language": "ja"
-                }
-              ]
-            }
-          ],
-          "type": "basic",
-          "from": {
-            "key_code": "left_shift"
-          },
-          "to": [
-              {
-                  "key_code": "left_shift",
                   "lazy": true
               }
           ],
@@ -89,29 +23,37 @@
           ]
         },
         {
-          "conditions": [
-            {
-              "type": "input_source_unless",
-              "input_sources": [
-                {
-                  "language": "ja"
-                }
-              ]
-            }
-          ],
           "type": "basic",
           "from": {
-            "key_code": "left_shift"
+            "key_code": "left_command"
           },
           "to": [
               {
-                  "key_code": "left_shift",
+                  "key_code": "left_command",
                   "lazy": true
               }
           ],
           "to_if_alone": [
             {
               "key_code": "b",
+              "modifiers": [ "left_control","left_shift" ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "right_command"
+          },
+          "to": [
+              {
+                  "key_code": "right_command",
+                  "lazy": true
+              }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "z",
               "modifiers": [ "left_control","left_shift" ]
             }
           ]
