@@ -18,7 +18,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'prettier/vim-prettier'
-Plug 'dracula/vim'
+Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
@@ -33,6 +33,8 @@ Plug 'preservim/tagbar'
 Plug 'yggdroot/indentline'
 
 call plug#end()
+
+colorscheme dracula
 
 "PlugInstall
 "PlugUpdate

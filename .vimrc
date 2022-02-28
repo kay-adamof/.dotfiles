@@ -20,16 +20,16 @@ so ~/.vim/plugins.vim
 so ~/.vim/plugin-config.vim
 so ~/.vim/autoclose.vim
 
-"-- COLOR & THEME CONFIG
-set termguicolors
-let g:dracula_italic = 1
-colorscheme dracula
-set background=dark
+"-- color & theme config
+" set termguicolors
+" let g:dracula_italic = 1
+" colorscheme dracula
+" set background=dark
 hi Normal guibg=NONE ctermbg=NONE
-let g:terminal_ansi_colors = [
-    \ '#282828', '#cc241d', '#98971a', '#d79921', '#458588', '#b16286', '#689d6a', '#a89984',
-    \ '#928374', '#fb4934', '#b8bb26', '#fabd2f', '#83a598', '#d3869b', '#8ec07c', '#ebdbb2',
-\]
+" let g:terminal_ansi_colors = [
+"     \ '#282828', '#cc241d', '#98971a', '#d79921', '#458588', '#b16286', '#689d6a', '#a89984',
+"     \ '#928374', '#fb4934', '#b8bb26', '#fabd2f', '#83a598', '#d3869b', '#8ec07c', '#ebdbb2',
+" \]
 
 
 
@@ -202,7 +202,10 @@ xnoremap <leader>Delete_all_lines_not_matching_a_pattern :g!/pattern/d
 xnoremap <leader>Copy_all_lines_matching_a_pattern_to_end_of_file :g/pattern/t$
 xnoremap <leader>Move_all_lines_matching_a_pattern_to_end_of_file :g/pattern/m$
 xnoremap <leader>delete_whitespaces_at_the_beginning_of_line :s/^\s\+//g<cr>
-xnoremap <leader>substitute_whitespace_to_underbar :'<,'>s/ /_/g
+xnoremap <leader>substitute_whitespace_to_underbar :s/ /_/g<cr>
+xnoremap <leader>Add_text_to_end_string :g/^pattern/s/$/mytext
+xnoremap <leader>Run_a_macro_on_matching_lines :g/pattern/normal @q
+
 
 nnoremap _open_help_right_vertically :vert help<CR> <C-W>x
 
