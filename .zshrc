@@ -152,3 +152,4 @@ alias memo='/usr/bin/git --git-dir=$HOME/.memo/ --work-tree=$HOME'
 export PATH="$(pwd)/git-fuzzy/bin:$PATH"
 alias memo_fuzzy='$HOME/git-fuzzy/bin --git-dir=$HOME/.memo/ --work-tree=$HOME'
  
+export PATH="/usr/local/bin:$PATH"
