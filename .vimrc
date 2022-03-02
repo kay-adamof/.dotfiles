@@ -182,6 +182,8 @@ set clipboard=unnamed
 "" ----------------------------------------------------------------------------
 
 " experimental
+nmap <silent> ;c :clo<cr>
+
 nmap del d$
 
 nnoremap <silent> <leader>close_all_nerdtree_tabs :tabdo NERDTreeClose<CR>
@@ -206,6 +208,15 @@ xnoremap <leader>Add_text_to_end_string                           :g/^pattern/s/
 xnoremap <leader>Run_a_macro_on_matching_lines                    :g/pattern/normal @q
 xnoremap <leader>Move_all_lines_matching_a_pattern_to_end_of_file :g/pattern/m$
 
+nnoremap <leader>go_local_declaration              gd
+nnoremap <leader>go_local_declaration_like_gd      1gd
+nnoremap <leader>go_global_declaration             gD
+nnoremap <leader>go_global_declaration_like_gD     1gD
+nnoremap <leader>search_word_under_cursor          g*
+nnoremap <leader>search_word_under_cursor_backward g#
+nnoremap <leader>open_file_same_window             gf
+nnoremap <leader>open_file_new_window              <c-w>f
+nnoremap <leader>open_file_new_tab                 <c-w>gf
 
 nnoremap _open_help_right_vertically :vert help<CR> <C-W>x
 
@@ -301,9 +312,9 @@ nnoremap <NL> i<CR><ESC>
 "map <leader>n :bn<cr>
 "" switch next tab"
 "map <leader>t gt
+"" buffer delete"
 "" open terminal in the directory of the current file"
 map <leader>c :let $VIM_DIR=expand('%:p:h')<CR>:vert terminal<CR>cd $VIM_DIR<CR>
-"" buffer delete"
 "" map <leader>; :bd<cr>
 
 "" Save
