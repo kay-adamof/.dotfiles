@@ -42,10 +42,10 @@ augroup vimrc
   autocmd FocusGained,BufEnter * :silent! !
   autocmd FocusGained,BufEnter * :silent!
 
-  autocmd InsertEnter,WinLeave * set nocursorline nocursorcolumn
-  autocmd CmdlineEnter : set nocursorline nocursorcolumn | redraw
-  autocmd InsertLeave,WinEnter * set cursorline cursorcolumn 
-  autocmd CmdlineLeave : set cursorline cursorcolumn
+  " autocmd InsertEnter,WinLeave * set nocursorline nocursorcolumn
+  " autocmd CmdlineEnter : set nocursorline nocursorcolumn | redraw
+  " autocmd InsertLeave,WinEnter * set cursorline cursorcolumn 
+  " autocmd CmdlineLeave : set cursorline cursorcolumn
 augroup END
 
 augroup vimrc-incsearch-highlight
@@ -182,6 +182,7 @@ set clipboard=unnamed
 "" ----------------------------------------------------------------------------
 
 " experimental
+nmap <leader>Open_file_in_chrome :!open -a Google\ Chrome %
 nmap <silent> ;c :clo<cr>
 
 nmap del d$
@@ -292,7 +293,7 @@ nnoremap <silent> l :tabn<CR>
 nnoremap H :bN<CR>
 nnoremap L :bn<CR>
 
-nnoremap ; :
+" nnoremap ; :
 
 " nnoremap <CR> :noh<CR>
 " nnoremap <CR> :noh<CR><CR>:<backspace> <- Delete later unless problems
@@ -344,7 +345,7 @@ map <leader>c :let $VIM_DIR=expand('%:p:h')<CR>:vert terminal<CR>cd $VIM_DIR<CR>
 "nnoremap <C-p> <C-i>
 
 "" <leader>n | NERD Tree
-"nnoremap <leader>n :NERDTreeToggle<cr>
+nnoremap <leader>n :NERDTreeToggle<cr>
 
 "cnoremap <ESC> <C-c>
 
