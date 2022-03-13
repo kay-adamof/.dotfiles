@@ -1,0 +1,252 @@
+[
+  //================================================================================
+  // for Vim
+  //================================================================================
+  // refs:  
+  // https://www.ascii-code.com/
+  // https://en.wikipedia.org/wiki/Shift_Out_and_Shift_In_characters
+  //      Key Modifiers
+
+  //    ^ : Ctrl
+  //    $ : Shift
+  //    ~ : Option (Alt)
+  //    @ : Command (Apple)
+  //    # : Numeric Keypad
+
+  //    Non-Printable Key Codes
+
+  //    Standard
+  //    Up Arrow:     \UF700        Backspace:    \U0008        F1:           \UF704
+  //    Down Arrow:   \UF701        Tab:          \U0009        F2:           \UF705
+  //    Left Arrow:   \UF702        Escape:       \U001B        F3:           \UF706
+  //    Right Arrow:  \UF703        Enter:        \U000A        ...
+  //    Insert:       \UF727        Page Up:      \UF72C
+  //    Delete:       \UF728        Page Down:    \UF72D
+  //    Home:         \UF729        Print Screen: \UF72E
+  //    End:          \UF72B        Scroll Lock:  \UF72F
+  //    Break:        \UF732        Pause:        \UF730
+  //    SysReq:       \UF731        Menu:         \UF735
+  //    Help:         \UF746 
+  //    Shift In / X-Off: \u000F
+
+  //    OS X
+  //    delete:       \U007F
+  //----------------------------------------------------------------------
+  // move a word backward in insert mode
+  //----------------------------------------------------------------------
+  // Originally, alt(same as option)+LeftArrow sends "escape b" so it leaves from
+  // insert mode to normal mode. But I don’t want to leave insert mode.
+  // To stay in insert mode and move a word backward, "shift+left" is needed.
+  // How to find key codes on terminal:
+  // - Open terminal.app
+  // - Add this command and enter:
+  // - cat < /dev/stdin
+  // - Press any key to show
+  //   e.g.
+  //     shift left
+  // - Some keys show up like this:
+  //     ^[[1;2D
+  //     ^[ : escape represented by \u001b 
+  //          as the ascii non-printable key code
+  //      [1;2D : left. but I don’t make sure why it’s left.
+  // - Finally, the desired key code can be taken.
+  //     \u001b[1;2D 
+  // ----------------------------------------------------------------------
+  // https://en.wikipedia.org/wiki/ANSI_escape_code
+  // ----------------------------------------------------------------------
+  // <char>                                         -> char
+  // <esc> <nochar>                                 -> esc
+  // <esc> <esc>                                    -> esc
+  // <esc> <char>                                   -> Alt-keypress or keycode sequence
+  // <esc> '[' <nochar>                             -> Alt-[
+  // <esc> '[' (<modifier>) <char>                  -> keycode sequence, <modifier> is a decimal number and defaults to 1 (xterm)
+  // <esc> '[' (<keycode>) (';'<modifier>) '~'      -> keycode sequence, <keycode> and <modifier> are decimal numbers and default to 1 (vt)
+  {
+  "key": "alt+left",
+  "command": "workbench.action.terminal.sendSequence",
+  "when": "terminalFocus",
+  "args": { "text": "\u001bi" }
+  },
+  {
+  "key": "alt+right",
+  "command": "workbench.action.terminal.sendSequence",
+  "when": "terminalFocus",
+  "args": { "text": "\u001bo" }
+  },
+  {
+  "key": "cmd+a",
+  "command": "workbench.action.terminal.sendSequence",
+  "when": "terminalFocus",
+  "args": { "text": "\u001br" }
+  },
+  {
+  "key": "cmd+z",
+  "command": "workbench.action.terminal.sendSequence",
+  "when": "terminalFocus",
+  "args": { "text": "\u001bz" }
+  },
+  //================================================================================
+  // basics
+  //================================================================================
+  {
+    "key": "ctrl+w",
+    "command": "workbench.action.closeWindow",
+    "when": "!editorIsOpen && !multipleEditorGroups"
+  },
+  {
+    "key": "ctrl+w",
+    "command": "workbench.action.closeGroup",
+    "when": "activeEditorGroupEmpty && multipleEditorGroups"
+  },
+  {
+    "key": "cmd+n",
+    "command": "explorer.newFile"
+  },
+  {
+    "key": "ctrl+shift+f",
+    "command": "explorer.newFolder"
+  },
+  {
+    "key": "ctrl+[Minus]",
+    "command": "-workbench.action.quickInputBack",
+    "when": "inQuickOpen"
+  },
+  {
+    "key": "ctrl+[Minus]",
+    "command": "-workbench.action.navigateBack"
+  },
+  {
+    "key": "ctrl+alt+f",
+    "command": "cursorWordAccessibilityRightSelect",
+    "when": "accessibilityModeEnabled && textInputFocus"
+  },
+  {
+    "key": "ctrl+alt+f",
+    "command": "cursorWordEndRightSelect",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "ctrl+alt+b",
+    "command": "cursorWordAccessibilityLeftSelect",
+    "when": "accessibilityModeEnabled && textInputFocus"
+  },
+  {
+    "key": "ctrl+alt+b",
+    "command": "cursorWordEndLeftSelect",
+    "when": "textInputFocus"
+  },
+  // {
+  //   "key": "shift+5",
+  //   "command": "editor.emmet.action.matchTag"
+  // },
+  {
+    "key": "ctrl+cmd+i",
+    "command": "editor.emmet.action.balanceIn"
+  },
+  {
+    "key": "ctrl+cmd+o",
+    "command": "editor.emmet.action.balanceOut"
+  },
+  // {
+  //   "key": "shift+q",
+  //   "command": "workbench.action.quickOpenView"
+  // },
+  {
+    "key": "ctrl+q",
+    "command": "-workbench.action.quickOpenView"
+  },
+  // {
+  //   "key": "shift+q",
+  //   "command": "workbench.action.quickOpenNavigateNextInViewPicker",
+  //   "when": "inQuickOpen && inViewsPicker"
+  // },
+  {
+    "key": "ctrl+q",
+    "command": "-workbench.action.quickOpenNavigateNextInViewPicker",
+    "when": "inQuickOpen && inViewsPicker"
+  },
+  {
+    "key": "ctrl+cmd+l",
+    "command": "editor.action.selectHighlights",
+    "when": "editorFocus"
+  },
+  {
+    "key": "shift+cmd+l",
+    "command": "-editor.action.selectHighlights",
+    "when": "editorFocus"
+  },
+  {
+    "key": "cmd+l cmd+l",
+    "command": "expandLineSelection",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "cmd+l",
+    "command": "-expandLineSelection",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "cmd+k cmd+m",
+    "command": "workbench.action.toggleMaximizedPanel"
+  },
+  {
+    "key": "cmd+j",
+    "command": "-workbench.action.togglePanel"
+  },
+  {
+    "key": "cmd+1",
+    "command": "workbench.action.focusFirstEditorGroup"
+  },
+  {
+    "key": "cmd+1",
+    "command": "-workbench.action.focusFirstEditorGroup"
+  },
+  {
+    "key": "ctrl+alt+cmd+i",
+    "command": "workbench.action.increaseViewHeight"
+  },
+  {
+    "key": "ctrl+alt+cmd+d",
+    "command": "workbench.action.decreaseViewHeight"
+  },
+  {
+    "key": "cmd+j",
+    "command": "workbench.action.focusPanel"
+  },
+  {
+    "key": "ctrl+shift+t",
+    "command": "workbench.action.terminal.toggleTerminal",
+    "when": "terminal.active"
+  },
+  {
+    "key": "ctrl+shift+[BracketLeft]",
+    "command": "-workbench.action.terminal.toggleTerminal",
+    "when": "terminal.active"
+  },
+  {
+    "key": "f6",
+    "command": "-workbench.action.focusNextPart"
+  },
+  {
+    "key": "f6",
+    "command": "-workbench.action.debug.pause",
+    "when": "debugState == 'running'"
+  },
+  {
+    "key": "shift+f6",
+    "command": "-workbench.action.focusPreviousPart"
+  },
+  {
+    "key": "cmd+k cmd+p",
+    "command": "workbench.action.togglePanel"
+  },
+  // {
+  //   "key": "shift+q",
+  //   "command": "workbench.action.quickOpenView"
+  // },
+  // {
+  //   "key": "shift+q",
+  //   "command": "workbench.action.quickOpenNavigateNextInViewPicker",
+  //   "when": "inQuickOpen && inViewsPicker"
+  // }
+]
