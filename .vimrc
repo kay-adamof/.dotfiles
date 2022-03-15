@@ -105,7 +105,12 @@ set conceallevel=1
 set formatoptions-=cro
 
 set noerrorbells visualbell t_vb=
-set clipboard=unnamed
+" --------------------------------------------------------------------------------
+" Why is "unnamedplus" selected? 
+" --------------------------------------------------------------------------------
+" https://francopasut.netlify.app/post/vim_cut_copy_paste_clipboard/
+" *: Store some information to the middle mouse button
+set clipboard=unnamedplus
 
 set ignorecase
 set smartcase
@@ -198,7 +203,7 @@ nnoremap <leader>delete_all_buffer %bdelete
 " --------------------------------------------------------------------------------
 " Cursor Movings
 " --------------------------------------------------------------------------------
-" Some mappings below work with "keybindings.json" of vscode.
+" Some mappings with "~" work with "keybindings.json" of vscode.
 
 " Move a word backward
 inoremap ~i <Esc><s-left>
@@ -232,6 +237,16 @@ inoremap <expr> <Up>    pumvisible() ? "<Up>"    : "<ESC>`^<Up>"
 inoremap <expr> <Down>  pumvisible() ? "<Down>"  : "<ESC>`^<Down>"
 inoremap <expr> <left>  pumvisible() ? "<left>"  : "<ESC>`^<left>"
 inoremap <expr> <right> pumvisible() ? "<right>" : "<ESC>`^<right>"
+" --------------------------------------------------------------------------------
+" Cut, Copy, Paste
+" --------------------------------------------------------------------------------
+" https://github.com/divad12/dotfiles/blob/master/.vimrc#L23
+nnoremap <D-v> "+]p
+vnoremap <D-v> "+]p
+" --------------------------------------------------------------------------------
+" Delete
+" --------------------------------------------------------------------------------
+nnoremap <bs> X
 " --------------------------------------------------------------------------------
 
 " --------------------------------------------------------------------------------
@@ -453,10 +468,15 @@ nnoremap <leader>register_current_line_to_macro ^"qy$
 "nnoremap g. :normal! `[v`]<cr><left>
 
 
-" === Circular windows navigation
+" --------------------------------------------------------------------------------
+" Circular windows navigation
+" --------------------------------------------------------------------------------
 
 nnoremap <tab>   <c-w>w
 nnoremap <S-tab> <c-w>W
+" --------------------------------------------------------------------------------
+
+" --------------------------------------------------------------------------------
 
 " == decorations
 
