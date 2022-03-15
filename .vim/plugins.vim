@@ -1,5 +1,6 @@
 call plug#begin('~/.vim/plugged')
 
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'godlygeek/tabular'
 Plug 'preservim/vim-markdown'
 Plug 'luochen1990/rainbow'
