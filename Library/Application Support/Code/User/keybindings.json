@@ -61,29 +61,42 @@
   // <esc> '[' <nochar>                             -> Alt-[
   // <esc> '[' (<modifier>) <char>                  -> keycode sequence, <modifier> is a decimal number and defaults to 1 (xterm)
   // <esc> '[' (<keycode>) (';'<modifier>) '~'      -> keycode sequence, <keycode> and <modifier> are decimal numbers and default to 1 (vt)
+
   {
   "key": "alt+left",
   "command": "workbench.action.terminal.sendSequence",
   "when": "terminalFocus",
-  "args": { "text": "\u001bi" }
+  "args": { "text": "~i" }
   },
   {
   "key": "alt+right",
   "command": "workbench.action.terminal.sendSequence",
   "when": "terminalFocus",
-  "args": { "text": "\u001bo" }
+  "args": { "text": "~o" }
+  },
+  {
+  "key": "cmd+shift+left",
+  "command": "workbench.action.terminal.sendSequence",
+  "when": "terminalFocus",
+  "args": { "text": "~a" }
+  },
+  {
+  "key": "cmd+shift+right",
+  "command": "workbench.action.terminal.sendSequence",
+  "when": "terminalFocus",
+  "args": { "text": "~f" }
   },
   {
   "key": "cmd+a",
   "command": "workbench.action.terminal.sendSequence",
   "when": "terminalFocus",
-  "args": { "text": "\u001br" }
+  "args": { "text": "~r" }
   },
   {
   "key": "cmd+z",
   "command": "workbench.action.terminal.sendSequence",
   "when": "terminalFocus",
-  "args": { "text": "\u001bz" }
+  "args": { "text": "~z" }
   },
   //================================================================================
   // basics
