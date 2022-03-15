@@ -1,4 +1,5 @@
 """"" Vim 8 defaults
+
 unlet! skip_defaults_vim
 silent! source $VIMRUNTIME/defaults.vim
 
@@ -19,6 +20,8 @@ syntax on
 so ~/.vim/plugins.vim
 so ~/.vim/plugin-config.vim
 so ~/.vim/autoclose.vim
+so ~/.vim/GoogleSearch.vim
+so ~/.vim/surround-vim_mappings.vim
 
 "-- color & theme config
 " set termguicolors
@@ -44,7 +47,7 @@ augroup vimrc
 
   " autocmd InsertEnter,WinLeave * set nocursorline nocursorcolumn
   " autocmd CmdlineEnter : set nocursorline nocursorcolumn | redraw
-  " autocmd InsertLeave,WinEnter * set cursorline cursorcolumn 
+  " autocmd InsertLeave,WinEnter * set cursorline cursorcolumn
   " autocmd CmdlineLeave : set cursorline cursorcolumn
 augroup END
 
@@ -58,6 +61,13 @@ augroup END
 "" ============================================================================
 "" BASIC SETTINGS {{{
 "" ============================================================================
+highlight Search ctermbg=black ctermfg=gray cterm=underline
+
+
+" - To increment or decrement alphabetic charactor"
+"   See :h CTRL-A
+set nrformats+=alpha
+
 " - Cursor Mode Settings
 let &t_SI.="\e[5 q" "SI = INSERT mode
 let &t_SR.="\e[3 q" "SR = REPLACE mode
@@ -180,9 +190,56 @@ set clipboard=unnamed
 "" ----------------------------------------------------------------------------
 "" Basic mappings
 "" ----------------------------------------------------------------------------
+nnoremap <leader>delete_all_buffer %bdelete
 
-" experimental
+" inoremap <esc>b <S-Left>
+" nnoremap <expr> <esc>b mode(n)>1 ? '<S-Left>' : ''
+
+" --------------------------------------------------------------------------------
+" Cursor Movings
+" --------------------------------------------------------------------------------
+" Some mappings below work with "keybindings.json" of vscode.
+
+" Move a word backward
+inoremap ~i <Esc><s-left>
+nnoremap ~i <esc><S-Left>
+cnoremap ~i <S-Left>
+" Move a word forward
+inoremap ~o <esc><S-Right>
+nnoremap ~o <esc><S-Right>
+cnoremap ~o <S-Right>
+" Select a word backward
+inoremap <M-S-Left> <esc>vb
+nnoremap <M-S-Left> vb
+" Select a word forward
+inoremap <M-S-Right> <esc>vw
+nnoremap <M-S-Right> vw
+" Select until the first non-blank character of the line.
+inoremap ~a <esc>v^
+nnoremap ~a v^
+" Select until the end of line.
+inoremap ~f <ESC>v$
+nnoremap ~f v$
+" Select an entire line
+inoremap ~r <ESC>V
+nnoremap ~r V
+" undo
+inoremap ~z <ESC>u
+nnoremap ~z u
+" Escaping
+" **ref:** https://vim.fandom.com/wiki/Avoid_the_escape_key
+inoremap <expr> <Up>    pumvisible() ? "<Up>"    : "<ESC>`^<Up>"
+inoremap <expr> <Down>  pumvisible() ? "<Down>"  : "<ESC>`^<Down>"
+inoremap <expr> <left>  pumvisible() ? "<left>"  : "<ESC>`^<left>"
+inoremap <expr> <right> pumvisible() ? "<right>" : "<ESC>`^<right>"
+" --------------------------------------------------------------------------------
+
+" --------------------------------------------------------------------------------
+
+nnoremap ;so :so $MYVIMRC<cr>
+
 nmap <leader>Open_file_in_chrome :!open -a Google\ Chrome %
+
 nmap <silent> ;c :clo<cr>
 
 nmap del d$
@@ -194,6 +251,10 @@ function! ChangeToLocalDir()
   lchdir%:p:h
   return ''
 endfunction
+
+" --------------------------------------------------------------------------------
+" forgetful commands
+" --------------------------------------------------------------------------------
 
 nnoremap <leader>match_a_line_break                               /\n
 nnoremap <leader>match_a_line_break_or_a_space                    /\_s
@@ -215,9 +276,18 @@ nnoremap <leader>go_global_declaration             gD
 nnoremap <leader>go_global_declaration_like_gD     1gD
 nnoremap <leader>search_word_under_cursor          g*
 nnoremap <leader>search_word_under_cursor_backward g#
-nnoremap <leader>open_file_same_window             gf
-nnoremap <leader>open_file_new_window              <c-w>f
-nnoremap <leader>open_file_new_tab                 <c-w>gf
+nnoremap <leader>go_to_file_under_cursor             gf
+nnoremap <leader>go_to_file_under_cursor_same_window <c-w>f
+nnoremap <leader>go_to_file_under_cursor_tab         <c-w>gf
+
+" https://vim.fandom.com/wiki/Highlight_unwanted_spaces
+nnoremap <leader>Show_all_tabs                                 /\t
+nnoremap <leader>Show_trailing_whitespace                      /\s\+$
+nnoremap <leader>Show_trailing_whitespace_only_after_some_text /\S\zs\s\+$
+nnoremap <leader>Show_spaces_before_a_tab                      / \+\ze\t
+" --------------------------------------------------------------------------------
+
+" --------------------------------------------------------------------------------
 
 nnoremap _open_help_right_vertically :vert help<CR> <C-W>x
 
@@ -239,7 +309,9 @@ function! HideCorner()
     set noruler
 endfunction
 
+" --------------------------------------------------------------------------------
 " butterfly  search
+" --------------------------------------------------------------------------------
 " f, F means find
 nnoremap f /
 nnoremap F ?
@@ -281,9 +353,12 @@ function! ButterflyPlus()
         " Perform other command-line prompt action
     endif
 endfunction
+" --------------------------------------------------------------------------------
+
+" --------------------------------------------------------------------------------
 
 " to soft-wrap at the edge of the screen, but not break in the middle of a word
-nnoremap Warp_edge_screen_not_break_word :set wrap linebreak nolist<CR>
+nnoremap <leader>Warp_edge_screen_not_break_word :set wrap linebreak nolist<CR>
 "" hjkl "
 nnoremap j <C-d>
 nnoremap k <C-u>
@@ -293,7 +368,6 @@ nnoremap <silent> l :tabn<CR>
 nnoremap H :bN<CR>
 nnoremap L :bn<CR>
 
-" nnoremap ; :
 
 " nnoremap <CR> :noh<CR>
 " nnoremap <CR> :noh<CR><CR>:<backspace> <- Delete later unless problems
@@ -315,7 +389,7 @@ nnoremap <NL> i<CR><ESC>
 "map <leader>t gt
 "" buffer delete"
 "" open terminal in the directory of the current file"
-map <leader>c :let $VIM_DIR=expand('%:p:h')<CR>:vert terminal<CR>cd $VIM_DIR<CR>
+map ;t :let $VIM_DIR=expand('%:p:h')<CR>:terminal<CR>cd $VIM_DIR<CR>
 "" map <leader>; :bd<cr>
 
 "" Save
@@ -345,7 +419,7 @@ map <leader>c :let $VIM_DIR=expand('%:p:h')<CR>:vert terminal<CR>cd $VIM_DIR<CR>
 "nnoremap <C-p> <C-i>
 
 "" <leader>n | NERD Tree
-nnoremap <leader>n :NERDTreeToggle<cr>
+nnoremap ;n :NERDTreeToggle<cr>
 
 "cnoremap <ESC> <C-c>
 
@@ -359,8 +433,10 @@ nnoremap <leader>n :NERDTreeToggle<cr>
 "" Yank until the end of line
 "nnoremap Y y$
 
-"" qq to record, Q to replay
+" === macro
+" qq to record, Q to replay
 nnoremap Q @q
+nnoremap <leader>register_current_line_to_macro ^"qy$
 
 "" Zoom
 "function! s:zoom()
@@ -376,34 +452,61 @@ nnoremap Q @q
 "" Last inserted text
 "nnoremap g. :normal! `[v`]<cr><left>
 
-"" ----------------------------------------------------------------------------
-"" <tab> / <s-tab> | Circular windows navigation
-"" ----------------------------------------------------------------------------
+
+" === Circular windows navigation
+
 nnoremap <tab>   <c-w>w
 nnoremap <S-tab> <c-w>W
 
-" ----------------------------------------------------------------------------
-" Markdown headings
-" ----------------------------------------------------------------------------
-nnoremap <leader>1 m`yypVr=``
-nnoremap <leader>2 m`yypVr-``
-nnoremap <leader>3 m`^i### <esc>``4l
-nnoremap <leader>4 m`^i#### <esc>``5l
-nnoremap <leader>5 m`^i##### <esc>``6l
+" == decorations
 
-" ----------------------------------------------------------------------------
-" AsciiDoc headings
-" ----------------------------------------------------------------------------
-" nnoremap <leader>0 m`^i= <esc>``1l
-" nnoremap <leader>1 m`^i== <esc>``2l
-" nnoremap <leader>2 m`^i=== <esc>``3l
-" nnoremap <leader>3 m`^i==== <esc>``4l
-" nnoremap <leader>4 m`^i===== <esc>``5l
-" nnoremap <leader>5 m`^i====== <esc>``6l
+" === text
 
-" ----------------------------------------------------------------------------
+nmap <leader>text_heading_a m`o=<esc>yw79pyy``PV2jgcgv<esc>o
+
+" [NOTE]
+" ====
+" The command above is not working with nnoremap.
+" It's a good example to understand "recursive".
+" "gc" is a command of "vim-commentary" plugin. Using other commands in one command
+" need to set map to be no "recursive".
+" see: https://vi.stackexchange.com/questions/31790/how-to-remap-vim-commentary-commands
+" ====
+
+nmap <leader>text_heading_b m`o-<esc>yw79pyy``PV2jgcgv<esc>o
+" nnoremap <leader>text_heading_c o- <left>y2l39pyy1kP
+nmap <silent> <leader>text_heading_del :+1d\|-2d<cr>
+
+" === Markdown headings
+
+nnoremap <leader>markdown_heading_a m`yypVr=``
+nnoremap <leader>markdown_heading_b m`yypVr-``
+nnoremap <leader>markdown_heading_c m`^i### <esc>``4l
+nnoremap <leader>markdown_heading_d m`^i#### <esc>``5l
+nnoremap <leader>markdown_heading_e m`^i##### <esc>``6l
+
+
+" nnoremap <leader>markdown_admonition > **WARNING**: Be careful, or else!
+" nnoremap <leader>markdown_admonition > :WARNING: Be careful, or else!
+" https://gist.github.com/roachhd/1f029bd4b50b8a524f3c[emoji list]
+" https://stackoverflow.com/questions/50544499/how-to-make-a-styled-markdown-admonition-box-in-a-github-gist[markdown admonition styles]
+
+
+" === AsciiDoc headings
+
+nnoremap <leader>asciidoc_doc_title_just_one_in_a_article m`^i= <esc>``1l
+nnoremap <leader>asciidoc_heading_a m`^i== <esc>``2lo<esc>``O<esc>``
+nnoremap <leader>asciidoc_heading_b m`^i=== <esc>``3lo<esc>``O<esc>``
+nnoremap <leader>asciidoc_heading_c m`^i==== <esc>``4lo<esc>``O<esc>``
+nnoremap <leader>asciidoc_heading_d m`^i===== <esc>``5lo<esc>``O<esc>``
+nnoremap <leader>asciidoc_heading_e m`^i====== <esc>``6lo<esc>``O<esc>``
+
+" AsciiDoc Admonitions
+" TIP , NOTE , IMPORTANT, WARNING and CAUTION
+
+" ================================================================================
 " Moving lines
-" ----------------------------------------------------------------------------
+" ================================================================================
 nnoremap <silent> <C-k> :move-2<cr>
 nnoremap <silent> <C-j> :move+<cr>
 nnoremap <silent> <C-h> <<
@@ -414,9 +517,9 @@ xnoremap <silent> <C-h> <gv
 xnoremap <silent> <C-l> >gv
 xnoremap < <gv
 xnoremap > >gv
-" ----------------------------------------------------------------------------
+" ================================================================================
 " Readline-style key bindings in command-line (excerpt from rsi.vim)
-" ----------------------------------------------------------------------------
+" ================================================================================
 cnoremap <expr> <C-D> getcmdpos()>strlen(getcmdline())?"\<Lt>C-D>":"\<Lt>Del>"
 cnoremap <expr> <C-F> getcmdpos()>strlen(getcmdline())?&cedit:"\<Lt>Right>"
 " cnoremap        <M-b> <S-Left>
@@ -468,6 +571,21 @@ cnoremap <expr> <C-F> getcmdpos()>strlen(getcmdline())?&cedit:"\<Lt>Right>"
 "   \}, args)
 " endfunction
 
+" --------------------------------------------------------------------------------
+" Help in new tabs
+" --------------------------------------------------------------------------------
+
+function! s:helptab()
+  if &buftype == 'help'
+    wincmd T
+    nnoremap <buffer> q :q<cr>
+  endif
+endfunction
+autocmd vimrc BufEnter *.txt call s:helptab()
+
+" --------------------------------------------------------------------------------
+
+" --------------------------------------------------------------------------------
 
 set tabline=%!MyTabLine()  " custom tab pages line
 function! MyTabLine()
@@ -534,3 +652,14 @@ function! MyTabLine()
   return s
 endfunction
 
+" ----------------------------------------------
+" special arguments
+" ----------------------------------------------
+" https://alldrops.info/posts/vim-drops/2018-05-15_understand-vim-mappings-and-create-your-own-shortcuts/
+" <buffer>
+" <nowait>
+" <silent>
+" <special>
+" <script>
+" <expr>
+" <unique>
