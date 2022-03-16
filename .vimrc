@@ -217,8 +217,9 @@ cnoremap ~o <S-Right>
 inoremap <M-S-Left> <esc>vb
 nnoremap <M-S-Left> vb
 " Select a word forward
-inoremap <M-S-Right> <esc>vw
-nnoremap <M-S-Right> vw
+inoremap <M-S-Right> <esc>ve
+nnoremap <M-S-Right> ve
+vnoremap <M-S-Right> e
 " Select until the first non-blank character of the line.
 inoremap ~a <esc>v^
 nnoremap ~a v^
@@ -232,32 +233,42 @@ nnoremap ~r V
 inoremap ~z <ESC>u
 nnoremap ~z u
 " Escaping
-" **ref:** https://vim.fandom.com/wiki/Avoid_the_escape_key
+" https://vim.fandom.com/wiki/Avoid_the_escape_key
 inoremap <expr> <Up>    pumvisible() ? "<Up>"    : "<ESC>`^<Up>"
 inoremap <expr> <Down>  pumvisible() ? "<Down>"  : "<ESC>`^<Down>"
 inoremap <expr> <left>  pumvisible() ? "<left>"  : "<ESC>`^<left>"
 inoremap <expr> <right> pumvisible() ? "<right>" : "<ESC>`^<right>"
-" --------------------------------------------------------------------------------
-" Cut, Copy, Paste
-" --------------------------------------------------------------------------------
+" inoremap <expr> <cr>    pumvisible() ? "<cr>"    : "<ESC>"
 " https://github.com/divad12/dotfiles/blob/master/.vimrc#L23
-nnoremap <D-v> "+]p
-vnoremap <D-v> "+]p
+nnoremap ~v o<ESC>"+]p
+cnoremap ~v \
+" vnoremap ~v o<ESC>"+]p
 " --------------------------------------------------------------------------------
 " Delete
 " --------------------------------------------------------------------------------
-nnoremap <bs> X
+" If the cursor is in the head of line, backspace key acts as ctrl-J; 
+" otherwise, delete a char.
+nnoremap <expr> <bs> getpos(".")[2]==1 ? "b<S-j>" : "X"
+nnoremap <expr> <del> match(getline("."),'^$') ? "x" : "dd"
+" nnoremap <expr> <bs> match(getline("."),'^.') ? "b<S-j>" : "dd"
+" --------------------------------------------------------------------------------
+" semicolon leader mappings
+" --------------------------------------------------------------------------------
+nnoremap <silent> ;so :so $MYVIMRC<cr>
+nnoremap <silent> ;c :clo<cr>
+nnoremap <silent> ;b :bn<cr>
+"" <leader>n | NERD Tree
+noremap ;n :NERDTreeToggle<cr>
+"" open terminal in the directory of the current file"
+nnoremap ;t :let $VIM_DIR=expand('%:p:h')<CR>:terminal<CR>cd $VIM_DIR<CR>
+" quit
+nnoremap ;q :q<cr>
+nnoremap ;Q :qa<cr>
+nnoremap ;QQ :qa!<cr>
 " --------------------------------------------------------------------------------
 
 " --------------------------------------------------------------------------------
-
-nnoremap ;so :so $MYVIMRC<cr>
-
 nmap <leader>Open_file_in_chrome :!open -a Google\ Chrome %
-
-nmap <silent> ;c :clo<cr>
-
-nmap del d$
 
 nnoremap <silent> <leader>close_all_nerdtree_tabs :tabdo NERDTreeClose<CR>
 
@@ -285,12 +296,12 @@ xnoremap <leader>Add_text_to_end_string                           :g/^pattern/s/
 xnoremap <leader>Run_a_macro_on_matching_lines                    :g/pattern/normal @q
 xnoremap <leader>Move_all_lines_matching_a_pattern_to_end_of_file :g/pattern/m$
 
-nnoremap <leader>go_local_declaration              gd
-nnoremap <leader>go_local_declaration_like_gd      1gd
-nnoremap <leader>go_global_declaration             gD
-nnoremap <leader>go_global_declaration_like_gD     1gD
-nnoremap <leader>search_word_under_cursor          g*
-nnoremap <leader>search_word_under_cursor_backward g#
+nnoremap <leader>go_local_declaration                gd
+nnoremap <leader>go_local_declaration_like_gd        1gd
+nnoremap <leader>go_global_declaration               gD
+nnoremap <leader>go_global_declaration_like_gD       1gD
+nnoremap <leader>search_word_under_cursor            g*
+nnoremap <leader>search_word_under_cursor_backward   g#
 nnoremap <leader>go_to_file_under_cursor             gf
 nnoremap <leader>go_to_file_under_cursor_same_window <c-w>f
 nnoremap <leader>go_to_file_under_cursor_tab         <c-w>gf
@@ -300,6 +311,12 @@ nnoremap <leader>Show_all_tabs                                 /\t
 nnoremap <leader>Show_trailing_whitespace                      /\s\+$
 nnoremap <leader>Show_trailing_whitespace_only_after_some_text /\S\zs\s\+$
 nnoremap <leader>Show_spaces_before_a_tab                      / \+\ze\t
+ 
+" https://vi.stackexchange.com/questions/5634/what-options-are-there-to-enter-insert-mode
+nnoremap <leader>Insert_at_column_1_of_the_line            gI
+nnoremap <leader>Insert_where_insert_mode_was_last_stopped gi
+
+nnoremap <leader>delete_from_cursor_to_the_end_of_line D
 " --------------------------------------------------------------------------------
 
 " --------------------------------------------------------------------------------
@@ -388,8 +405,8 @@ nnoremap L :bn<CR>
 " nnoremap <CR> :noh<CR><CR>:<backspace> <- Delete later unless problems
 
 
-nnoremap <NL> i<CR><ESC>
 " then just press Ctrl-J whenever you want to split a line.
+nnoremap <enter> i<CR><ESC>
 
 "
 " automatically leave insert mode after 'updatetime' milliseconds of inaction
@@ -403,8 +420,6 @@ nnoremap <NL> i<CR><ESC>
 "" switch next tab"
 "map <leader>t gt
 "" buffer delete"
-"" open terminal in the directory of the current file"
-map ;t :let $VIM_DIR=expand('%:p:h')<CR>:terminal<CR>cd $VIM_DIR<CR>
 "" map <leader>; :bd<cr>
 
 "" Save
@@ -432,9 +447,6 @@ map ;t :let $VIM_DIR=expand('%:p:h')<CR>:terminal<CR>cd $VIM_DIR<CR>
 
 "" Jump list (to newer position)
 "nnoremap <C-p> <C-i>
-
-"" <leader>n | NERD Tree
-nnoremap ;n :NERDTreeToggle<cr>
 
 "cnoremap <ESC> <C-c>
 
@@ -482,7 +494,7 @@ nnoremap <S-tab> <c-w>W
 
 " === text
 
-nmap <leader>text_heading_a m`o=<esc>yw79pyy``PV2jgcgv<esc>o
+nmap <leader>text_heading_a m'o<esc>80i=<esc>yy''4i <esc>PV2jgcgv<esc>o
 
 " [NOTE]
 " ====
@@ -493,9 +505,9 @@ nmap <leader>text_heading_a m`o=<esc>yw79pyy``PV2jgcgv<esc>o
 " see: https://vi.stackexchange.com/questions/31790/how-to-remap-vim-commentary-commands
 " ====
 
-nmap <leader>text_heading_b m`o-<esc>yw79pyy``PV2jgcgv<esc>o
+nmap <leader>text_heading_b m'o<esc>60i-<esc>yy''4i <esc>PV2jgcgv<esc>o
 " nnoremap <leader>text_heading_c o- <left>y2l39pyy1kP
-nmap <silent> <leader>text_heading_del :+1d\|-2d<cr>
+nnoremap <silent> <leader>text_heading_del :+1d\|-2d<cr>
 
 " === Markdown headings
 
