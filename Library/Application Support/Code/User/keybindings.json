@@ -98,6 +98,12 @@
   "when": "terminalFocus",
   "args": { "text": "~z" }
   },
+  {
+  "key": "cmd+v",
+  "command": "workbench.action.terminal.sendSequence",
+  "when": "terminalFocus",
+  "args": { "text": "~v" }
+  },
   //================================================================================
   // basics
   //================================================================================
