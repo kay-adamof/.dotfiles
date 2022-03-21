@@ -1,3 +1,93 @@
+" ================================================================================
+"     Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+" ================================================================================
+" https://github.com/mg979/vim-visual-multi
+" :help visual-multi
+" :help vm-some-topic
+" Tutorial: vim -Nu ~/.vim/plugged/vim-visual-multi/tutorialrc
+" ------------------------------------------------------------
+"     Basic usage:
+" ------------------------------------------------------------
+" select words with Ctrl-N (like Ctrl-d in Sublime Text/VS Code)
+" create cursors vertically with Ctrl-Down/Ctrl-Up
+" select one character at a time with Shift-Arrows
+" press n/N to get next/previous occurrence
+" press [/] to select next/previous cursor
+" press q to skip current and get next occurrence
+" press Q to remove current cursor/selection
+" start insert mode with i,a,I,A
+" ------------------------------------------------------------
+"     Two main modes:
+" ------------------------------------------------------------
+" in cursor mode commands work as they would in normal mode
+" in extend mode commands work as they would in visual mode
+" press Tab to switch between «cursor» and «extend» mode
+" extend mode: like visual mode. Not allow working with cursor, only
+" selection.
+" ------------------------------------------------------------
+"     select words
+" ------------------------------------------------------------
+" <S-Right>: select one character at a time.
+" ------------------------------------------------------------
+"     suported operators
+" ------------------------------------------------------------
+" cursor-mode:
+"     c           change text
+"     i, I, a, A  Enter insert mode
+"     operators   see |vm-operators|
+"     motions     see |vm-motions|
+"     |           set column for all cursors (to current column or [count])
+"     r           replace single character
+"     R           enter |vm-replace-mode|
+"     ~           change case of single character
+"     &           repeat last substitution
+"     <C-A>       increase number
+"     <C-X>       decrease number
+" extend-mode:
+" y/d/c   yank/delete/change
+" gu/gU   change case
+" |vim-abolish|   example: `cr_` to change current word to snake case
+" |vim-surround|  example: `ysiw(` to enclose in parentheses
+" ------------------------------------------------------------
+"     useful mappings
+" ------------------------------------------------------------
+" _A:                  Select all word under the cursor
+" _gS:                 Reselect previous region
+" R:                   Replacement
+" v2ap then press _c:  switch to VM cursor mode from visual mode
+" _a:                  align vertically
+" _<:                  align with prompted
+" 2_<:                 align by two characters with prompted
+" _N:                  Numbering with separators
+
+" ------------------------------------------------------------
+"     Some experiments 
+" ------------------------------------------------------------
+    " let g:VM_mouse_mappings     = 1             " some text
+    " let g:VM_theme              = 'iceblue'     " some text
+    " let g:VM_highlight_matches  = 'underline'   " some text
+
+    " let g:VM_maps               = {}            " some text
+    " let g:VM_maps["Undo"]       = 'u'           " some text
+    " let g:VM_maps["Redo"]       = '<C-r>'       " some text
+
+" You could try some of the following, after setting a new mark and creating a
+" column of cursors with 5<C-Down>. Do the following in a single VM session:
+
+" 1. `~` (toggle case for character under cursors)
+" 2. `r`<char> (replace character under cursors)
+" 3. <C-n> to select words under current cursors, then repeat `~` and `r`<char>
+" 4. press `\\N`, then enter `,`<Space><CR> in the prompt (numbering with separator)
+" 5. now press <Tab>`dWWP`, then `A`<Space><C-v>
+" 6. exit insert mode, then press `0`, then <C-a>, then <C-x>
+" 7. still in VM, press `u` until you can, do the same with <C-r>, then again `u`
+
+" ------------------------------------------------------------
+"     settings
+" ------------------------------------------------------------
+let g:VM_leader = '_'
+
+
 " Plug 'mzlogin/vim-markdown-toc'
 " let g:vim_markdown_follow_anchor = 1
 
@@ -48,13 +138,40 @@ nnoremap turn_goyo_off :Goyo!<CR> :hi Normal guibg=NONE ctermbg=NONE<CR>
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 
-"-- STARTIFY CONFIG
+" --------------------------------------------------------------------------------
+" STARTIFY CONFIG
+" --------------------------------------------------------------------------------
 nnoremap startify_load_a_session   :SLoad<CR>
 nnoremap startify_save_a_session   :SSave<CR>
 nnoremap startify_delete_a_session :SDelete<CR>
 nnoremap startify_close_a_session  :SClose<CR>
 
-"-- FZF.VIM CONFIG
+" extract from startify-example
+autocmd User Startified setlocal cursorline
+
+let g:startify_enable_special      = 0
+let g:startify_files_number        = 8
+let g:startify_relative_path       = 1
+let g:startify_change_to_dir       = 1
+let g:startify_update_oldfiles     = 1
+let g:startify_session_autoload    = 1
+let g:startify_session_persistence = 1
+
+let g:startify_skiplist = [
+        \ 'COMMIT_EDITMSG',
+        \ 'bundle/.*/doc',
+        \ '/data/repo/neovim/runtime/doc',
+        \ '/Users/mhi/local/vim/share/vim/vim74/doc',
+        \ ]
+
+let g:startify_bookmarks = [
+        \ { 'c': '~/.vim/vimrc' },
+        \ '~/golfing',
+        \ ]
+
+" --------------------------------------------------------------------------------
+" FZF.VIM CONFIG
+" --------------------------------------------------------------------------------
 command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
   " fzf.vim ripgrep advanced option command RG"
 function! RipgrepFzf(query, fullscreen)
@@ -91,32 +208,32 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
-nnoremap Fzf_search_files                              :Files<CR>
-nnoremap Fzf_git_ls_files                              :GFiles<CR>
-nnoremap Fzf_git_status                                :GFiles?<CR>
-nnoremap Fzf_open_buffers                              :Buffers<CR>
+nnoremap <leader>Fzf_search_files                              :Files<CR>
+nnoremap <leader>Fzf_git_ls_files                              :GFiles<CR>
+nnoremap <leader>Fzf_git_status                                :GFiles?<CR>
+nnoremap <leader>Fzf_open_buffers                              :Buffers<CR>
 " nnoremap <leader> :Colors<CR>
     " Color schemes
-nnoremap Fzf_silver_search                             :Ag<CR>
-nnoremap Fzf_ripgrep                                   :Rg<CR>
-nnoremap Fzf_search_lines_in_loaded_buffers            :Lines<CR>
-nnoremap Fzf_search_lines_in_current_buffer            :BLines<CR>
-nnoremap Fzf_search_tags_in_project                    :Tags<CR>
-nnoremap Fzf_search_tags_in_current_buffer             :BTags<CR>
-nnoremap Fzf_search_marks                              :Marks<CR>
-nnoremap Fzf_open_tab                                  :Windows<CR>
-nnoremap Fzf_locate                                    :Locate<CR>
-nnoremap Fzf_search_oldfiles_history_in_viminfo        :History<CR>
-nnoremap Fzf_search_command_history                    :History:<CR>
-nnoremap Fzf_search_search_history                     :History/<CR>
+nnoremap <leader>Fzf_silver_search                             :Ag<CR>
+nnoremap <leader>Fzf_ripgrep                                   :Rg<CR>
+nnoremap <leader>Fzf_search_lines_in_loaded_buffers            :Lines<CR>
+nnoremap <leader>Fzf_blines_search_lines_in_current_buffer     :BLines<CR>
+nnoremap <leader>Fzf_search_tags_in_project                    :Tags<CR>
+nnoremap <leader>Fzf_search_tags_in_current_buffer             :BTags<CR>
+nnoremap <leader>Fzf_search_marks                              :Marks<CR>
+nnoremap <leader>Fzf_open_tab                                  :Windows<CR>
+nnoremap <leader>Fzf_locate                                    :Locate<CR>
+nnoremap <leader>Fzf_search_oldfiles_history_in_viminfo        :History<CR>
+nnoremap <leader>Fzf_search_command_history                    :History:<CR>
+nnoremap <leader>Fzf_search_search_history                     :History/<CR>
 " nnoremap <leader> :Snippets<CR>
     " Snippets (UltiSnips)
-nnoremap Fzf_git_commits_using_fugitive                :Commits<CR>
-nnoremap Fzf_git_commits_current_buffer_can_use_visual :BCommits<CR>
-nnoremap Fzf_search_all_commands                       :Commands<CR>
-nnoremap Fzf_search_normal_mode_mappings               :Maps<CR>
-nnoremap Fzf_search_helptags                           :Helptags<CR>
-nnoremap Fzf_search_filetypes                          :Filetypes<CR>
+nnoremap <leader>Fzf_git_commits_using_fugitive                :Commits<CR>
+nnoremap <leader>Fzf_git_commits_current_buffer_can_use_visual :BCommits<CR>
+nnoremap <leader>Fzf_search_all_commands                       :Commands<CR>
+nnoremap <leader>Fzf_search_normal_mode_mappings               :Maps<CR>
+nnoremap <leader>Fzf_search_helptags                           :Helptags<CR>
+nnoremap <leader>Fzf_search_filetypes                          :Filetypes<CR>
   " CTRL-T / CTRL-X / CTRL-V 
     " key bindings to open in a new tab, a new split, or in a new vertical split
   " Bang-versions of the commands (e.g. Ag!) will open fzf in fullscreen

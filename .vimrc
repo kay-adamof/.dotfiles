@@ -45,10 +45,10 @@ augroup vimrc
   autocmd FocusGained,BufEnter * :silent! !
   autocmd FocusGained,BufEnter * :silent!
 
-  " autocmd InsertEnter,WinLeave * set nocursorline nocursorcolumn
-  " autocmd CmdlineEnter : set nocursorline nocursorcolumn | redraw
-  " autocmd InsertLeave,WinEnter * set cursorline cursorcolumn
-  " autocmd CmdlineLeave : set cursorline cursorcolumn
+  autocmd InsertEnter,WinLeave * set nocursorline 
+  autocmd CmdlineEnter : set nocursorline  | redraw
+  autocmd InsertLeave,WinEnter * set cursorline cursorlineopt=number
+  autocmd CmdlineLeave : set cursorline cursorlineopt=number
 augroup END
 
 augroup vimrc-incsearch-highlight
@@ -239,9 +239,9 @@ inoremap <expr> <Down>  pumvisible() ? "<Down>"  : "<ESC>`^<Down>"
 inoremap <expr> <left>  pumvisible() ? "<left>"  : "<ESC>`^<left>"
 inoremap <expr> <right> pumvisible() ? "<right>" : "<ESC>`^<right>"
 " inoremap <expr> <cr>    pumvisible() ? "<cr>"    : "<ESC>"
-" https://github.com/divad12/dotfiles/blob/master/.vimrc#L23
-nnoremap ~v o<ESC>"+]p
-cnoremap ~v \
+" " https://github.com/divad12/dotfiles/blob/master/.vimrc#L23
+" nnoremap ~v o<ESC>"+]p
+" cnoremap ~v \
 " vnoremap ~v o<ESC>"+]p
 " --------------------------------------------------------------------------------
 " Delete
@@ -257,6 +257,7 @@ nnoremap <expr> <del> match(getline("."),'^$') ? "x" : "dd"
 nnoremap <silent> ;so :so $MYVIMRC<cr>
 nnoremap <silent> ;c :clo<cr>
 nnoremap <silent> ;b :bn<cr>
+nnoremap <silent> ;nu :set nu rnu<cr>
 "" <leader>n | NERD Tree
 noremap ;n :NERDTreeToggle<cr>
 "" open terminal in the directory of the current file"
@@ -281,6 +282,11 @@ endfunction
 " --------------------------------------------------------------------------------
 " forgetful commands
 " --------------------------------------------------------------------------------
+nnoremap <leader>vim_multi_select_all _A 
+nnoremap <leader>vim_multi_reselect_previous_region _gS 
+nnoremap <leader>vim_multi_substitution R 
+
+nnoremap <leader>open-url-with-browser gx
 
 nnoremap <leader>match_a_line_break                               /\n
 nnoremap <leader>match_a_line_break_or_a_space                    /\_s
@@ -507,7 +513,8 @@ nmap <leader>text_heading_a m'o<esc>80i=<esc>yy''4i <esc>PV2jgcgv<esc>o
 
 nmap <leader>text_heading_b m'o<esc>60i-<esc>yy''4i <esc>PV2jgcgv<esc>o
 " nnoremap <leader>text_heading_c o- <left>y2l39pyy1kP
-nnoremap <silent> <leader>text_heading_del :+1d\|-2d<cr>
+nmap <leader>text_heading_c m`yypVr-``Vjgcgv<esc>o
+nnoremap <silent> <leader>text_heading_del gc:+1d\|-2d<cr>
 
 " === Markdown headings
 
@@ -517,6 +524,8 @@ nnoremap <leader>markdown_heading_c m`^i### <esc>``4l
 nnoremap <leader>markdown_heading_d m`^i#### <esc>``5l
 nnoremap <leader>markdown_heading_e m`^i##### <esc>``6l
 
+" markdown admonition
+" -------------------
 
 " nnoremap <leader>markdown_admonition > **WARNING**: Be careful, or else!
 " nnoremap <leader>markdown_admonition > :WARNING: Be careful, or else!
@@ -611,10 +620,12 @@ function! s:helptab()
   if &buftype == 'help'
     wincmd T
     nnoremap <buffer> q :q<cr>
+    :set nu rnu
+    :set cursorline cursorlineopt=number
   endif
 endfunction
-autocmd vimrc BufEnter *.txt call s:helptab()
-
+" autocmd vimrc BufEnter *.txt call s:helptab()
+nnoremap <expr> <leader>help_in_new_tabs helptab()
 " --------------------------------------------------------------------------------
 
 " --------------------------------------------------------------------------------
