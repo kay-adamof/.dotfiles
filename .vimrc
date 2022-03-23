@@ -232,6 +232,9 @@ nnoremap ~r V
 " undo
 inoremap ~z <ESC>u
 nnoremap ~z u
+" paste"
+inoremap ~v <C-r>+
+nnoremap ~v "+p
 " Escaping
 " https://vim.fandom.com/wiki/Avoid_the_escape_key
 inoremap <expr> <Up>    pumvisible() ? "<Up>"    : "<ESC>`^<Up>"
