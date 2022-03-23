@@ -1,11 +1,143 @@
+format = """
+$username\
+$hostname\
+$localip\
+$shlvl\
+$singularity\
+$kubernetes\
+$directory\
+$vcsh\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$hg_branch\
+$docker_context\
+$package\
+$cmake\
+$cobol\
+$container\
+$dart\
+$deno\
+$dotnet\
+$elixir\
+$elm\
+$erlang\
+$golang\
+$helm\
+$java\
+$julia\
+$kotlin\
+$lua\
+$nim\
+$nodejs\
+$ocaml\
+$perl\
+$php\
+$pulumi\
+$purescript\
+$python\
+$rlang\
+$red\
+$ruby\
+$rust\
+$scala\
+$swift\
+$terraform\
+$vlang\
+$vagrant\
+$zig\
+$nix_shell\
+$conda\
+$memory_usage\
+$aws\
+$gcloud\
+$openstack\
+$azure\
+$env_var\
+$crystal\
+$custom\
+$sudo\
+$cmd_duration\
+$jobs\
+$fill\
+$battery\
+$time\
+$status\
+$line_break\
+$shell\
+$line_break\
+$character"""
+
 # Inserts a blank line between shell prompts
 add_newline = true
 
-# Replace the "❯" symbol in the prompt with "➜"
 [character] # The name of the module we are configuring is "character"
 success_symbol = "[➜](bold green)" # The "success_symbol" segment is being set to "➜" with the color "bold green"
 
-# Disable the package module, hiding it from the prompt completely
-[package]
-disabled = true
+# The line_break module separates the prompt into two lines.
+[line_break]
+disabled = false
 
+# Disable the package module, hiding it from the prompt completely
+# [package]
+# disabled = true
+
+# [Starship configuration file](https://gist.github.com/ryo-ARAKI/48a11585299f9032fa4bda60c9bba593)
+[battery]
+# The battery module shows how charged the device's battery is and its current charging status. The module is only visible when the device's battery is below 10%.
+full_symbol = "🔋"
+charging_symbol = "🔌"
+discharging_symbol = "⚡"
+
+[[battery.display]]
+threshold = 30
+style = "bold red"
+
+[directory]
+truncation_length =	3 
+#	-- The number of parent folders that the current directory should be truncated to.
+truncate_to_repo  =	true 
+#	-- Whether or not to truncate to the root of the git repo that you're currently in.
+format            =	"[$path]($style)[$read_only]($read_only_style) "
+# -- The format for the module.
+style             =	"bold cyan"
+# -- The style for the module.
+disabled          =	false 
+#	-- Disables the directory module.
+read_only         =	"🔒" 
+#	-- The symbol indicating current directory is read only.
+read_only_style   =	"red" 
+#	-- The style for the read only symbol.
+truncation_symbol =	"" 
+#	-- The symbol to prefix to truncated paths. eg: "…/"
+# repo_root_style   =	None 
+#	-- The style for the root of the git repo. The default value is equivalent to style.
+repo_root_format  =	"[$before_root_path]($style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style) " 
+# -- The format of a git repo when repo_root_style is defined.
+home_symbol       =	"~" 
+#	-- The symbol indicating home directory.
+use_os_path_sep   =	true 
+#	-- Use the OS specific path separator instead of always using / (e.g. \ on Windows)
+
+[shell]
+disabled = false
+fish_indicator = "🐟"
+# zsh_indicator = ""
+# powershell_indicator = "_"
+bash_indicator = '\(bash\)'
+zsh_indicator = '\(zsh\)'
+unknown_indicator = '\(mystery shell\)'
+
+[time]
+disabled = false
+format = '[\[ $time \]]($style)'
+time_format = "%Y/%m/%d | %R"
+# utc_time_offset = "-5"
+# time_range = "10:00:00-14:00:00"
+
+[fill]
+# format = "AA $fill BB $fill CC"
+symbol = "-"
+style = "#6272a4" # Dracula comment color
