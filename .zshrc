@@ -116,6 +116,46 @@ plugins+=(zsh-vi-mode)
 # zvm_bindkey <keymap> <keys> <widget>
 
 source $ZSH/oh-my-zsh.sh
+# ================================================================================
+#     basic settings
+# ================================================================================
+# ------------------------------------------------------------
+#     Tips
+# ------------------------------------------------------------
+# [Moving to zsh, part 3: Shell Options – Scripting OS X](https://scriptingosx.com/2019/06/moving-to-zsh-part-3-shell-options/)
+# Listing the existing shell options:
+# % setopt
+# Listing all the shell options:
+# % emulate -lLR zsh
+# find out all zsh options:
+# % man zshoptions
+# ------------------------------------------------------------
+#     settings 
+# ------------------------------------------------------------
+# case insensitive globbing
+setopt NO_CASE_GLOB
+# change directory automatically
+setopt AUTO_CD
+setopt EXTENDED_HISTORY
+# share history across multiple zsh sessions
+setopt SHARE_HISTORY
+# append to history
+setopt APPEND_HISTORY
+# adds commands as they are typed, not at shell exit
+setopt INC_APPEND_HISTORY
+# expire duplicates first
+setopt HIST_EXPIRE_DUPS_FIRST
+# do not store duplications
+setopt HIST_IGNORE_DUPS
+#ignore duplicates when searching
+setopt HIST_FIND_NO_DUPS
+# removes blank lines from history
+setopt HIST_REDUCE_BLANKS
+HISTFILE=~/.zsh_history
+HISTSIZE=50000
+SAVEHIST=50000
+# 環境変数
+# export LANG=ja_JP.UTF-8
 
 # User configuration
 
