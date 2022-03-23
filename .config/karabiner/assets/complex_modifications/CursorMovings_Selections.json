@@ -89,6 +89,38 @@
       "description": "CursorMovings_and_Selections",
       "manipulators": [
         {
+          "description": "select previous tab",
+          "type": "basic",
+          "from": {
+            "key_code": "y",
+            "modifiers": {
+                "mandatory": ["fn"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "y",
+              "modifiers": ["right_command"]
+            }
+          ]
+        },
+        {
+          "description": "select next tab",
+          "type": "basic",
+          "from": {
+            "key_code": "u",
+            "modifiers": {
+                "mandatory": ["fn"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "u",
+              "modifiers": ["right_command"]
+            }
+          ]
+        },
+        {
           "description": "select all",
           "type": "basic",
           "from": {
@@ -109,6 +141,7 @@
           "from": {
             "key_code": "h",
             "modifiers": {
+              "optional": ["left_shift"],
               "mandatory": [ "fn" ]
             }
           },
@@ -121,6 +154,7 @@
           "from": {
             "key_code": "j",
             "modifiers": {
+              "optional": ["left_shift", "left_control"],
               "mandatory": [ "fn" ]
             }
           },
@@ -133,6 +167,7 @@
           "from": {
             "key_code": "k",
             "modifiers": {
+              "optional": ["left_shift"],
               "mandatory": [ "fn" ]
             }
           },
@@ -145,11 +180,28 @@
           "from": {
             "key_code": "l",
             "modifiers": {
+              "optional": ["left_shift"],
               "mandatory": [ "fn" ]
             }
           },
           "to": [
             {"key_code": "right_arrow"}
+          ]
+        },
+        {
+          "type": "basic",
+          "description": "to switch window of same app",
+          "from": {
+            "key_code": "open_bracket",
+            "modifiers": {
+              "mandatory": [ "fn" ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "open_bracket",
+              "modifiers": ["left_command"]
+            }
           ]
         },
         {
@@ -187,6 +239,7 @@
           "from": {
             "key_code": "n",
             "modifiers": {
+              "optional": ["left_shift"],
               "mandatory": [ "fn" ]
             }
           },
@@ -201,6 +254,7 @@
           "from": {
             "key_code": "m",
             "modifiers": {
+              "optional": ["left_shift"],
               "mandatory": [ "fn" ]
             }
           },
