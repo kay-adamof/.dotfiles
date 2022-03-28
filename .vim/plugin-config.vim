@@ -1,4 +1,9 @@
 " ================================================================================
+"     Plug 'lambdalisue/battery.vim'
+" ================================================================================
+let g:battery#component_format = "%v%%"
+
+" ================================================================================
 "     Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 " ================================================================================
 " https://github.com/mg979/vim-visual-multi
@@ -250,46 +255,45 @@ let g:ale_fixers = {
 \   'javascriptreact': ['eslint'],
 \}
 
-"-- AIRLINE CONFIG
-      " show current working directory in c section"
-let g:airline_section_b = '%-0.20{getcwd()}'
-let g:airline_section_c = '%t'
+" ================================================================================
+"     Plug 'vim-airline/vim-airline'
+" ================================================================================
+let g:airline#extensions#fzf#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_statusline_ontop = 0
+let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 
-      " the separator used on the left side
-let g:airline_left_sep  = ''
-      " the separator used on the right side
-let g:airline_right_sep = ''
+" Append/Replace custom sections to default sections prepared by Airline"
+function! AirlineInit()
+  let g:airline_section_b ..= '%-0.20{getcwd()}'
+  " let g:airline_section_c ..= '%-0.20{getcwd()}'
+  let g:airline_section_z = '%{battery#component()}%{strftime("|%y/%m/%d|%H:%m")}'
+endfunction
+autocmd User AirlineAfterInit call AirlineInit()
 
-" let g:airline_powerline_fonts=1
-" let g:airline_theme='dracula'
 
-" if !exists('g:airline_symbols')
-"     let g:airline_symbols = {}
-" endif
+let g:airline_theme='dracula'
 
-" unicode symbols
-" let g:airline_left_sep = '»'
-" let g:airline_left_sep = '▶'
-" let g:airline_right_sep = '«'
-" let g:airline_right_sep = '◀'
-" let g:airline_symbols.linenr = '␊'
-" let g:airline_symbols.linenr = '␤'
-" let g:airline_symbols.linenr = '¶'
-" let g:airline_symbols.branch = '⎇'
-" let g:airline_symbols.paste = 'ρ'
-" let g:airline_symbols.paste = 'Þ'
-" let g:airline_symbols.paste = '∥'
-" let g:airline_symbols.whitespace = 'Ξ'
 
-" airline symbols
-" let g:airline_left_sep = ''
-" let g:airline_left_alt_sep = ''
-" let g:airline_right_sep = ''
-" let g:airline_right_alt_sep = ''
-" let g:airline_symbols.branch = ''
-" let g:airline_symbols.readonly = ''
-" let g:airline_symbols.linenr = ''
+" -- airline symbols
+" some symbols works with nerd font
+" if symbols do not work correctly, make sure the settings of your app's font family."
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+let g:airline_left_sep = ''
+" let g:airline_left_sep  = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+" let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
 
+" ================================================================================
+    
+" ================================================================================
 
 "-- ULTISNIPS CONFIG
 let g:UltiSnipsExpandTrigger = "<c-j>"
@@ -313,7 +317,10 @@ let g:user_emmet_settings = {
 \  },
 \}
 
-"-- NERDTree CONFIG
+" ================================================================================
+"     NERDTree CONFIG
+" ================================================================================
+
 " <leader>n | NERD Tree
 nnoremap <leader>n :NERDTree %<cr>
 " nnoremap <C-t> :NERDTreeToggle %<CR>
