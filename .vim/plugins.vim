@@ -1,5 +1,17 @@
+" ------------------------------------------------------------
+"     To install correctly:
+" ------------------------------------------------------------
+" :source %
+" :PlugInstall
+" ------------------------------------------------------------
+"     Configuration file path
+" ------------------------------------------------------------
+" ~/.vim/plugin-config.vim
+
 call plug#begin('~/.vim/plugged')
 
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'lambdalisue/battery.vim'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'godlygeek/tabular'
 Plug 'preservim/vim-markdown'
