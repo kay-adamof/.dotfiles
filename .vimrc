@@ -16,19 +16,28 @@ let maplocalleader = ' '
 
 syntax on
 
-
+" ------------------------------------------------------------
+"     set by vim-plug
+" ------------------------------------------------------------
+"
 so ~/.vim/plugins.vim
 so ~/.vim/plugin-config.vim
+
+" ------------------------------------------------------------
+    
+" ------------------------------------------------------------
+"
 so ~/.vim/autoclose.vim
 so ~/.vim/GoogleSearch.vim
 so ~/.vim/surround-vim_mappings.vim
 
 "-- color & theme config
-" set termguicolors
+set termguicolors
+" hi Cursor gui=reverse guifg=NONE guibg=NONE
 " let g:dracula_italic = 1
 " colorscheme dracula
 " set background=dark
-hi Normal guibg=NONE ctermbg=NONE
+" hi Normal guibg=NONE ctermbg=NONE
 " let g:terminal_ansi_colors = [
 "     \ '#282828', '#cc241d', '#98971a', '#d79921', '#458588', '#b16286', '#689d6a', '#a89984',
 "     \ '#928374', '#fb4934', '#b8bb26', '#fabd2f', '#83a598', '#d3869b', '#8ec07c', '#ebdbb2',
@@ -46,9 +55,10 @@ augroup vimrc
   autocmd FocusGained,BufEnter * :silent!
 
   autocmd InsertEnter,WinLeave * set nocursorline 
-  autocmd CmdlineEnter : set nocursorline  | redraw
   autocmd InsertLeave,WinEnter * set cursorline cursorlineopt=number
+  autocmd CmdlineEnter : set nocursorline  | redraw
   autocmd CmdlineLeave : set cursorline cursorlineopt=number
+
 augroup END
 
 augroup vimrc-incsearch-highlight
@@ -61,17 +71,17 @@ augroup END
 "" ============================================================================
 "" BASIC SETTINGS {{{
 "" ============================================================================
-highlight Search ctermbg=black ctermfg=gray cterm=underline
-
+highlight Search guibg=NONE guifg=gray cterm=underline
 
 " - To increment or decrement alphabetic charactor"
 "   See :h CTRL-A
 set nrformats+=alpha
 
 " - Cursor Mode Settings
-let &t_SI.="\e[5 q" "SI = INSERT mode
+let &t_SI.="\e[3 q" "SI = INSERT mode
 let &t_SR.="\e[3 q" "SR = REPLACE mode
-let &t_EI.="\e[6 q" "EI = NORMAL mode (ELSE)
+let &t_EI.="\e[5 q" "EI = NORMAL mode (ELSE)
+
 " - Cursor settings:
 "  1 -> blinking block
 "  2 -> solid block
@@ -130,6 +140,7 @@ set wildmenu
 set wildmode=list:longest,full
 set tabstop=2
 set shiftwidth=2
+autocmd vimrc FileType markdown setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
 set expandtab smarttab
 set encoding=utf-8
 "set list
@@ -188,9 +199,58 @@ set clipboard=unnamed
 "  set nofixeol
 "endif
 
+" ------------------------------------------------------------
+"     path settings
+" ------------------------------------------------------------
+"
+let g:python3_host_prog = '/usr/local/bin/python3'
+
 "" ============================================================================
 "" MAPPINGS
 "" ============================================================================
+
+
+" *map-table*
+"          Mode  | Norm | Ins | Cmd | Vis | Sel | Opr | Term | Lang | ~
+" Command        +------+-----+-----+-----+-----+-----+------+------+ ~
+" [nore]map      | yes  |  -  |  -  | yes | yes | yes |  -   |  -   |
+" n[nore]map     | yes  |  -  |  -  |  -  |  -  |  -  |  -   |  -   |
+" [nore]map!     |  -   | yes | yes |  -  |  -  |  -  |  -   |  -   |
+" i[nore]map     |  -   | yes |  -  |  -  |  -  |  -  |  -   |  -   |
+" c[nore]map     |  -   |  -  | yes |  -  |  -  |  -  |  -   |  -   |
+" v[nore]map     |  -   |  -  |  -  | yes | yes |  -  |  -   |  -   |
+" x[nore]map     |  -   |  -  |  -  | yes |  -  |  -  |  -   |  -   |
+" s[nore]map     |  -   |  -  |  -  |  -  | yes |  -  |  -   |  -   |
+" o[nore]map     |  -   |  -  |  -  |  -  |  -  | yes |  -   |  -   |
+" t[nore]map     |  -   |  -  |  -  |  -  |  -  |  -  | yes  |  -   |
+" l[nore]map     |  -   | yes | yes |  -  |  -  |  -  |  -   | yes  |
+
+" n[nore]map     | yes  |  -  |  -  |  -  |  -  |  -  |  -   |  -   |
+" i[nore]map     |  -   | yes |  -  |  -  |  -  |  -  |  -   |  -   |
+" c[nore]map     |  -   |  -  | yes |  -  |  -  |  -  |  -   |  -   |
+" x[nore]map     |  -   |  -  |  -  | yes |  -  |  -  |  -   |  -   |
+" s[nore]map     |  -   |  -  |  -  |  -  | yes |  -  |  -   |  -   |
+" o[nore]map     |  -   |  -  |  -  |  -  |  -  | yes |  -   |  -   |
+" t[nore]map     |  -   |  -  |  -  |  -  |  -  |  -  | yes  |  -   |
+
+" ------------------------------------------------------------
+"     miscellaneous
+" ------------------------------------------------------------
+" -- open command query"
+nnoremap : q:i
+
+" -- "
+map [[ ?{<CR>w99[{
+map ][ /}<CR>b99]}
+map ]] j0[[%/{<CR>
+map [] k$][%?}<CR>
+
+" http://vimcasts.org/episodes/neovim-terminal-mappings/
+if has('nvim')
+  " tnoremap <Esc> <C-\><C-n>
+  " tnoremap <M-[> <Esc>
+  " tnoremap <C-v><Esc> <Esc>
+endif
 
 "" ----------------------------------------------------------------------------
 "" Basic mappings
@@ -209,17 +269,23 @@ nnoremap <leader>delete_all_buffer %bdelete
 inoremap ~i <Esc><s-left>
 nnoremap ~i <esc><S-Left>
 cnoremap ~i <S-Left>
+vnoremap ~i <esc><S-Left>
 " Move a word forward
 inoremap ~o <esc><S-Right>
 nnoremap ~o <esc><S-Right>
 cnoremap ~o <S-Right>
+vnoremap ~o <esc><S-Right>
 " Select a word backward
-inoremap <M-S-Left> <esc>vb
-nnoremap <M-S-Left> vb
+inoremap ~w <esc>hvb
+nnoremap ~w hvb
+cnoremap ~w <S-Right>
+vnoremap ~w b
 " Select a word forward
-inoremap <M-S-Right> <esc>ve
-nnoremap <M-S-Right> ve
-vnoremap <M-S-Right> e
+inoremap ~e <esc>ve
+nnoremap ~e ve 
+cnoremap ~e <S-Left>
+vnoremap ~e e
+" vnoremap <M-S-Right> e
 " Select until the first non-blank character of the line.
 inoremap ~a <esc>v^
 nnoremap ~a v^
@@ -259,16 +325,21 @@ nnoremap <expr> <del> match(getline("."),'^$') ? "x" : "dd"
 " --------------------------------------------------------------------------------
 nnoremap <silent> ;so :so $MYVIMRC<cr>
 nnoremap <silent> ;c :clo<cr>
-nnoremap <silent> ;b :bn<cr>
 nnoremap <silent> ;nu :set nu rnu<cr>
+
+
 "" <leader>n | NERD Tree
 noremap ;n :NERDTreeToggle<cr>
 "" open terminal in the directory of the current file"
+" nnoremap ;t :let $VIM_DIR=expand('%:p:h')<CR>:terminal<CR>cd $VIM_DIR<CR>
 nnoremap ;t :let $VIM_DIR=expand('%:p:h')<CR>:terminal<CR>cd $VIM_DIR<CR>
+" https://github.com/neovim/neovim/issues/5073
+" command! -nargs=* T split | terminal <args>
+" command! -nargs=* VT vsplit | terminal <args>
 " quit
 nnoremap ;q :q<cr>
-nnoremap ;Q :qa<cr>
-nnoremap ;QQ :qa!<cr>
+nnoremap ;qq :qa<cr>
+nnoremap ;qqq :tabdo NERDTreeClose<CR> :qa!<cr>
 " --------------------------------------------------------------------------------
 
 " --------------------------------------------------------------------------------
@@ -332,7 +403,7 @@ nnoremap <leader>delete_from_cursor_to_the_end_of_line D
 
 nnoremap _open_help_right_vertically :vert help<CR> <C-W>x
 
-nnoremap <expr> show_corner ShowCorner()
+" nnoremap <expr> show_corner ShowCorner()
 function! ShowCorner()
     set laststatus=2
     set showtabline=2
@@ -341,7 +412,7 @@ function! ShowCorner()
     set ruler
 endfunction
 
-nnoremap <expr> Hide_corner HideCorner()
+" nnoremap <expr> Hide_corner HideCorner()
 function! HideCorner()
     set laststatus=0
     set showtabline=0
@@ -406,8 +477,8 @@ nnoremap k <C-u>
 " go tab next"
 nnoremap <silent> h :tabp<CR>
 nnoremap <silent> l :tabn<CR>
-nnoremap H :bN<CR>
-nnoremap L :bn<CR>
+nnoremap <silent> H :bN<CR>
+nnoremap <silent> L :bn<CR>
 
 
 " nnoremap <CR> :noh<CR>
@@ -517,7 +588,7 @@ nmap <leader>text_heading_a m'o<esc>80i=<esc>yy''4i <esc>PV2jgcgv<esc>o
 nmap <leader>text_heading_b m'o<esc>60i-<esc>yy''4i <esc>PV2jgcgv<esc>o
 " nnoremap <leader>text_heading_c o- <left>y2l39pyy1kP
 nmap <leader>text_heading_c m`yypVr-``Vjgcgv<esc>o
-nnoremap <silent> <leader>text_heading_del gc:+1d\|-2d<cr>
+nnoremap <silent> <leader>text_heading_del :+1d\|-2d<cr>
 
 " === Markdown headings
 
@@ -616,19 +687,16 @@ cnoremap <expr> <C-F> getcmdpos()>strlen(getcmdline())?&cedit:"\<Lt>Right>"
 " endfunction
 
 " --------------------------------------------------------------------------------
-" Help in new tabs
+" Customizing help
 " --------------------------------------------------------------------------------
 
-function! s:helptab()
+function! s:helpWindows()
   if &buftype == 'help'
-    wincmd T
-    nnoremap <buffer> q :q<cr>
     :set nu rnu
     :set cursorline cursorlineopt=number
   endif
 endfunction
-" autocmd vimrc BufEnter *.txt call s:helptab()
-nnoremap <expr> <leader>help_in_new_tabs helptab()
+autocmd vimrc BufEnter *.txt call s:helpWindows()
 " --------------------------------------------------------------------------------
 
 " --------------------------------------------------------------------------------
