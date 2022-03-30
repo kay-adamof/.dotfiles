@@ -10,6 +10,7 @@
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'honza/vim-snippets'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'lambdalisue/battery.vim'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
