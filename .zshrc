@@ -109,7 +109,7 @@ plugins=(git docker macos)
 # ------------------------------------------------------------
 #     Import this plugin
 # ------------------------------------------------------------
-plugins+=(zsh-vi-mode)
+# plugins+=(zsh-vi-mode)
 # ------------------------------------------------------------
 #     Custom key bindings
 # ------------------------------------------------------------
@@ -236,6 +236,7 @@ export FZF_REVERSE_ISEARCH_OPTS='--preview-window=up:10 --preview="echo {}" --he
 # e.g. ^music .mp3$ sbtrkt !fire
 
 # Token  	Match_type                	Description
+# --      --                         --
 # 'wild  	exact-match                (quoted)	Items that include wild
 # ^music 	prefix-exact-match        	Items that start with music
 # .mp3$  	suffix-exact-match        	Items that end with .mp3
@@ -246,8 +247,8 @@ export FZF_REVERSE_ISEARCH_OPTS='--preview-window=up:10 --preview="echo {}" --he
 #     To use fzf with zsh-vi-mode
 # ------------------------------------------------------------
 # https://github.com/jeffreytse/zsh-vi-mode#execute-extra-commands
-zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # ================================================================================
 #     Set manpager
 # ================================================================================
