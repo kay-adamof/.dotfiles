@@ -48,27 +48,6 @@
               "key_code": "semicolon"
             }
           ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "semicolon",
-            "modifiers": {
-              "mandatory": ["fn","left_control"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "right_shift",
-              "modifiers": ["fn","left_control"],
-              "lazy": true
-            }
-          ],
-          "to_if_alone": [
-            {
-              "key_code": "0"
-            }
-          ]
         }
       ]
     },
