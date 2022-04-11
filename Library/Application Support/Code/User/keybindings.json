@@ -2,7 +2,7 @@
   //================================================================================
   // for Vim
   //================================================================================
-  // refs:  
+  // refs:
   // https://www.ascii-code.com/
   // https://en.wikipedia.org/wiki/Shift_Out_and_Shift_In_characters
   //      Key Modifiers
@@ -26,7 +26,7 @@
   //    End:          \UF72B        Scroll Lock:  \UF72F
   //    Break:        \UF732        Pause:        \UF730
   //    SysReq:       \UF731        Menu:         \UF735
-  //    Help:         \UF746 
+  //    Help:         \UF746
   //    Shift In / X-Off: \u000F
 
   //    OS X
@@ -46,11 +46,11 @@
   //     shift left
   // - Some keys show up like this:
   //     ^[[1;2D
-  //     ^[ : escape represented by \u001b 
+  //     ^[ : escape represented by \u001b
   //          as the ascii non-printable key code
   //      [1;2D : left. but I don’t make sure why it’s left.
   // - Finally, the desired key code can be taken.
-  //     \u001b[1;2D 
+  //     \u001b[1;2D
   // ----------------------------------------------------------------------
   // https://en.wikipedia.org/wiki/ANSI_escape_code
   // ----------------------------------------------------------------------
@@ -63,47 +63,59 @@
   // <esc> '[' (<keycode>) (';'<modifier>) '~'      -> keycode sequence, <keycode> and <modifier> are decimal numbers and default to 1 (vt)
 
   {
-  "key": "alt+left",
-  "command": "workbench.action.terminal.sendSequence",
-  "when": "terminalFocus",
-  "args": { "text": "~i" }
+    "key": "alt+left",
+    "command": "workbench.action.terminal.sendSequence",
+    "when": "terminalFocus",
+    "args": { "text": "~i" }
   },
   {
-  "key": "alt+right",
-  "command": "workbench.action.terminal.sendSequence",
-  "when": "terminalFocus",
-  "args": { "text": "~o" }
+    "key": "alt+right",
+    "command": "workbench.action.terminal.sendSequence",
+    "when": "terminalFocus",
+    "args": { "text": "~o" }
   },
   {
-  "key": "cmd+shift+left",
-  "command": "workbench.action.terminal.sendSequence",
-  "when": "terminalFocus",
-  "args": { "text": "~a" }
+    "key": "alt+shift+left",
+    "command": "workbench.action.terminal.sendSequence",
+    "when": "terminalFocus",
+    "args": { "text": "~w" }
   },
   {
-  "key": "cmd+shift+right",
-  "command": "workbench.action.terminal.sendSequence",
-  "when": "terminalFocus",
-  "args": { "text": "~f" }
+    "key": "alt+shift+right",
+    "command": "workbench.action.terminal.sendSequence",
+    "when": "terminalFocus",
+    "args": { "text": "~e" }
   },
   {
-  "key": "cmd+a",
-  "command": "workbench.action.terminal.sendSequence",
-  "when": "terminalFocus",
-  "args": { "text": "~r" }
+    "key": "cmd+shift+left",
+    "command": "workbench.action.terminal.sendSequence",
+    "when": "terminalFocus",
+    "args": { "text": "~a" }
   },
   {
-  "key": "cmd+z",
-  "command": "workbench.action.terminal.sendSequence",
-  "when": "terminalFocus",
-  "args": { "text": "~z" }
+    "key": "cmd+shift+right",
+    "command": "workbench.action.terminal.sendSequence",
+    "when": "terminalFocus",
+    "args": { "text": "~f" }
   },
   {
-  "key": "cmd+v",
-  "command": "workbench.action.terminal.sendSequence",
-  "when": "terminalFocus",
-  "args": { "text": "~v" }
+    "key": "cmd+a",
+    "command": "workbench.action.terminal.sendSequence",
+    "when": "terminalFocus",
+    "args": { "text": "~r" }
   },
+  {
+    "key": "cmd+z",
+    "command": "workbench.action.terminal.sendSequence",
+    "when": "terminalFocus",
+    "args": { "text": "~z" }
+  },
+  // {
+  // "key": "cmd+v",
+  // "command": "workbench.action.terminal.sendSequence",
+  // "when": "terminalFocus",
+  // "args": { "text": "~v" }
+  // },
   //================================================================================
   // basics
   //================================================================================
@@ -259,6 +271,16 @@
     "key": "cmd+k cmd+p",
     "command": "workbench.action.togglePanel"
   },
+  {
+    "key": "shift+cmd+p",
+    "command": "workbench.action.closeQuickOpen",
+    "when": "inQuickOpen"
+  },
+  {
+    "key": "escape",
+    "command": "-workbench.action.closeQuickOpen",
+    "when": "inQuickOpen"
+  }
   // {
   //   "key": "shift+q",
   //   "command": "workbench.action.quickOpenView"
