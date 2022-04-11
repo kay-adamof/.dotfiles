@@ -960,6 +960,23 @@
         {
           "type": "basic",
           "from": {
+            "key_code": "quote",
+            "modifiers": {
+                "mandatory": ["left_control"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "tab",
+              "modifiers": [
+                  "right_shift"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
             "key_code": "semicolon",
             "modifiers": {
                 "mandatory": ["left_control"]
