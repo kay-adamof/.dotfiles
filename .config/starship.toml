@@ -68,7 +68,10 @@ $status\
 $line_break\
 $shell\
 $line_break\
-$character"""
+$character\
+${custom.in_docker}\
+"""
+# ${custom.docker}"""
 
 # Inserts a blank line between shell prompts
 add_newline = true
@@ -141,3 +144,4 @@ time_format = "%Y/%m/%d | %R"
 # format = "AA $fill BB $fill CC"
 symbol = "-"
 style = "#6272a4" # Dracula comment color
+

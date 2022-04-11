@@ -5,7 +5,7 @@ export PATH="$HOME/bin:$PATH"
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/koichi/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -109,12 +109,48 @@ plugins=(git docker macos)
 # ------------------------------------------------------------
 #     Import this plugin
 # ------------------------------------------------------------
-# plugins+=(zsh-vi-mode)
+plugins+=(zsh-vi-mode)
 # ------------------------------------------------------------
 #     Custom key bindings
 # ------------------------------------------------------------
 # zvm_bindkey <keymap> <keys> <widget>
+# ------------------------------------------------------------
+#     Setting Editor
+# ------------------------------------------------------------
+# ZVM_VI_EDITOR="nvim -u NONE"
+ZVM_VI_EDITOR="$VISUAL"
 
+# ================================================================================
+#     [pierpo/fzf-docker: 🐳 Docker completion in zsh using fzf 🌸](https://github.com/pierpo/fzf-docker) 
+# ================================================================================
+#
+# Usage
+# If you don't like the ** prefix (which is a fzf thing), you may change it in your zshrc:
+
+# export FZF_COMPLETION_TRIGGER='**'
+# I personally put , instead 😉
+
+# Command list:       docker **<TAB>
+# Remove images:      docker rmi **<TAB>
+# Start containers:   docker start **<TAB>
+# Stop containers:    docker stop **<TAB>
+# Remove containers:  docker rm **<TAB>
+
+plugins+=(fzf-docker)
+
+# ================================================================================
+#     [zsh-users/zsh-autosuggestions: Fish-like autosuggestions for zsh](https://github.com/zsh-users/zsh-autosuggestions)
+# ================================================================================
+# 
+plugins+=(zsh-autosuggestions)
+
+# ================================================================================
+#     [zsh-users/zsh-syntax-highlighting: Fish shell like syntax highlighting for Zsh.](https://github.com/zsh-users/zsh-syntax-highlighting)
+# ================================================================================
+#
+plugins+=(zsh-syntax-highlighting)
+#
+# 
 source $ZSH/oh-my-zsh.sh
 # ================================================================================
 #     basic settings
@@ -192,6 +228,40 @@ alias vr="code -r" # Open a file in current vscode window
 alias zshrc="vi ~/.zshrc"
 alias vimrc="vi ~/.vimrc"
 alias ldd="l -d */" # Show only directory
+alias nterm="$EDITOR --cmd term"
+
+# ================================================================================
+#     
+#     BAT
+# ================================================================================
+# https://github.com/sharkdp/bat#customization
+#
+# Theme: 1337
+# Theme: Coldark-Cold
+# Theme: Coldark-Dark
+# Theme: Dracula
+# Theme: DarkNeon
+# Theme: GitHub
+# Theme: Monokai Extended
+# Theme: Monokai Extended Bright
+# Theme: Monokai Extended Light
+# Theme: Monokai Extended Origin
+# Theme: Nord
+# Theme: OneHalfDark
+# Theme: OneHalfLight
+# Theme: Solarized (dark)
+# Theme: Solarized (light)
+# Theme: Sublime Snazzy
+# Theme: TwoDark
+# Theme: Visual Studio Dark+
+# Theme: ansi
+# Theme: base16
+# Theme: base16-256
+# Theme: gruvbox-dark
+# Theme: gruvbox-light
+# Theme: zenburn
+# export BAT_THEME="Dracula"
+
 
 # ================================================================================
 #     FZF
@@ -203,30 +273,36 @@ alias ldd="l -d */" # Show only directory
 # ------------------------------------------------------------
 #     Key bindings for command-line
 # ------------------------------------------------------------
+
 # CTRL-T - Paste the selected files and directories onto the command-line
-# Set FZF_CTRL_T_COMMAND to override the default command
-# Set FZF_CTRL_T_OPTS to pass additional options
 # CTRL-R - Paste the selected command from history onto the command-line
+# ALT-C  - cd into the selected directory
+# Set FZF_CTRL_T_COMMAND: to override the default command
+# Set FZF_CTRL_T_OPTS   : to pass additional options
 # If you want to see the commands in chronological order, press CTRL-R again which toggles sorting by relevance
-# Set FZF_CTRL_R_OPTS to pass additional options
-# ALT-C - cd into the selected directory
-# Set FZF_ALT_C_COMMAND to override the default command
-# Set FZF_ALT_C_OPTS to pass additional options 
+# Set FZF_CTRL_R_OPTS   : to pass additional options
+# Set FZF_ALT_C_COMMAND : to override the default command
+# Set FZF_ALT_C_OPTS    : to pass additional options 
+
 # ------------------------------------------------------------
 #     FZF default settings
 # ------------------------------------------------------------
+
 # --files      List files that would be searched but do not search
 # --no-ignore  Do not respect .gitignore, etc...
 # --hidden     Search hidden files and folders
 # --follow     Follow symlinks
 # --glob       Additional conditions for search (in this case ignore everything in the .git/ folder)
+
 # export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
 # export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+
 # export FZF_DEFAULT_OPTS='--height 60% --layout=reverse --border'
 #     \   'rg --with-filename --column --line-number --no-heading --smart-case . '.fnameescape(expand('%:p')), 1,
 #         \   fzf#vim#with_preview({'options': '--layout reverse --height=100% --query '.shellescape(<q-args>).' --bind change:first --with-nth=4.. --delimiter=":"'}, 'right:50%'),1)
-# ------------------------------------------ https://mattorb.com/the-many-faces-of-fzf/
+
+# https://mattorb.com/the-many-faces-of-FZF/
 export FZF_REVERSE_ISEARCH_OPTS='--preview-window=up:10 --preview="echo {}" --height 100%'
 # ------------------------------------------------------------
 #     Search syntax
@@ -246,9 +322,10 @@ export FZF_REVERSE_ISEARCH_OPTS='--preview-window=up:10 --preview="echo {}" --he
 # ------------------------------------------------------------
 #     To use fzf with zsh-vi-mode
 # ------------------------------------------------------------
-# https://github.com/jeffreytse/zsh-vi-mode#execute-extra-commands
-# zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# https
+# ://github.com/jeffreytse/zsh-vi-mode#execute-extra-commands
+zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # ================================================================================
 #     Set manpager
 # ================================================================================
@@ -260,8 +337,20 @@ export FZF_REVERSE_ISEARCH_OPTS='--preview-window=up:10 --preview="echo {}" --he
 # ------------------------------------------------------------
 #     "vim" as manpager
 # ------------------------------------------------------------
-export MANPAGER='/bin/zsh -c "vim -MRn -c \"set buftype=nofile showtabline=0 ft=man ts=8 nomod nolist norelativenumber nonu noma\" -c \"normal L\" -c \"nmap q :qa<CR>\"</dev/tty <(col -b)"'
+# export MANPAGER='/bin/zsh -c "vim -MRn -c \"set buftype=nofile showtabline=0 ft=man ts=8 nomod nolist norelativenumber nonu noma\" -c \"normal L\" -c \"nmap q :qa<CR>\"</dev/tty <(col -b)"'
+export MANPAGER='/bin/zsh -c "nvim -MRn -c \"set buftype=nofile showtabline=0 ft=man ts=8 number relativenumber cursorline cursorlineopt=number nomod nolist nomodifiable\"</dev/tty <(col -b)"'
 
+# export MANPAGER='/bin/zsh -c  \
+# "nvim --cmd "set buftype=nofile showtabline=0 ft=man ts=8 nomod nolist noma" \
+# --cmd "normal L" \
+# --cmd "nmap q :qa<CR>" \
+# </dev/tty <(col -b)"'
+
+
+# ================================================================================
+#     alias
+# ================================================================================
+#
 # git
 alias addup='git add -u'
 alias addall='git add .'
@@ -272,7 +361,7 @@ alias commit='git commit -m'
 alias fetch='git fetch'
 alias pull='git pull origin'
 alias push='git push origin'
-alias stat='git status'  # 'status' is protected name so using 'stat' instead
+# alias stat='git status'  # 'status' is protected name so using 'stat' instead
 alias tag='git tag'
 alias newtag='git tag -a'
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
@@ -283,8 +372,10 @@ alias memo_fuzzy='$HOME/git-fuzzy/bin --git-dir=$HOME/.memo/ --work-tree=$HOME'
 export PATH="/usr/local/bin:$PATH"
 
 # -- Make Vim Default Editor For Git and OS
-export VISUAL=vim
+
+export VISUAL=nvim
 export EDITOR="$VISUAL"
+# export EDITOR="$VISUAL"
 
 # -- Set the editor only for Git.
 # export GIT_EDITOR="/usr/local/bin/vim"
@@ -473,6 +564,20 @@ source $HOME/bin/google_search.sh
 # "^S" history-incremental-search-forward # "^[[A" up-line-or-history
 # "^T" fzf-file-widget                    # "^[[B" down-line-or-history
 # "^U" zvm_viins_undo                     # "^[[C" vi-forward-char
+zvm_bindkey vicmd '^Z' fzf-cd-widget
+
+zvm_bindkey vicmd '~o' forward-word
+zvm_bindkey viins '~o' forward-word
+zvm_bindkey vicmd '~i' backward-word
+zvm_bindkey viins '~i' backward-word
+zvm_bindkey vicmd '~a' beginning-of-line
+zvm_bindkey viins '~a' beginning-of-line
+zvm_bindkey vicmd '~f' end-of-line
+zvm_bindkey viins '~f' end-of-line
+zvm_bindkey vicmd '~w' backward-kill-word
+zvm_bindkey viins '~w' backward-kill-word
+zvm_bindkey vicmd '~e' kill-word
+zvm_bindkey viins '~e' kill-word
 
 # ----------------------------------------------------------------------
 # https://en.wikipedia.org/wiki/ANSI_escape_code

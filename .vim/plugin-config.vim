@@ -1,9 +1,29 @@
 " ================================================================================
+"       Plug 'mhinz/vim-signify'
+" ================================================================================
+" :h signify
+set updatetime=100
+
+nnoremap <leader>SignifyDiff :SignifyDiff<cr>
+nnoremap <leader>SignifyHunkDiff :SignifyHunkDiff<cr>
+nnoremap <leader>SignifyHunkUndo :SignifyHunkUndo<cr>
+
+" hunk jumping
+nmap <leader>signify-next-hunk <plug>(signify-next-hunk)
+nmap <leader>signify-prev-hunk <plug>(signify-prev-hunk)
+
+" hunk text object
+omap ic <plug>(signify-motion-inner-pending)
+xmap ic <plug>(signify-motion-inner-visual)
+omap ac <plug>(signify-motion-outer-pending)
+xmap ac <plug>(signify-motion-outer-visual)
+
+" ================================================================================
 "     Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " ================================================================================
 " :help coc-nvim
 " https://github.com/neoclide/coc.nvim
-"
+
 " Set internal encoding of vim, not needed on neovim, since coc.nvim using some
 " unicode characters in the file autoload/float.vim
 set encoding=utf-8
@@ -222,13 +242,13 @@ let g:coc_snippet_next = '<tab>'
 " mappings
 " --------
 " -- Create new snippet with current selected text, visual mode only.
-vmap     <leader>coc_snip_convert             <Plug>(coc-convert-snippet)
+" vmap     <leader>coc_snip_convert             <Plug>(coc-convert-snippet)
 " -- Expand snippet with current inserted text, insert mode only.
-imap     <leader>coc_snip_expand              <Plug>(coc-snippets-expand)
+" imap     <leader>coc_snip_expand              <Plug>(coc-snippets-expand)
 " -- Expand snippet or jump to next placeholder of current snippet when possible, insert mode only.
-imap     <leader>coc_snip_expand_jump         <Plug>(coc-snippets-expand-jump)
+" imap     <leader>coc_snip_expand_jump         <Plug>(coc-snippets-expand-jump)
 " -- Remove selected text and save to g:coc_selected_text which will replace $VISUAL on next snippet expand
-map      <leader>coc_snip_select              <Plug>(coc-snippets-select)
+" map      <leader>coc_snip_select              <Plug>(coc-snippets-select)
 " -- to open snippets list used by current buffer.
 nnoremap <leader>coc_snip_open_snippets_list  :CocList snippets
 " -- to choose and open a snippet file that used by current document.
@@ -238,7 +258,7 @@ nnoremap <leader>coc_snip_edit                :CocCommand snippets.editSnippets
 " -- to open output channel of snippets.
 nnoremap <leader>coc_snip_open_output_channel :CocCommand snippets.openOutput
 " --------
-
+   
 " ------------------------------------------------------------
 "     CocInstall coc-prettier
 " ------------------------------------------------------------
@@ -247,6 +267,13 @@ command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
 
 vmap <leader>coc_prettier_format_seleced  <Plug>(coc-format-selected)
 nmap <leader>coc_prettier_format_seleced  <Plug>(coc-format-selected)
+
+" ------------------------------------------------------------
+"     :CocInstall coc-yank
+" ------------------------------------------------------------
+"  https://github.com/neoclide/coc-yank
+"
+nnoremap <silent> ;y  :<C-u>CocList -A --normal yank<cr>
 
 " ================================================================================
 "     Plug 'lambdalisue/battery.vim'
@@ -361,8 +388,9 @@ let g:VM_maps["Select l"] = ''
 " Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
 
-"-- Plug 'haya14busa/incsearch-fuzzy.vim'
-"-- Plug 'haya14busa/incsearch.vim'
+" =============================================================================== Plug 'haya14busa/incsearch-fuzzy.vim'
+" ================================================================================
+"
 " map f /
 " map / <Plug>(incsearch-fuzzy-/)
 " map F /
@@ -373,6 +401,9 @@ let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowTo
 " map / <Plug>(incsearch-fuzzy-/)
 " map ? <Plug>(incsearch-fuzzy-?)
 " map zg/ <Plug>(incsearch-fuzzy-stay)
+map zf <Plug>(incsearch-fuzzy-/)
+map zF <Plug>(incsearch-fuzzy-?)
+map zg/ <Plug>(incsearch-fuzzy-stay)
 
 "-- Plug 'junegunn/vim-easy-align'
 nmap <leader>easy_align_inner_paragraph              <Plug>(EasyAlign)ip
@@ -439,6 +470,83 @@ let g:startify_bookmarks = [
 " --------------------------------------------------------------------------------
 " FZF.VIM CONFIG
 " --------------------------------------------------------------------------------
+" CTRL-T: new tab
+" CTRL-X: horizontal split
+" CTRL-V: vertical split 
+
+" !(bang) version starts fzf in fullscreen mode
+
+" Examples
+" " This is the default extra key bindings
+" let g:fzf_action = {
+"   \ 'ctrl-t': 'tab split',
+"   \ 'ctrl-x': 'split',
+"   \ 'ctrl-v': 'vsplit' }
+
+" " An action can be a reference to a function that processes selected lines
+" function! s:build_quickfix_list(lines)
+"   call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+"   copen
+"   cc
+" endfunction
+
+" let g:fzf_action = {
+"   \ 'ctrl-q': function('s:build_quickfix_list'),
+"   \ 'ctrl-t': 'tab split',
+"   \ 'ctrl-x': 'split',
+"   \ 'ctrl-v': 'vsplit' }
+
+
+" ------------------------------------------------------------
+"     window settings
+" ------------------------------------------------------------
+"
+" " Default fzf layout
+" " - Popup window (center of the screen)
+" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+
+" " - Popup window (center of the current window)
+" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'relative': v:true } }
+
+" " - Popup window (anchored to the bottom of the current window)
+" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'relative': v:true, 'yoffset': 1.0 } }
+
+" " - down / up / left / right
+" let g:fzf_layout = { 'down': '40%' }
+
+" " - Window using a Vim command
+" let g:fzf_layout = { 'window': 'enew' }
+let g:fzf_layout = { 'window': '-tabnew' }
+" let g:fzf_layout = { 'window': '10new' }
+
+" " Customize fzf colors to match your color scheme
+" " - fzf#wrap translates this to a set of `--color` options
+" let g:fzf_colors =
+" \ { 'hl': ['fg', 'CursorLine','Normal'],
+"   \ 'fg+':     ['fg', 'CursorLine', 'Normal'],
+"   \ 'bg+':     ['bg', 'CursorLine'],
+"   \ 'preview-bg':     ['bg', 'CursorLine'],
+"   \ 'hl+': ['bg', 'CursorLine', 'CursorColumn']}
+
+  " \ 'preview-fg':     ['fg', 'CursorLine', 'Normal'],
+  "
+" " Enable per-command history
+" " - History files will be stored in the specified directory
+" " - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
+" "   'previous-history' instead of 'down' and 'up'.
+" let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+" List notation is the prefered option format:
+" call fzf#run({'options': ['--reverse', '--prompt', 'C:\Program Files\']})"
+
+" Preview window on the upper side of the window with 40% height,
+" hidden by default, ctrl-/ to toggle
+let g:fzf_preview_window = ['up:60%:hidden', 'ctrl-/']
+
+" ------------------------------------------------------------
+"     custom commands
+" ------------------------------------------------------------
+"
 command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
   " fzf.vim ripgrep advanced option command RG"
 function! RipgrepFzf(query, fullscreen)
@@ -453,7 +561,7 @@ command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 command! -bang -nargs=* BLines
     \ call fzf#vim#grep(
     \   'rg --with-filename --column --line-number --no-heading --smart-case . '.fnameescape(expand('%:p')), 1,
-    \   fzf#vim#with_preview({'options': '--layout reverse --height=100% --query '.shellescape(<q-args>).' --bind change:first --with-nth=4.. --delimiter=":"'}, 'right:50%'),1)
+    \   fzf#vim#with_preview({'options': '--layout reverse --height=100% --query '.shellescape(<q-args>).' --bind change:first --with-nth=4.. --delimiter=":"'}, 'up:60%'),1)
     " \   fzf#vim#with_preview({'options': '--layout reverse  --with-nth=-1.. --delimiter="/"'}, 'right:50%'))
 command! -bang -nargs=* LinesWithPreview
     \ call fzf#vim#grep(
@@ -465,6 +573,10 @@ command! -bang -nargs=* LinesWithPreview
 " command! -bang -nargs=* BLines call fzf#vim#buffer_lines(<q-args>, fzf#vim#with_preview(), <bang>0)
 " command! -nargs=* -bang BLines call fzf#vim#blines(fzf#vim#with_preview())
 
+" ------------------------------------------------------------
+"     Mappings related to fzf
+" ------------------------------------------------------------
+"
   " Mapping selecting mappings
 nmap <leader><Space> <plug>(fzf-maps-n)
 xmap <leader><Space> <plug>(fzf-maps-x)
@@ -522,9 +634,21 @@ let g:ale_fixers = {
 "     Plug 'vim-airline/vim-airline'
 " ================================================================================
 let g:airline#extensions#fzf#enabled = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_statusline_ontop = 0
+" let g:airline_statusline_ontop = 0
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+
+" * enable/disable enhanced tabline. (c) >
+" let g:airline#extensions#tabline#enabled = 1
+
+" * enable/disable displaying open splits per tab (only when tabs are opened) >
+" let g:airline#extensions#tabline#show_splits = 1
+
+" * switch position of buffers and tabs on splited tabline (c)
+  " (only supported for ctrlspace plugin). >
+" let g:airline#extensions#tabline#switch_buffers_and_tabs = 0
+
+" * enable/disable displaying buffers with a single tab. (c) >
+" let g:airline#extensions#tabline#show_buffers = 0
 
 " Append/Replace custom sections to default sections prepared by Airline"
 function! AirlineInit()

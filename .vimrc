@@ -1,4 +1,5 @@
-""""" Vim 8 defaults
+
+"""" Vim 8 defaults
 
 unlet! skip_defaults_vim
 silent! source $VIMRUNTIME/defaults.vim
@@ -14,24 +15,24 @@ let s:windows = has('win32') || has('win64')
 let mapleader      = ' '
 let maplocalleader = ' '
 
-syntax on
+" if mode() != "t"
+"   set syntax=off
+" endif
 
 " ------------------------------------------------------------
-"     set by vim-plug
+"     import from other files
 " ------------------------------------------------------------
 "
 so ~/.vim/plugins.vim
 so ~/.vim/plugin-config.vim
-
-" ------------------------------------------------------------
-    
-" ------------------------------------------------------------
-"
 so ~/.vim/autoclose.vim
 so ~/.vim/GoogleSearch.vim
 so ~/.vim/surround-vim_mappings.vim
 
-"-- color & theme config
+" ------------------------------------------------------------
+"     color & theme config
+" ------------------------------------------------------------
+"
 set termguicolors
 " hi Cursor gui=reverse guifg=NONE guibg=NONE
 " let g:dracula_italic = 1
@@ -54,7 +55,7 @@ augroup vimrc
   autocmd FocusGained,BufEnter * :silent! !
   autocmd FocusGained,BufEnter * :silent!
 
-  autocmd InsertEnter,WinLeave * set nocursorline 
+  autocmd InsertEnter,WinLeave * set nocursorline
   autocmd InsertLeave,WinEnter * set cursorline cursorlineopt=number
   autocmd CmdlineEnter : set nocursorline  | redraw
   autocmd CmdlineLeave : set cursorline cursorlineopt=number
@@ -72,10 +73,20 @@ augroup END
 "" BASIC SETTINGS {{{
 "" ============================================================================
 highlight Search guibg=NONE guifg=gray cterm=underline
+highlight CursorLine ctermbg=100 guibg=#cccc49
 
 " - To increment or decrement alphabetic charactor"
 "   See :h CTRL-A
 set nrformats+=alpha
+
+
+if has('nvim')
+  set guicursor=n-v-c:ver50
+  set guicursor+=i-ci-ve:hor25-blinkon0
+  set guicursor+=r-cr:hor20,o:hor50
+  " set guicursor+=a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+  set guicursor+=sm:block-blinkwait175-blinkoff150-blinkon175
+endif
 
 " - Cursor Mode Settings
 let &t_SI.="\e[3 q" "SI = INSERT mode
@@ -107,6 +118,8 @@ set wrap
 set listchars=eol:.,tab:>-,trail:~,extends:>,precedes:<
 set number
 set relativenumber
+set cursorline
+set cursorlineopt=number
 set scrolloff=999
 set signcolumn=no
 set showcmd
@@ -116,7 +129,7 @@ set formatoptions-=cro
 
 set noerrorbells visualbell t_vb=
 " --------------------------------------------------------------------------------
-" Why is "unnamedplus" selected? 
+" Why is "unnamedplus" selected?
 " --------------------------------------------------------------------------------
 " https://francopasut.netlify.app/post/vim_cut_copy_paste_clipboard/
 " *: Store some information to the middle mouse button
@@ -236,6 +249,9 @@ let g:python3_host_prog = '/usr/local/bin/python3'
 " ------------------------------------------------------------
 "     miscellaneous
 " ------------------------------------------------------------
+" -- fold beautifully"
+nnoremap zZ zRzXzMzr
+
 " -- open command query"
 nnoremap : q:i
 
@@ -256,7 +272,7 @@ endif
 "" Basic mappings
 "" ----------------------------------------------------------------------------
 nnoremap <leader>delete_all_buffer %bdelete
-
+vnoremap <bs> d
 " inoremap <esc>b <S-Left>
 " nnoremap <expr> <esc>b mode(n)>1 ? '<S-Left>' : ''
 
@@ -282,7 +298,7 @@ cnoremap ~w <S-Right>
 vnoremap ~w b
 " Select a word forward
 inoremap ~e <esc>ve
-nnoremap ~e ve 
+nnoremap ~e ve
 cnoremap ~e <S-Left>
 vnoremap ~e e
 " vnoremap <M-S-Right> e
@@ -299,8 +315,8 @@ nnoremap ~r V
 inoremap ~z <ESC>u
 nnoremap ~z u
 " paste"
-inoremap ~v <C-r>+
-nnoremap ~v "+p
+" inoremap ~v <C-r>+
+" nnoremap ~v "+p
 " Escaping
 " https://vim.fandom.com/wiki/Avoid_the_escape_key
 inoremap <expr> <Up>    pumvisible() ? "<Up>"    : "<ESC>`^<Up>"
@@ -315,7 +331,7 @@ inoremap <expr> <right> pumvisible() ? "<right>" : "<ESC>`^<right>"
 " --------------------------------------------------------------------------------
 " Delete
 " --------------------------------------------------------------------------------
-" If the cursor is in the head of line, backspace key acts as ctrl-J; 
+" If the cursor is in the head of line, backspace key acts as ctrl-J;
 " otherwise, delete a char.
 nnoremap <expr> <bs> getpos(".")[2]==1 ? "b<S-j>" : "X"
 nnoremap <expr> <del> match(getline("."),'^$') ? "x" : "dd"
@@ -325,21 +341,22 @@ nnoremap <expr> <del> match(getline("."),'^$') ? "x" : "dd"
 " --------------------------------------------------------------------------------
 nnoremap <silent> ;so :so $MYVIMRC<cr>
 nnoremap <silent> ;c :clo<cr>
-nnoremap <silent> ;nu :set nu rnu<cr>
+" nnoremap <silent> ;nu :set nu rnu<cr>
 
 
 "" <leader>n | NERD Tree
 noremap ;n :NERDTreeToggle<cr>
 "" open terminal in the directory of the current file"
 " nnoremap ;t :let $VIM_DIR=expand('%:p:h')<CR>:terminal<CR>cd $VIM_DIR<CR>
-nnoremap ;t :let $VIM_DIR=expand('%:p:h')<CR>:terminal<CR>cd $VIM_DIR<CR>
+" nnoremap ;t :let $VIM_DIR=expand('%:p:h')<CR>:terminal<CR>cd $VIM_DIR<CR>
+nnoremap ;term :let $VIM_DIR=expand('%:p:h')<CR>:split<bar>terminal<CR>i cd $VIM_DIR<CR>
 " https://github.com/neovim/neovim/issues/5073
 " command! -nargs=* T split | terminal <args>
 " command! -nargs=* VT vsplit | terminal <args>
 " quit
-nnoremap ;q :q<cr>
-nnoremap ;qq :qa<cr>
-nnoremap ;qqq :tabdo NERDTreeClose<CR> :qa!<cr>
+nnoremap ;q :q!<cr>
+nnoremap ;qq :qa!<cr>
+" nnoremap ;qqq :tabdo NERDTreeClose<CR> :qa!<cr>
 " --------------------------------------------------------------------------------
 
 " --------------------------------------------------------------------------------
@@ -356,9 +373,9 @@ endfunction
 " --------------------------------------------------------------------------------
 " forgetful commands
 " --------------------------------------------------------------------------------
-nnoremap <leader>vim_multi_select_all _A 
-nnoremap <leader>vim_multi_reselect_previous_region _gS 
-nnoremap <leader>vim_multi_substitution R 
+nnoremap <leader>vim_multi_select_all _A
+nnoremap <leader>vim_multi_reselect_previous_region _gS
+nnoremap <leader>vim_multi_substitution R
 
 nnoremap <leader>open-url-with-browser gx
 
@@ -376,6 +393,10 @@ xnoremap <leader>Add_text_to_end_string                           :g/^pattern/s/
 xnoremap <leader>Run_a_macro_on_matching_lines                    :g/pattern/normal @q
 xnoremap <leader>Move_all_lines_matching_a_pattern_to_end_of_file :g/pattern/m$
 
+nnoremap <leader>copy_all_lines_matching_pattern_to_register_a    qaq:g/pattern/y A
+xnoremap <leader>copy_all_lines_matching_pattern_to_register_a    qaq:g/pattern/y A
+tnoremap <leader>copy_all_lines_matching_pattern_to_register_a    qaq:g/pattern/y A
+
 nnoremap <leader>go_local_declaration                gd
 nnoremap <leader>go_local_declaration_like_gd        1gd
 nnoremap <leader>go_global_declaration               gD
@@ -391,7 +412,7 @@ nnoremap <leader>Show_all_tabs                                 /\t
 nnoremap <leader>Show_trailing_whitespace                      /\s\+$
 nnoremap <leader>Show_trailing_whitespace_only_after_some_text /\S\zs\s\+$
 nnoremap <leader>Show_spaces_before_a_tab                      / \+\ze\t
- 
+
 " https://vi.stackexchange.com/questions/5634/what-options-are-there-to-enter-insert-mode
 nnoremap <leader>Insert_at_column_1_of_the_line            gI
 nnoremap <leader>Insert_where_insert_mode_was_last_stopped gi
@@ -420,6 +441,11 @@ function! HideCorner()
     set nonumber
     set noruler
 endfunction
+
+" ------------------------------------------------------------
+"     go to markdown header
+" ------------------------------------------------------------
+nnoremap ;* vi[y/# <c-r>"
 
 " --------------------------------------------------------------------------------
 " butterfly  search
@@ -474,6 +500,7 @@ nnoremap <leader>Warp_edge_screen_not_break_word :set wrap linebreak nolist<CR>
 "" hjkl "
 nnoremap j <C-d>
 nnoremap k <C-u>
+
 " go tab next"
 nnoremap <silent> h :tabp<CR>
 nnoremap <silent> l :tabn<CR>
@@ -564,8 +591,8 @@ nnoremap <leader>register_current_line_to_macro ^"qy$
 " Circular windows navigation
 " --------------------------------------------------------------------------------
 
-nnoremap <tab>   <c-w>w
-nnoremap <S-tab> <c-w>W
+" nnoremap <tab>   <c-w>w
+" nnoremap <S-tab> <c-w>W
 " --------------------------------------------------------------------------------
 
 " --------------------------------------------------------------------------------
