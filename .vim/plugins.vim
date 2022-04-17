@@ -42,9 +42,8 @@ Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'dense-analysis/ale'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'preservim/tagbar'
-"Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 Plug 'yggdroot/indentline'
 
 call plug#end()

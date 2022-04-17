@@ -119,7 +119,12 @@ plugins+=(zsh-vi-mode)
 # ------------------------------------------------------------
 # ZVM_VI_EDITOR="nvim -u NONE"
 ZVM_VI_EDITOR="$VISUAL"
-
+# ------------------------------------------------------------
+#     Custom widgets and keybindings
+# ------------------------------------------------------------
+#
+# Your custom widget
+# insert the actual date in the form yyyy-mm-dd
 # ================================================================================
 #     [pierpo/fzf-docker: 🐳 Docker completion in zsh using fzf 🌸](https://github.com/pierpo/fzf-docker) 
 # ================================================================================
@@ -141,7 +146,8 @@ plugins+=(fzf-docker)
 # ================================================================================
 #     [zsh-users/zsh-autosuggestions: Fish-like autosuggestions for zsh](https://github.com/zsh-users/zsh-autosuggestions)
 # ================================================================================
-# 
+# right arrow: accept the suggestion at the end of the buffer
+# forward-word: accept the suggestion partially
 plugins+=(zsh-autosuggestions)
 
 # ================================================================================
@@ -231,7 +237,6 @@ alias ldd="l -d */" # Show only directory
 alias nterm="$EDITOR --cmd term"
 
 # ================================================================================
-#     
 #     BAT
 # ================================================================================
 # https://github.com/sharkdp/bat#customization
@@ -346,12 +351,64 @@ export MANPAGER='/bin/zsh -c "nvim -MRn -c \"set buftype=nofile showtabline=0 ft
 # --cmd "nmap q :qa<CR>" \
 # </dev/tty <(col -b)"'
 
-
 # ================================================================================
-#     alias
+#     git-fuzzy
 # ================================================================================
+# https://github.com/bigH/git-fuzzy
+# ------------------------------------------------------------
+#     Usage
+# ------------------------------------------------------------
+# Supported sub-commands:
 #
-# git
+# git fuzzy status 
+# - Interact with staged and unstaged changes.
+# git fuzzy branch 
+# - Search for, checkout and look at branches.
+# git fuzzy log 
+# - Look for commits in git log. Typing in the search simply filters in the usual fzf style.
+# git fuzzy reflog 
+# - Look for entries in git reflog. Typing in the search simply filters in the usual fzf style.
+# git fuzzy stash 
+# - Look for entries in git stash. Typing in the search simply filters in the usual fzf style.
+# git fuzzy diff 
+# - Interactively select diff subjects. Drilling down enables searching through diff contents in a diff browser.
+# git fuzzy pr 
+# - Interactively select and open/diff GitHub pull requests.
+# ------------------------------------------------------------
+#     set PATH
+# ------------------------------------------------------------
+export PATH="$HOME/git-fuzzy/bin:$PATH"
+# ------------------------------------------------------------
+#     Alias for basic commands
+# ------------------------------------------------------------
+alias fstatus='git fuzzy status'
+alias fbranch='git fuzzy branch'
+alias flog='git fuzzy log --oneline --decorate --graph --all'
+alias freflog='git fuzzy reflog'
+alias fstash='git fuzzy stash'
+alias fdiff='git fuzzy diff'
+alias fpr='git fuzzy pr'
+# ------------------------------------------------------------
+#     personal keyboard shortcuts
+# ------------------------------------------------------------
+# https://github.com/bigH/git-fuzzy/pull/16/files
+# example:
+# " export GIT_FUZZY_STATUS_ADD_KEY='Ctrl-A' "
+export GIT_FUZZY_BRANCH_WORKING_COPY_KEY='Ctrl-P'
+export GIT_FUZZY_BRANCH_MERGE_BASE_KEY='Ctrl-B'
+export GIT_FUZZY_BRANCH_COMMIT_LOG_KEY='Ctrl-L'
+export GIT_FUZZY_BRANCH_CHECKOUT_KEY='Ctrl-C'
+export GIT_FUZZY_BRANCH_DELETE_BRANCH_KEY='Ctrl-D'
+# ------------------------------------------------------------
+#     Snippets
+# ------------------------------------------------------------
+# git rebase rebase-test-again master &| git branch -d rebase-test-again
+# ================================================================================
+#     other alias
+# ================================================================================
+# ------------------------------------------------------------
+#     git
+# ------------------------------------------------------------
 alias addup='git add -u'
 alias addall='git add .'
 alias branch='git branch'
@@ -366,7 +423,6 @@ alias tag='git tag'
 alias newtag='git tag -a'
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias memo='/usr/bin/git --git-dir=$HOME/.memo/ --work-tree=$HOME'
-export PATH="$HOME/git-fuzzy/bin:$PATH"
 alias memo_fuzzy='$HOME/git-fuzzy/bin --git-dir=$HOME/.memo/ --work-tree=$HOME'
  
 export PATH="/usr/local/bin:$PATH"
@@ -564,7 +620,11 @@ source $HOME/bin/google_search.sh
 # "^S" history-incremental-search-forward # "^[[A" up-line-or-history
 # "^T" fzf-file-widget                    # "^[[B" down-line-or-history
 # "^U" zvm_viins_undo                     # "^[[C" vi-forward-char
+# ------------------------------------------------------------
+#     Customizing zvm keybindings
+# ------------------------------------------------------------
 zvm_bindkey vicmd '^Z' fzf-cd-widget
+zvm_bindkey viins '^Z' fzf-cd-widget
 
 zvm_bindkey vicmd '~o' forward-word
 zvm_bindkey viins '~o' forward-word
@@ -578,6 +638,39 @@ zvm_bindkey vicmd '~w' backward-kill-word
 zvm_bindkey viins '~w' backward-kill-word
 zvm_bindkey vicmd '~e' kill-word
 zvm_bindkey viins '~e' kill-word
+
+# ================================================================================
+#     Define ZVM widgets and bindkeys
+# ================================================================================
+#
+# ------------------------------------------------------------
+#     Define Widgets
+# ------------------------------------------------------------
+#
+# append detach symbols
+append-detach-command-line() {
+    #  [[ -z $BUFFER ]] && zle up-history # we do want replace in empty lines as well
+    [[ "$BUFFER" != *\&\| ]] && BUFFER="$BUFFER &|" && zle end-of-line
+}
+zvm_define_widget append-detach-command-line
+# append-detach-no-output-command-line() {
+#     #  [[ -z $BUFFER ]] && zle up-history # we do want replace in empty lines as well
+#     [[ "$BUFFER" != *\&\| ]] && BUFFER="$BUFFER NA &|" && zle end-of-line
+# }
+# zvm_define_widget append-detach-no-output-command-line
+# zvm_bindkey viins "^O" append-detach-no-output-command-line
+
+# Append a back-slash at the end of current line from any cursor position 
+# This makes multiple line commands easily.
+append-back-slash() {
+    [[ "$BUFFER" != *\\ ]] && BUFFER="$BUFFER \\" && zle end-of-line
+}
+zvm_define_widget append-back-slash
+# ------------------------------------------------------------
+#     Define keybindings
+# ------------------------------------------------------------
+zvm_bindkey viins "^D" append-detach-command-line
+zvm_bindkey viins "^J" append-back-slash
 
 # ----------------------------------------------------------------------
 # https://en.wikipedia.org/wiki/ANSI_escape_code

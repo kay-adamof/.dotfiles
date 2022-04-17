@@ -73,7 +73,7 @@ augroup END
 "" BASIC SETTINGS {{{
 "" ============================================================================
 highlight Search guibg=NONE guifg=gray cterm=underline
-highlight CursorLine ctermbg=100 guibg=#cccc49
+" highlight CursorLine ctermbg=100 guibg=#cccc49
 
 " - To increment or decrement alphabetic charactor"
 "   See :h CTRL-A
@@ -111,7 +111,7 @@ set fdm=syntax
 set autoread
 set autowrite
 set autowriteall
-	"see this article: https://vimtricks.com/p/what-is-set-hidden/
+"see this article: https://vimtricks.com/p/what-is-set-hidden/
 set hidden
 
 set wrap
@@ -339,6 +339,9 @@ nnoremap <expr> <del> match(getline("."),'^$') ? "x" : "dd"
 " --------------------------------------------------------------------------------
 " semicolon leader mappings
 " --------------------------------------------------------------------------------
+"
+nnoremap <silent> ;gy :Goyo<cr>
+
 nnoremap <silent> ;so :so $MYVIMRC<cr>
 nnoremap <silent> ;c :clo<cr>
 " nnoremap <silent> ;nu :set nu rnu<cr>
@@ -369,10 +372,25 @@ function! ChangeToLocalDir()
   lchdir%:p:h
   return ''
 endfunction
+" ================================================================================
+"     The Past Regex
+" ================================================================================
+" \(\s[A-Z][a-z]\+\)$
+" The above matches ' Management'
+" Branch Management
+" Some sub-headings have two to about five words consists of an Uppercase letter with following lowercase letters.
 
 " --------------------------------------------------------------------------------
 " forgetful commands
 " --------------------------------------------------------------------------------
+" https://stackoverflow.com/questions/506075/how-do-i-fix-the-indentation-of-an-entire-file-in-vi
+nnoremap <leader>fix_mix_indent_file gg=G
+
+" https://vim.fandom.com/wiki/Remove_unwanted_spaces
+nnoremap <leader>remove_unwanted_trailing_whitespace :%s/\s\+$//e
+
+nnoremap <leader>add_line_break_for_all_lines %s/$/\r/g
+
 nnoremap <leader>vim_multi_select_all _A
 nnoremap <leader>vim_multi_reselect_previous_region _gS
 nnoremap <leader>vim_multi_substitution R
@@ -386,16 +404,19 @@ xnoremap <leader>Delete_all_blank_lines                           :g/^\s*$/d
 xnoremap <leader>Delete_all_lines_matching_a_pattern              :g/pattern/d
 xnoremap <leader>Delete_all_lines_not_matching_a_pattern          :g!/pattern/d
 xnoremap <leader>Double_space_the_file_                           :g/^/pu__
-xnoremap <leader>Copy_all_lines_matching_a_pattern_to_end_of_file :g/pattern/t$
 xnoremap <leader>delete_whitespaces_at_the_beginning_of_line      :s/^\s\+//g<cr>
 xnoremap <leader>substitute_whitespace_to_underbar                :s/ /_/g<cr>
 xnoremap <leader>Add_text_to_end_string                           :g/^pattern/s/$/mytext
 xnoremap <leader>Run_a_macro_on_matching_lines                    :g/pattern/normal @q
 xnoremap <leader>Move_all_lines_matching_a_pattern_to_end_of_file :g/pattern/m$
 
+nnoremap <leader>Copy_all_lines_matching_a_pattern_to_end_of_file :g/pattern/t$
+xnoremap <leader>Copy_all_lines_matching_a_pattern_to_end_of_file :g/pattern/t$
+" tnoremap <leader>Copy_all_lines_matching_a_pattern_to_end_of_file :g/pattern/t$
+
 nnoremap <leader>copy_all_lines_matching_pattern_to_register_a    qaq:g/pattern/y A
 xnoremap <leader>copy_all_lines_matching_pattern_to_register_a    qaq:g/pattern/y A
-tnoremap <leader>copy_all_lines_matching_pattern_to_register_a    qaq:g/pattern/y A
+" tnoremap <leader>copy_all_lines_matching_pattern_to_register_a    qaq:g/pattern/y A
 
 nnoremap <leader>go_local_declaration                gd
 nnoremap <leader>go_local_declaration_like_gd        1gd
@@ -426,20 +447,20 @@ nnoremap _open_help_right_vertically :vert help<CR> <C-W>x
 
 " nnoremap <expr> show_corner ShowCorner()
 function! ShowCorner()
-    set laststatus=2
-    set showtabline=2
-    set relativenumber
-    set number
-    set ruler
+  set laststatus=2
+  set showtabline=2
+  set relativenumber
+  set number
+  set ruler
 endfunction
 
 " nnoremap <expr> Hide_corner HideCorner()
 function! HideCorner()
-    set laststatus=0
-    set showtabline=0
-    set norelativenumber
-    set nonumber
-    set noruler
+  set laststatus=0
+  set showtabline=0
+  set norelativenumber
+  set nonumber
+  set noruler
 endfunction
 
 " ------------------------------------------------------------
@@ -464,39 +485,39 @@ vnoremap <expr> N 'nN'[v:searchforward] . "zv"
 cnoremap <expr> ; ButterflySemicolon()
 cnoremap <expr> + ButterflyPlus()
 function! ButterflySemicolon()
-    let cmdtype = getcmdtype()
-    if cmdtype == ':'
-        " Perform Ex command map action
-    elseif cmdtype == '/'
-        return "\<C-G>"
-    elseif cmdtype == '?'
-        return "\<C-T>"
-    elseif cmdtype == '@'
-        " Perform input() prompt map action
-    else
-        " Perform other command-line prompt action
-    endif
+  let cmdtype = getcmdtype()
+  if cmdtype == ':'
+    " Perform Ex command map action
+  elseif cmdtype == '/'
+    return "\<C-G>"
+  elseif cmdtype == '?'
+    return "\<C-T>"
+  elseif cmdtype == '@'
+    " Perform input() prompt map action
+  else
+    " Perform other command-line prompt action
+  endif
 endfunction
 function! ButterflyPlus()
-    let cmdtype = getcmdtype()
-    if cmdtype == ':'
-        " Perform Ex command map action
-    elseif cmdtype == '/'
-        return "\<C-T>"
-    elseif cmdtype == '?'
-        return "\<C-G>"
-    elseif cmdtype == '@'
-        " Perform input() prompt map action
-    else
-        " Perform other command-line prompt action
-    endif
+  let cmdtype = getcmdtype()
+  if cmdtype == ':'
+    " Perform Ex command map action
+  elseif cmdtype == '/'
+    return "\<C-T>"
+  elseif cmdtype == '?'
+    return "\<C-G>"
+  elseif cmdtype == '@'
+    " Perform input() prompt map action
+  else
+    " Perform other command-line prompt action
+  endif
 endfunction
 " --------------------------------------------------------------------------------
 
 " --------------------------------------------------------------------------------
 
 " to soft-wrap at the edge of the screen, but not break in the middle of a word
-nnoremap <leader>Warp_edge_screen_not_break_word :set wrap linebreak nolist<CR>
+nnoremap <leader>Wrap_edge_screen_not_break_word :set wrap linebreak nolist<CR>
 "" hjkl "
 nnoremap j <C-d>
 nnoremap k <C-u>
@@ -619,12 +640,13 @@ nnoremap <silent> <leader>text_heading_del :+1d\|-2d<cr>
 
 " === Markdown headings
 
-nnoremap <leader>markdown_heading_a m`yypVr=``
-nnoremap <leader>markdown_heading_b m`yypVr-``
+" nnoremap <leader>markdown_heading_a m`yypVr=``
+" nnoremap <leader>markdown_heading_b m`yypVr-``
+nnoremap <leader>markdown_heading_a m`^i# <esc>``2l
+nnoremap <leader>markdown_heading_b m`^i## <esc>``3l
 nnoremap <leader>markdown_heading_c m`^i### <esc>``4l
 nnoremap <leader>markdown_heading_d m`^i#### <esc>``5l
 nnoremap <leader>markdown_heading_e m`^i##### <esc>``6l
-
 " markdown admonition
 " -------------------
 
@@ -649,6 +671,12 @@ nnoremap <leader>asciidoc_heading_e m`^i====== <esc>``6lo<esc>``O<esc>``
 " ================================================================================
 " Moving lines
 " ================================================================================
+" TIPS:
+" ====
+" In insert mode:
+" ctrl-t: indent current line forward
+" ctrl-d: indent current line backward
+" ====
 nnoremap <silent> <C-k> :move-2<cr>
 nnoremap <silent> <C-j> :move+<cr>
 nnoremap <silent> <C-h> <<
