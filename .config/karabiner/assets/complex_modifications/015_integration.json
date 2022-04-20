@@ -1193,6 +1193,21 @@
           ]
         },
         {
+          "description": "open YouTube",
+          "type": "basic",
+          "from": {
+            "key_code": "y",
+            "modifiers": {
+                "mandatory": ["left_option"]
+            }
+          },
+          "to": [
+            {
+                "shell_command": "open -a 'YO=YouTube.app'"
+            }
+          ]
+        },
+        {
           "description": "open terminal",
           "type": "basic",
           "from": {
