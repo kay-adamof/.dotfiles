@@ -64,7 +64,7 @@
               ],
               "type": "frontmost_application_if"
             }
-          ], 
+          ],
           "from": {
             "key_code": "l",
             "modifiers": {
@@ -93,7 +93,7 @@
               ],
               "type": "frontmost_application_if"
             }
-          ], 
+          ],
           "from": {
             "key_code": "l",
             "modifiers": {
@@ -103,6 +103,59 @@
           "to": [
             {
               "key_code": "p",
+              "modifiers": [ "left_command" ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "015_Spark",
+      "manipulators": [
+        {
+          "description": "Search Mailbox",
+          "type": "basic",
+          "conditions": [
+            {
+             "type": "frontmost_application_if",
+             "bundle_identifiers": [
+                "^com\\.readdle\\.smartemail-Mac$"
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "l",
+            "modifiers": {
+              "mandatory": ["left_option"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "f",
+              "modifiers": [ "left_command", "left_option" ]
+            }
+          ]
+        },
+        {
+          "description": "Reply",
+          "type": "basic",
+          "conditions": [
+            {
+             "type": "frontmost_application_if",
+             "bundle_identifiers": [
+                "^com\\.readdle\\.smartemail-Mac$"
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "k",
+            "modifiers": {
+              "mandatory": ["left_option"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "r",
               "modifiers": [ "left_command" ]
             }
           ]
@@ -124,7 +177,7 @@
                 "^com\\.microsoft\\.VSCodeInsiders$"
               ]
             }
-          ], 
+          ],
           "from": {
             "key_code": "l",
             "modifiers": {
@@ -139,8 +192,44 @@
           ]
         },
         {
+          "description": "focus next terminal in active terminal group",
+          "type": "basic",
+          "conditions": [
+            {
+             "type": "frontmost_application_if",
+             "bundle_identifiers": [
+                "jhdpafkbedbgckdnecbbppbpboebapeb",
+                "^com\\.microsoft\\.VSCode$",
+                "^com\\.microsoft\\.VSCodeInsiders$"
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "i",
+            "modifiers": {
+              "mandatory": ["left_option"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_arrow",
+              "modifiers": [ "left_command", "left_option" ]
+            }
+          ]
+        },
+        {
           "description": "next tab",
           "type": "basic",
+          "conditions": [
+            {
+             "type": "frontmost_application_if",
+             "bundle_identifiers": [
+                "jhdpafkbedbgckdnecbbppbpboebapeb",
+                "^com\\.microsoft\\.VSCode$",
+                "^com\\.microsoft\\.VSCodeInsiders$"
+              ]
+            }
+          ],
           "from": {
             "key_code": "k",
             "modifiers": {
@@ -157,6 +246,16 @@
         {
           "description": "previous tab",
           "type": "basic",
+          "conditions": [
+            {
+             "type": "frontmost_application_if",
+             "bundle_identifiers": [
+                "jhdpafkbedbgckdnecbbppbpboebapeb",
+                "^com\\.microsoft\\.VSCode$",
+                "^com\\.microsoft\\.VSCodeInsiders$"
+              ]
+            }
+          ],
           "from": {
             "key_code": "j",
             "modifiers": {
@@ -340,7 +439,7 @@
               "key_code": "escape"
             }
           ]
-        }, 
+        },
         {
           "type": "basic",
           "conditions": [
@@ -1068,6 +1167,62 @@
       "description": "015_Manipulate chrome",
       "manipulators": [
         {
+          "description": "Open DevTools",
+          "type": "basic",
+          "conditions": [
+            {
+             "file_paths": [
+                "Google Chrome"
+              ],
+              "type": "frontmost_application_if"
+            }
+          ],
+          "from": {
+            "key_code": "i",
+            "modifiers": {
+                "mandatory": ["left_option"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "i",
+              "modifiers": ["left_command", "left_option"]
+            }
+          ]
+        },
+        {
+          "description": "go back",
+          "type": "basic",
+          "from": {
+            "key_code": "y",
+            "modifiers": {
+                "mandatory": ["left_option"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "close_bracket",
+              "modifiers": ["left_command"]
+            }
+          ]
+        },
+        {
+          "description": "go forward",
+          "type": "basic",
+          "from": {
+            "key_code": "u",
+            "modifiers": {
+                "mandatory": ["left_option"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "backslash",
+              "modifiers": ["left_command"]
+            }
+          ]
+        },
+        {
           "description": "Close a chrome tab",
           "type": "basic",
           "from": {
@@ -1196,7 +1351,7 @@
           "description": "open YouTube",
           "type": "basic",
           "from": {
-            "key_code": "y",
+            "key_code": "g",
             "modifiers": {
                 "mandatory": ["left_option"]
             }
