@@ -233,13 +233,13 @@ SAVEHIST=50000
 alias a=">> "
 alias dpa="docker ps -a"
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
-alias calibre="/Applications/calibre.app/Contents/MacOS/"
 alias vn="code -n" # Open vscode in new window
 alias vr="code -r" # Open a file in current vscode window
 alias zshrc="vi ~/.zshrc"
 alias vimrc="vi ~/.vimrc"
 alias ldd="l -d */" # Show only directory
 alias nterm="$EDITOR --cmd term"
+alias ls="exa --long --tree --level=1 --git --ignore-glob=.git --group --blocks --all --header --inode --accessed --created --sort=inode # --reverse # fancy exaiii;"
 
 # ================================================================================
 #     BAT
@@ -652,30 +652,27 @@ zvm_bindkey viins '~e' kill-word
 #     Define Widgets
 # ------------------------------------------------------------
 #
-# append detach symbols
+# append combine symbols
 append-detach-command-line() {
-    #  [[ -z $BUFFER ]] && zle up-history # we do want replace in empty lines as well
-    [[ "$BUFFER" != *\&\| ]] && BUFFER="$BUFFER &|" && zle end-of-line
+    [[ "$BUFFER" != *\&\& ]] && BUFFER="$BUFFER && " && zle end-of-line
 }
 zvm_define_widget append-detach-command-line
-# append-detach-no-output-command-line() {
-#     #  [[ -z $BUFFER ]] && zle up-history # we do want replace in empty lines as well
-#     [[ "$BUFFER" != *\&\| ]] && BUFFER="$BUFFER NA &|" && zle end-of-line
-# }
-# zvm_define_widget append-detach-no-output-command-line
-# zvm_bindkey viins "^O" append-detach-no-output-command-line
 
-# Append a back-slash at the end of current line from any cursor position 
-# This makes multiple line commands easily.
 append-back-slash() {
     [[ "$BUFFER" != *\\ ]] && BUFFER="$BUFFER \\" && zle end-of-line
 }
 zvm_define_widget append-back-slash
+
+append-TrashDir-command-line() {
+    [[ "$BUFFER" != *$HOME/trash ]] && BUFFER="mv $BUFFER $HOME/trash " && zle end-of-line
+}
+zvm_define_widget append-TrashDir-command-line
 # ------------------------------------------------------------
 #     Define keybindings
 # ------------------------------------------------------------
 zvm_bindkey viins "^D" append-detach-command-line
 zvm_bindkey viins "^J" append-back-slash
+zvm_bindkey viins "^O" append-TrashDir-command-line
 
 # ----------------------------------------------------------------------
 # https://en.wikipedia.org/wiki/ANSI_escape_code

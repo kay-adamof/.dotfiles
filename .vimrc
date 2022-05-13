@@ -1,3 +1,4 @@
+" vim: set foldmethod=marker foldlevel=0 nomodeline:
 """" vim 8 defaults
 
 unlet! skip_defaults_vim
@@ -35,14 +36,20 @@ let maplocalleader = ' '
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'vimwiki/vimwiki'
+Plug 'MattesGroeger/vim-bookmarks'
+" -- Not using yet
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+" Plug 'nvim-lua/plenary.nvim'
+" Plug 'nvim-telescope/telescope.nvim'
+" -- 
+Plug 'habamax/vim-asciidoctor'
+" Plug 'vimwiki/vimwiki'
 Plug 'mhinz/vim-signify'
 Plug 'honza/vim-snippets'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'lambdalisue/battery.vim'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'godlygeek/tabular'
-Plug 'preservim/vim-markdown'
 Plug 'luochen1990/rainbow'
 Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
@@ -64,7 +71,6 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
-Plug 'sheerun/vim-polyglot'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
@@ -72,6 +78,11 @@ Plug 'dense-analysis/ale'
 Plug 'preservim/tagbar'
 " Plug 'SirVer/ultisnips'
 Plug 'yggdroot/indentline'
+
+" -- The Following Plugins make markdown syntax weird in my situation"
+" Plug 'sheerun/vim-polyglot'
+" Plug 'preservim/vim-markdown'
+" Plug 'vim-pandoc/vim-pandoc-syntax'
 
 call plug#end()
 
@@ -86,10 +97,47 @@ colorscheme dracula
 " ================================================================================
 "     so ~/.vim/plugin-config.vim
 " ================================================================================
-
+" ================================================================================
+"     Plug 'MattesGroeger/vim-bookmarks'
+" ================================================================================
+" Action	Shortcut	Command
+" Add/remove bookmark at current line          	mm	           :BookmarkToggle
+" Add/edit/remove annotation at current line   	mi	           :BookmarkAnnotate <TEXT>
+" Jump to next bookmark in buffer              	mn	           :BookmarkNext
+" Jump to previous bookmark in buffer          	mp	           :BookmarkPrev
+" Show all bookmarks (toggle)                  	ma	           :BookmarkShowAll
+" Clear bookmarks in current buffer only       	mc	           :BookmarkClear
+" Clear bookmarks in all buffers               	mx	           :BookmarkClearAll
+" Move up bookmark at current line             	[count]mkk	   :BookmarkMoveUp [<COUNT>]
+" Move down bookmark at current line           	[count]mjj	   :BookmarkMoveDown [<COUNT>]
+" Move bookmark at current line to another line	[count]mg	     :BookmarkMoveToLine <LINE>
+" Save all bookmarks to a file		                             :BookmarkSave <FILE_PATH>
+" Load bookmarks from a file		                               :BookmarkLoad <FILE_PATH>
+"
+" Read later: h 'scl' 
+"
+" ================================================================================
+"     Plug 'nvim-telescope/telescope.nvim'
+" ================================================================================
+" required: 
+"   - Plug 'nvim-lua/plenary.nvim'
+"   - Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+"
+" ================================================================================
+"     Plug 'vim-pandoc/vim-pandoc-syntax'
+" ================================================================================
+" https://github.com/vim-pandoc/vim-pandoc-syntax
+" augroup pandoc_syntax
+"     au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+" augroup END
+" ================================================================================
+"     Plug 'preservim/vim-markdown'
+" ================================================================================
+let g:vim_markdown_emphasis_multiline = 0
 " ================================================================================
 "     Plug 'vimwiki/vimwiki'
 " ================================================================================
+" This plugin conflicts with the visual_multi plugin.
 " ------------------------------------------------------------
 "     Features
 " ------------------------------------------------------------
@@ -110,11 +158,11 @@ colorscheme dracula
 " ------------------------------------------------------------
 "     notes
 " ------------------------------------------------------------
-" * Place your cursor on Tasks and press 
-" * Enter to create a link. 
-" * Press Enter again to open it. 
+" * Place your cursor on Tasks and press
+" * Enter to create a link.
+" * Press Enter again to open it.
 " * Backspace to jump back to your index.
-" * visually select the words to be linked and press Enter. 
+" * visually select the words to be linked and press Enter.
 " http://thedarnedestthing.com/vimwiki%20cheatsheet
 " https://gist.github.com/drkarl/4c503bccb62558dc85e8b1bc0f29e9cb
 " ------------------------------------------------------------
@@ -125,28 +173,31 @@ colorscheme dracula
 " * <Leader>wd - Delete wiki page you are in.
 " * <Leader>ww – Open the default wiki index file
 " * <Leader>ws – Select and open wiki index file
+
 " * <Enter> – Follow/Create wiki link
-nmap <leader>wfl <Plug>VimwikiFollowLink
+" nmap <leader>wfl <Plug>VimwikiFollowLink
 " * <Backspace> – Go back to parent(previous) wiki link
-nmap <leader>wb <Plug>VimwikiGoBackLink
+" nmap <leader>wb <Plug>VimwikiGoBackLink
 " * <Tab> – Find next wiki link
-nmap <leader>wnl <Plug>VimwikiNextLink
+" nmap <leader>wnl <Plug>VimwikiNextLink
 " * <Shift-Tab> – Find previous wiki link
-nmap <leader>wpl <Plug>VimwikiPrevLink
+" nmap <leader>wpl <Plug>VimwikiPrevLink
+
+" vmap <leader>nl  <Plug>VimwikiNormalizeLinkVisualCR
 " ------------------------------------------------------------
 "     help pages
 " ------------------------------------------------------------
-" :h vimwiki 
+" :h vimwiki
 " :h vimwiki-mappings
 " ------------------------------------------------------------
 "     Settings
 " ------------------------------------------------------------
-let default_wiki = {}
-let default_wiki.syntax = 'markdown'
-let default_wiki.ext = '.md'
+" let default_wiki = {}
+" let default_wiki.syntax = 'markdown'
+" let default_wiki.ext = '.md'
 
-" let default_wiki.path = '~/Documents/'
-let g:vimwiki_list = [default_wiki]
+" " let default_wiki.path = '~/Documents/'
+" let g:vimwiki_list = [default_wiki]
 " ================================================================================
 "     Plug 'SirVer/ultisnips'
 " ================================================================================
@@ -265,10 +316,10 @@ nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gd         <Plug>(coc-definition)
+nmap <silent> gy         <Plug>(coc-type-definition)
+nmap <silent> <leader>gi <Plug>(coc-implementation)
+nmap <silent> gr         <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -356,21 +407,21 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
 " Show all diagnostics.
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap CocList_diagnostics  :<C-u>CocList diagnostics<cr>
 " Manage extensions.
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+nnoremap CocList_extensions   :<C-u>CocList extensions<cr>
 " Show commands.
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+nnoremap CocList_commands     :<C-u>CocList commands<cr>
 " Find symbol of current document.
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+nnoremap CocList_outline      :<C-u>CocList outline<cr>
 " Search workspace symbols.
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+nnoremap CocList_symbols      :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
-nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+nnoremap CocNext              :<C-u>CocNext<CR>
 " Do default action for previous item.
-nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+nnoremap CocPrev              :<C-u>CocPrev<CR>
 " Resume latest coc list.
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+nnoremap CocListResume        :<C-u>CocListResume<CR>
 
 " https://github.com/neoclide/coc.nvim/wiki/Using-the-configuration-file
 autocmd FileType json syntax match Comment +\/\/.\+$+
@@ -429,19 +480,19 @@ let g:coc_snippet_next = '<tab>'
 " -- Remove selected text and save to g:coc_selected_text which will replace $VISUAL on next snippet expand
 " map      <leader>coc_snip_select              <Plug>(coc-snippets-select)
 " -- to open snippets list used by current buffer.
-nnoremap <leader>coc_snip_open_snippets_list  :CocList snippets
+nnoremap <leader>coc_snip_open_snippets_list  :CocList snippets<cr>
 " -- to choose and open a snippet file that used by current document.
-nnoremap <leader>coc_snip_open_file           :CocCommand snippets.openSnippetFiles
+nnoremap <leader>coc_snip_open_file           :CocCommand snippets.openSnippetFiles<cr>
 " -- to edit user's ultisnips snippets of current document filetype.
-nnoremap <leader>coc_snip_edit                :CocCommand snippets.editSnippets
+nnoremap <leader>coc_snip_edit                :CocCommand snippets.editSnippets<cr>
 " -- to open output channel of snippets.
-nnoremap <leader>coc_snip_open_output_channel :CocCommand snippets.openOutput
+nnoremap <leader>coc_snip_open_output_channel :CocCommand snippets.openOutput<cr>
 " --------
-   
+
 " ------------------------------------------------------------
 "     CocInstall coc-prettier
 " ------------------------------------------------------------
-"  https://github.com/neoclide/coc-prettier 
+"  https://github.com/neoclide/coc-prettier
 command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
 
 vmap <leader>coc_prettier_format_seleced  <Plug>(coc-format-selected)
@@ -522,7 +573,7 @@ let g:battery#component_format = "%v%%"
 " _N:                  Numbering with separators
 
 " ------------------------------------------------------------
-"     Some experiments 
+"     Some experiments
 " ------------------------------------------------------------
     " let g:VM_mouse_mappings     = 1             " some text
     " let g:VM_theme              = 'iceblue'     " some text
@@ -561,8 +612,10 @@ let g:VM_maps["Select l"] = ''
 " nunmap <S-Right>
 
 
-" Plug 'mzlogin/vim-markdown-toc'
-" let g:vim_markdown_follow_anchor = 1
+" ================================================================================
+"     Plug 'mzlogin/vim-markdown-toc'
+" ================================================================================
+nnoremap TocGenGFM :GenTocGFM<cr>
 
 " Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
@@ -571,9 +624,9 @@ let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowTo
 "     Plug 'haya14busa/incsearch-fuzzy.vim'
 " ================================================================================
 "
-map zf <Plug>(incsearch-fuzzy-/)
-map zF <Plug>(incsearch-fuzzy-?)
-map zg/ <Plug>(incsearch-fuzzy-stay)
+" map zf <Plug>(incsearch-fuzzy-/)
+" map zF <Plug>(incsearch-fuzzy-?)
+" map zg/ <Plug>(incsearch-fuzzy-stay)
 
 " ================================================================================
 "     Plug 'junegunn/vim-easy-align'
@@ -640,7 +693,7 @@ let g:startify_skiplist = [
 
 let g:startify_bookmarks = [
         \ { 'a': '~/.vim/vimrc' },
-        \ { 'b': '~/vimwiki/index.md' }
+        \ { 'b': '~/vimwiki/index.adoc' }
         \ ]
 
 " --------------------------------------------------------------------------------
@@ -648,7 +701,7 @@ let g:startify_bookmarks = [
 " --------------------------------------------------------------------------------
 " CTRL-T: new tab
 " CTRL-X: horizontal split
-" CTRL-V: vertical split 
+" CTRL-V: vertical split
 
 " !(bang) version starts fzf in fullscreen mode
 
@@ -773,6 +826,7 @@ nnoremap <leader>Fzf_silver_search                             :Ag<CR>
 nnoremap <leader>Fzf_ripgrep                                   :Rg<CR>
 nnoremap <leader>Fzf_search_lines_in_loaded_buffers            :Lines<CR>
 nnoremap <leader>Fzf_blines_search_lines_in_current_buffer     :BLines<CR>
+nnoremap ;f                                                    :BLines<CR>
 nnoremap <leader>Fzf_search_tags_in_project                    :Tags<CR>
 nnoremap <leader>Fzf_search_tags_in_current_buffer             :BTags<CR>
 nnoremap <leader>Fzf_search_marks                              :Marks<CR>
@@ -788,7 +842,7 @@ nnoremap <leader>Fzf_search_all_commands                       :Commands<CR>
 nnoremap <leader>Fzf_search_normal_mode_mappings               :Maps<CR>
 nnoremap <leader>Fzf_search_helptags                           :Helptags<CR>
 nnoremap <leader>Fzf_search_filetypes                          :Filetypes<CR>
-  " CTRL-T / CTRL-X / CTRL-V 
+  " CTRL-T / CTRL-X / CTRL-V
     " key bindings to open in a new tab, a new split, or in a new vertical split
   " Bang-versions of the commands (e.g. Ag!) will open fzf in fullscreen
 
@@ -854,7 +908,7 @@ let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 
 " ================================================================================
-    
+
 " ================================================================================
 
 ""-- ULTISNIPS CONFIG
@@ -1133,8 +1187,6 @@ set termguicolors
 
 
 
-
-
 augroup vimrc
   au!
   autocmd InsertLeave,TextChanged,FocusLost * silent! write
@@ -1146,6 +1198,12 @@ augroup vimrc
   autocmd InsertLeave,WinEnter * set cursorline cursorlineopt=number,line
   autocmd CmdlineEnter : set nocursorline  | redraw
   autocmd CmdlineLeave : set cursorline cursorlineopt=number,line
+
+  " File types
+  au BufNewFile,BufRead *.man                set filetype=man
+  " au BufNewFile,BufRead *.pde               set filetype=java
+  " au BufNewFile,BufRead *.coffee-processing set filetype=coffee
+  " au BufNewFile,BufRead Dockerfile*         set filetype=dockerfile
 
 augroup END
 
@@ -1159,6 +1217,18 @@ augroup END
 "" ============================================================================
 "" BASIC SETTINGS {{{
 "" ============================================================================
+" ------------------------------------------------------------
+"     Concealing markdown links
+" ------------------------------------------------------------
+" -- simply concealing markdown link text of which part surrounded by "()" "
+augroup markdownConcealing
+  autocmd!
+  autocmd FileType markdown call matchadd('Conceal', '(.\+)')
+augroup END
+
+" ------------------------------------------------------------
+"     Customizing highlight of "Search"
+" ------------------------------------------------------------
 highlight Search guibg=NONE guifg=gray cterm=underline
 " highlight CursorLine ctermbg=100 guibg=#cccc49
 
@@ -1188,6 +1258,8 @@ let &t_EI.="\e[5 q" "EI = NORMAL mode (ELSE)
 "  5 -> blinking vertical bar
 "  6 -> solid vertical bar
 
+set noswapfile
+
 "-- Configure a word searchin"
 " -- Only show file name in tab
 " set guitablabel=%t
@@ -1208,11 +1280,21 @@ set relativenumber
 set cursorline
 set cursorlineopt=number
 set scrolloff=999
-set signcolumn=no
+" set signcolumn=no
 set showcmd
 set noshowmode
 set conceallevel=1
-set formatoptions-=cro
+" set formatoptions-=cro
+
+" set formatoptions+=1
+" if has('patch-7.3.541'
+"   set formatoptions+=j
+" endif
+" if has('patch-7.4.338')
+"   let &showbreak = '↳ '
+"   set breakindent
+"   set breakindentopt=sbr
+" endif)
 
 set noerrorbells visualbell t_vb=
 " --------------------------------------------------------------------------------
@@ -1334,6 +1416,11 @@ let g:python3_host_prog = '/usr/local/bin/python3'
 " t[nore]map     |  -   |  -  |  -  |  -  |  -  |  -  | yes  |  -   |
 
 " ------------------------------------------------------------
+"     Simply Imitation of vim-wiki
+" ------------------------------------------------------------
+nnoremap <leader>ww :tabe $HOME/vimwiki/index.adoc<cr>
+
+" ------------------------------------------------------------
 "     miscellaneous
 " ------------------------------------------------------------
 " -- fold beautifully"
@@ -1358,6 +1445,14 @@ endif
 "" ----------------------------------------------------------------------------
 "" Basic mappings
 "" ----------------------------------------------------------------------------
+nnoremap <silent> <leader>copy_current_file_path_to_clipboard :let @*=expand('%:p')<cr>
+
+nnoremap <leader>delete_all_lines ggVGd
+
+" -- open a file under the cursor. If the file does not exist, it's created automatically
+" -- :h <cfile>
+nnoremap <silent> gf :e <cfile><CR>
+
 nnoremap <leader>delete_all_buffer %bdelete
 vnoremap <bs> d
 " inoremap <esc>b <S-Left>
@@ -1426,8 +1521,9 @@ nnoremap <expr> <del> match(getline("."),'^$') ? "x" : "dd"
 " --------------------------------------------------------------------------------
 " semicolon leader mappings
 " --------------------------------------------------------------------------------
-"
-nnoremap <silent> ;gy :Goyo<cr>
+" nnoremap <silent> ;gh vi[/
+
+nnoremap <silent> ;gy :Goyo<cr> :set wrap linebreak nolist<cr>
 
 nnoremap <silent> ;so :so $MYVIMRC<cr>
 nnoremap <silent> ;c :clo<cr>
@@ -1439,7 +1535,7 @@ noremap ;n :NERDTreeToggle<cr>
 "" open terminal in the directory of the current file"
 " nnoremap ;t :let $VIM_DIR=expand('%:p:h')<CR>:terminal<CR>cd $VIM_DIR<CR>
 " nnoremap ;t :let $VIM_DIR=expand('%:p:h')<CR>:terminal<CR>cd $VIM_DIR<CR>
-nnoremap ;term :let $VIM_DIR=expand('%:p:h')<CR>:split<bar>terminal<CR>i cd $VIM_DIR<CR>
+nnoremap ;ter :let $VIM_DIR=expand('%:p:h')<CR>:split<bar>terminal<CR>i cd $VIM_DIR<CR>
 " https://github.com/neovim/neovim/issues/5073
 " command! -nargs=* T split | terminal <args>
 " command! -nargs=* VT vsplit | terminal <args>
@@ -1468,8 +1564,11 @@ endfunction
 " Some sub-headings have two to about five words consists of an Uppercase letter with following lowercase letters.
 
 " --------------------------------------------------------------------------------
-" forgetful commands
+" forgetful commands / Snippets
 " --------------------------------------------------------------------------------
+" -- See :h fo-table for how text is formated."
+nnoremap <leader>formatting_text gq
+
 nnoremap <leader>delete_lines_not_matching_pattern :g/^\(.*Warning\)\@!.*$/d
 " https://stackoverflow.com/questions/506075/how-do-i-fix-the-indentation-of-an-entire-file-in-vi
 nnoremap <leader>fix_mix_indent_file gg=G
@@ -1556,48 +1655,57 @@ endfunction
 " ------------------------------------------------------------
 nnoremap ;* vi[y/# <c-r>"
 
+" ------------------------------------------------------------
+"     copy the current file path to system clipboard
+" ------------------------------------------------------------
+
+
+
 " --------------------------------------------------------------------------------
 " butterfly  search
 " --------------------------------------------------------------------------------
 " f, F means find
 nnoremap f /
 nnoremap F ?
-vnoremap f /
-vnoremap F ?
+" https://vim.fandom.com/wiki/Search_for_visually_selected_text
+" vnoremap ;f y/\V<C-R>=escape(@",'/\')<CR><CR>
+" vnoremap f /
+" vnoremap ;F y?\V<C-R>=escape(@",'/\')<CR><CR>
+" vnoremap F ?
 " make n/N always go in the same direction
 nnoremap <expr> n 'Nn'[v:searchforward] . "zv"
 nnoremap <expr> N 'nN'[v:searchforward] . "zv"
 vnoremap <expr> n 'Nn'[v:searchforward] . "zv"
 vnoremap <expr> N 'nN'[v:searchforward] . "zv"
-" search like a butterfly
+" -- search like a butterfly
 cnoremap <expr> ; ButterflySemicolon()
 cnoremap <expr> + ButterflyPlus()
 function! ButterflySemicolon()
   let cmdtype = getcmdtype()
   if cmdtype == ':'
-    " Perform Ex command map action
+    " -- Perform Ex command map action
   elseif cmdtype == '/'
     return "\<C-G>"
   elseif cmdtype == '?'
     return "\<C-T>"
   elseif cmdtype == '@'
-    " Perform input() prompt map action
+    " -- Perform input() prompt map action
   else
-    " Perform other command-line prompt action
+    " -- Perform other command-line prompt action
   endif
 endfunction
 function! ButterflyPlus()
   let cmdtype = getcmdtype()
   if cmdtype == ':'
-    " Perform Ex command map action
+    " -- Perform Ex command map action
   elseif cmdtype == '/'
     return "\<C-T>"
   elseif cmdtype == '?'
     return "\<C-G>"
   elseif cmdtype == '@'
-    " Perform input() prompt map action
+    " -- Perform input() prompt map action
   else
-    " Perform other command-line prompt action
+    " -- Perform other command-line prompt action
   endif
 endfunction
 " --------------------------------------------------------------------------------
@@ -1635,8 +1743,9 @@ nnoremap <enter> i<CR><ESC>
 "map <leader>n :bn<cr>
 "" switch next tab"
 "map <leader>t gt
-"" buffer delete"
-"" map <leader>; :bd<cr>
+
+" buffer delete"
+nnoremap <silent> ;bd :bd<cr>
 
 "" Save
 "inoremap <C-s>     <C-O>:update<cr>
@@ -1909,6 +2018,8 @@ function! MyTabLine()
   return s
 endfunction
 
+
+
 " ----------------------------------------------
 " special arguments
 " ----------------------------------------------
@@ -1920,3 +2031,6 @@ endfunction
 " <script>
 " <expr>
 " <unique>
+
+" Set FileTypes"
+
