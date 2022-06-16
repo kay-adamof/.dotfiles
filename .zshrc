@@ -1,3 +1,5 @@
+# vim: set foldmethod=marker foldlevel=0 nomodeline:
+#
 # PATH settings
 export PATH="$HOME/bin:$PATH"
 
@@ -76,7 +78,7 @@ HIST_STAMPS="mm/dd/yyyy"
 plugins=(git docker macos)
 
 # ================================================================================
-#     Add a plugin for using vim mode in terminal
+#     Add a plugin for using vim mode in terminal {{{
 # ================================================================================
 # ------------------------------------------------------------
 #     Installation
@@ -125,6 +127,7 @@ ZVM_VI_EDITOR="$VISUAL"
 #
 # Your custom widget
 # insert the actual date in the form yyyy-mm-dd
+# }}}
 # ================================================================================
 #     [pierpo/fzf-docker: 🐳 Docker completion in zsh using fzf 🌸](https://github.com/pierpo/fzf-docker) 
 # ================================================================================
@@ -160,11 +163,11 @@ plugins+=(zsh-syntax-highlighting)
 # ================================================================================
 #     https://github.com/agkozak/zsh-z
 # ================================================================================
-plugins+=(git zsh-z)
+# plugins+=(git zsh-z)
 
 source $ZSH/oh-my-zsh.sh
 # ================================================================================
-#     basic settings
+#     basic settings {{{1
 # ================================================================================
 # ------------------------------------------------------------
 #     Tips
@@ -231,16 +234,31 @@ SAVEHIST=50000
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 # a:append ( Append some text with no text erased )
 alias a=">> "
+# --------------------------------------------------------------------------------
+#     Docker aliases {{{2
+# --------------------------------------------------------------------------------
 alias dpa="docker ps -a"
+alias dcp="docker container prune -f"
+alias dipa="docker image prune -af"
+alias dvp="docker volume prune -f"
+# }}}2
+# --------------------------------------------------------------------------------
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 alias vn="code -n" # Open vscode in new window
 alias vr="code -r" # Open a file in current vscode window
 alias zshrc="vi ~/.zshrc"
 alias vimrc="vi ~/.vimrc"
 alias ldd="l -d */" # Show only directory
-alias nterm="$EDITOR --cmd term"
+alias nterm="nvim --cmd term"
 alias ls="exa --long --tree --level=1 --git --ignore-glob=.git --group --blocks --all --header --inode --accessed --created --sort=inode # --reverse # fancy exaiii;"
-
+# }}}1
+# ================================================================================
+# ================================================================================
+#     Forgetful commands {{{1
+# ================================================================================
+# ipconfig getpacket en0 # Show ip address of my machine
+# }}}1
+# ================================================================================
 # ================================================================================
 #     BAT
 # ================================================================================
@@ -306,7 +324,10 @@ alias ls="exa --long --tree --level=1 --git --ignore-glob=.git --group --blocks 
 
 # export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
 # export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+# export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+# export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+export FZF_DEFAULT_COMMAND='rg --files --hidden --no-ignore --ignore-file .rignorefile --glob "!.git/*"'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # export FZF_DEFAULT_OPTS='--height 60% --layout=reverse --border'
 #     \   'rg --with-filename --column --line-number --no-heading --smart-case . '.fnameescape(expand('%:p')), 1,
@@ -357,7 +378,29 @@ export MANPAGER='/bin/zsh -c "nvim -MRn -c \"set buftype=nofile showtabline=0 ft
 # </dev/tty <(col -b)"'
 
 # ================================================================================
-#     git-fuzzy
+# HomeBrew Packages {{{1
+# ================================================================================
+# --------------------------------------------------------------------------------
+# brew install zoxide {{{2
+# --------------------------------------------------------------------------------
+# z foo              # cd into highest ranked directory matching foo
+# z foo bar          # cd into highest ranked directory matching foo and bar
+# z foo /            # cd into a subdirectory starting with foo
+# z ~/foo            # z also works like a regular cd command
+# z foo/             # cd into relative path
+# z ..               # cd one level up
+# z -                # cd into previous directory
+# zi foo             # cd with interactive selection (using fzf)
+# z foo<SPACE><TAB>  # show interactive completions (zoxide v0.8.0+, bash 4.4+/fish/zsh only)
+#
+# Consider to install
+# https://github.com/nanotee/zoxide.vim
+eval "$(zoxide init zsh)"
+# }}}2
+#
+# }}}1
+# ================================================================================
+#     git-fuzzy {{{
 # ================================================================================
 # https://github.com/bigH/git-fuzzy
 # ------------------------------------------------------------
@@ -408,17 +451,36 @@ export GIT_FUZZY_BRANCH_DELETE_BRANCH_KEY='Ctrl-D'
 #     Snippets
 # ------------------------------------------------------------
 # git rebase rebase-test-again master &| git branch -d rebase-test-again
+#
+# }}}
 # ================================================================================
 #     other alias
 # ================================================================================
-# ------------------------------------------------------------
-#     git
-# ------------------------------------------------------------
+# --------------------------------------------------------------------------------
+#     Basic Commands {{{2
+# --------------------------------------------------------------------------------
+mdcd() { 
+  mkdir -p "$1" && 
+  cd "$1"
+  }
+# }}}2
+# --------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------
+#     git {{{2
+# --------------------------------------------------------------------------------
 alias addup='git add -u'
 alias addall='git add .'
 alias branch='git branch'
 alias checkout='git checkout'
-alias clone='git clone'
+
+# -- Git clone and change dir to it.
+# https://unix.stackexchange.com/questions/97920/how-to-cd-automatically-after-git-clone
+# https://linuxhint.com/configure-use-aliases-zsh/
+clone() {
+  git clone "$1"
+  cd "$(basename "$1" .git)"
+}
+
 alias commit='git commit'
 alias fetch='git fetch'
 alias pull='git pull origin'
@@ -429,7 +491,41 @@ alias newtag='git tag -a'
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias memo='/usr/bin/git --git-dir=$HOME/.memo/ --work-tree=$HOME'
 alias memo_fuzzy='$HOME/git-fuzzy/bin --git-dir=$HOME/.memo/ --work-tree=$HOME'
- 
+
+# }}}2
+# --------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------
+#     Combinations {{{2
+# --------------------------------------------------------------------------------
+git_push_to_Github_initially(){
+  git remote add origin $1
+  git branch -M main
+  git push -u origin main
+}
+git_init(){
+  touch README.md
+  git init
+  git add README.md
+  git commit -m "first commit"
+  git branch -M main
+  git remote add origin https://github.com/kay-adamof/"$1".git
+  git push -u origin main
+}
+node_project() {
+  mkdir -p $HOME/07_playground/"$1"
+  cd $HOME/07_playground/"$1"
+  git init
+  cp $HOME/templates/node_gitignore ./.gitignore
+  cp $HOME/templates/node_README ./README.md
+  touch terminal.log
+  git add .
+  git commit -m "Initial Commit"
+  npm init -y
+  touch DUMMY
+}
+
+# }}}2
+# --------------------------------------------------------------------------------
 export PATH="/usr/local/bin:$PATH"
 
 # -- Make Vim Default Editor For Git and OS
@@ -664,7 +760,7 @@ append-back-slash() {
 zvm_define_widget append-back-slash
 
 append-TrashDir-command-line() {
-    [[ "$BUFFER" != *$HOME/trash ]] && BUFFER="mv $BUFFER $HOME/trash " && zle end-of-line
+    [[ "$BUFFER" != *$HOME/trash ]] && BUFFER="mv $BUFFER $HOME/trash/$(date +"%Y-%m-%d-%H-%M-%S") " && zle end-of-line
 }
 zvm_define_widget append-TrashDir-command-line
 # ------------------------------------------------------------
@@ -685,6 +781,13 @@ zvm_bindkey viins "^O" append-TrashDir-command-line
 # <esc> '[' (<modifier>) <char>                  -> keycode sequence, <modifier> is a decimal number and defaults to 1 (xterm)
 # <esc> '[' (<keycode>) (';'<modifier>) '~'      -> keycode sequence, <keycode> and <modifier> are decimal numbers and default to 1 (vt)
 #
+# ================================================================================
+#     Forgetful Commands {{{1
+# ================================================================================
+# -- Copy current directory path to clipboard
+# readlink -f . | pbcopy
+# }}}1
+# ================================================================================
 # ================================================================================
 #     [Starship: Cross-Shell Prompt](https://starship.rs/)
 # ================================================================================

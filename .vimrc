@@ -1,4 +1,9 @@
 " vim: set foldmethod=marker foldlevel=0 nomodeline:
+
+" ================================================================================
+"     Vim 8 defaults {{{1
+" ================================================================================
+
 """" vim 8 defaults
 
 unlet! skip_defaults_vim
@@ -19,11 +24,14 @@ let maplocalleader = ' '
 "   set syntax=off
 " endif
 
-
-
+" }}}1
 " ================================================================================
-"     so ~/.vim/plugins.vim
 " ================================================================================
+"     Plugins.vim {{{1
+" ================================================================================
+" --------------------------------------------------------------------------------
+"     Installed Plugins {{{2
+" --------------------------------------------------------------------------------
 " ------------------------------------------------------------
 "     To install correctly:
 " ------------------------------------------------------------
@@ -36,12 +44,15 @@ let maplocalleader = ' '
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'pangloss/vim-javascript'
+Plug 'plasticboy/vim-markdown'
+" Plug 'unblevable/quick-scope'
 Plug 'MattesGroeger/vim-bookmarks'
 " -- Not using yet
 " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " Plug 'nvim-lua/plenary.nvim'
 " Plug 'nvim-telescope/telescope.nvim'
-" -- 
+" --
 Plug 'habamax/vim-asciidoctor'
 " Plug 'vimwiki/vimwiki'
 Plug 'mhinz/vim-signify'
@@ -82,7 +93,7 @@ Plug 'yggdroot/indentline'
 " -- The Following Plugins make markdown syntax weird in my situation"
 " Plug 'sheerun/vim-polyglot'
 " Plug 'preservim/vim-markdown'
-" Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 
 call plug#end()
 
@@ -94,12 +105,46 @@ colorscheme dracula
 "PlugClean
 "PlugUpgrade
 
-" ================================================================================
-"     so ~/.vim/plugin-config.vim
-" ================================================================================
-" ================================================================================
-"     Plug 'MattesGroeger/vim-bookmarks'
-" ================================================================================
+" }}}2
+" --------------------------------------------------------------------------------
+"     Plug 'pangloss/vim-javascript' {{{2
+" --------------------------------------------------------------------------------
+
+" }}}2
+" --------------------------------------------------------------------------------
+" --------------------------------------------------------------------------------
+"     Plug 'tpope/vim-surround' {{{2
+" --------------------------------------------------------------------------------
+nnoremap <leader>change_surroundings_a cs"'
+nnoremap <leader>change_surroundings_b cs'<q>
+nnoremap <leader>change_surroundings_c cst"
+nnoremap <leader>delete_surroundings_   ds"
+nnoremap <leader>delete_surroundings_  ds{ds)
+nnoremap <leader>add_surroundings_inner_word_     ysiw]
+nnoremap <leader>add_surroundings_     ysiw<em>
+nnoremap <leader>add_surroundings_entire_line_     yss)
+nnoremap <leader>add_surroundings_     S<p class="important">
+" }}}2
+" --------------------------------------------------------------------------------
+"     Plug 'vim-pandoc/vim-pandoc-syntax' {{{2
+" --------------------------------------------------------------------------------
+" https://jdhao.github.io/2019/01/15/markdown_edit_preview_nvim/
+" augroup pandoc_syntax
+"     au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+" augroup END
+" }}}2
+" --------------------------------------------------------------------------------
+"     Plug 'plasticboy/vim-markdown' {{{2
+" --------------------------------------------------------------------------------
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_conceal = 1
+let g:vim_markdown_frontmatter = 1  " for YAML format
+let g:vim_markdown_toml_frontmatter = 1  " for TOML format
+let g:vim_markdown_json_frontmatter = 1  " for JSON format
+" }}}2
+" --------------------------------------------------------------------------------
+"     Plug 'MattesGroeger/vim-bookmarks'{{{2
+" --------------------------------------------------------------------------------
 " Action	Shortcut	Command
 " Add/remove bookmark at current line          	mm	           :BookmarkToggle
 " Add/edit/remove annotation at current line   	mi	           :BookmarkAnnotate <TEXT>
@@ -114,93 +159,23 @@ colorscheme dracula
 " Save all bookmarks to a file		                             :BookmarkSave <FILE_PATH>
 " Load bookmarks from a file		                               :BookmarkLoad <FILE_PATH>
 "
-" Read later: h 'scl' 
-"
-" ================================================================================
-"     Plug 'nvim-telescope/telescope.nvim'
-" ================================================================================
-" required: 
+" Read later: h 'scl'
+" }}}2
+" --------------------------------------------------------------------------------
+"     Plug 'nvim-telescope/telescope.nvim' {{{2
+" --------------------------------------------------------------------------------
+" required:
 "   - Plug 'nvim-lua/plenary.nvim'
 "   - Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-"
-" ================================================================================
-"     Plug 'vim-pandoc/vim-pandoc-syntax'
-" ================================================================================
-" https://github.com/vim-pandoc/vim-pandoc-syntax
-" augroup pandoc_syntax
-"     au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
-" augroup END
-" ================================================================================
-"     Plug 'preservim/vim-markdown'
-" ================================================================================
+"}}}2
+" --------------------------------------------------------------------------------
+"     Plug 'preservim/vim-markdown' {{{2
+" --------------------------------------------------------------------------------
 let g:vim_markdown_emphasis_multiline = 0
-" ================================================================================
-"     Plug 'vimwiki/vimwiki'
-" ================================================================================
-" This plugin conflicts with the visual_multi plugin.
-" ------------------------------------------------------------
-"     Features
-" ------------------------------------------------------------
-" * three markup syntaxes supported: Vimwiki's own syntax, Markdown, MediaWiki
-" * export everything to HTML
-" * link to other wiki pages and external files
-" * search through all wiki pages
-" * outline notes and tasks in indented lists
-" * quickly manipulate numbered and bulleted lists
-" * tag wiki pages or arbitrary places and quickly jump to tags
-" * auto-formatted tables
-" ------------------------------------------------------------
-"     Prerequisites
-" ------------------------------------------------------------
-" set nocompatible # Nvim is always "nocompatible"
-" filetype plugin on
-" syntax on
-" ------------------------------------------------------------
-"     notes
-" ------------------------------------------------------------
-" * Place your cursor on Tasks and press
-" * Enter to create a link.
-" * Press Enter again to open it.
-" * Backspace to jump back to your index.
-" * visually select the words to be linked and press Enter.
-" http://thedarnedestthing.com/vimwiki%20cheatsheet
-" https://gist.github.com/drkarl/4c503bccb62558dc85e8b1bc0f29e9cb
-" ------------------------------------------------------------
-"     Keybindings
-" ------------------------------------------------------------
-"
-" * <Leader>wr - Rename wiki page you are in.
-" * <Leader>wd - Delete wiki page you are in.
-" * <Leader>ww – Open the default wiki index file
-" * <Leader>ws – Select and open wiki index file
-
-" * <Enter> – Follow/Create wiki link
-" nmap <leader>wfl <Plug>VimwikiFollowLink
-" * <Backspace> – Go back to parent(previous) wiki link
-" nmap <leader>wb <Plug>VimwikiGoBackLink
-" * <Tab> – Find next wiki link
-" nmap <leader>wnl <Plug>VimwikiNextLink
-" * <Shift-Tab> – Find previous wiki link
-" nmap <leader>wpl <Plug>VimwikiPrevLink
-
-" vmap <leader>nl  <Plug>VimwikiNormalizeLinkVisualCR
-" ------------------------------------------------------------
-"     help pages
-" ------------------------------------------------------------
-" :h vimwiki
-" :h vimwiki-mappings
-" ------------------------------------------------------------
-"     Settings
-" ------------------------------------------------------------
-" let default_wiki = {}
-" let default_wiki.syntax = 'markdown'
-" let default_wiki.ext = '.md'
-
-" " let default_wiki.path = '~/Documents/'
-" let g:vimwiki_list = [default_wiki]
-" ================================================================================
-"     Plug 'SirVer/ultisnips'
-" ================================================================================
+" }}}2
+" --------------------------------------------------------------------------------
+"     Plug 'SirVer/ultisnips' {{{2
+" --------------------------------------------------------------------------------
 " https://github.com/sirver/UltiSnips
 " ------------------------------------------------------------
 "     notes
@@ -228,9 +203,10 @@ let g:vim_markdown_emphasis_multiline = 0
 
 " If you want :UltiSnipsEdit to split your window.
 " let g:UltiSnipsEditSplit="vertical"
-" ================================================================================
-"       Plug 'mhinz/vim-signify'
-" ================================================================================
+" }}}2
+" --------------------------------------------------------------------------------
+"    Plug 'mhinz/vim-signify' {{{2
+" --------------------------------------------------------------------------------
 " :h signify
 set updatetime=100
 
@@ -248,9 +224,10 @@ xmap ic <plug>(signify-motion-inner-visual)
 omap ac <plug>(signify-motion-outer-pending)
 xmap ac <plug>(signify-motion-outer-visual)
 
-" ================================================================================
-"     Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" ================================================================================
+" }}}2
+" --------------------------------------------------------------------------------
+"     Plug 'neoclide/coc.nvim', {'branch': 'release'} {{{2
+" --------------------------------------------------------------------------------
 " :help coc-nvim
 " https://github.com/neoclide/coc.nvim
 
@@ -277,12 +254,12 @@ set shortmess+=c
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
-if has("nvim-0.5.0") || has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
+" if has("nvim-0.5.0") || has("patch-8.1.1564")
+"   " Recently vim can merge signcolumn and number column into one
+"   set signcolumn=number
+" else
+"   set signcolumn=yes
+" endif
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -308,7 +285,7 @@ endif
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -403,7 +380,7 @@ command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.org
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
 " Show all diagnostics.
@@ -428,7 +405,6 @@ autocmd FileType json syntax match Comment +\/\/.\+$+
 
 " https://dev.classmethod.jp/articles/cocnvim-adventcalendar-day01/
 " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
 " ------------------------------------------------------------
 "     :CocInstall coc-snippets
 " ------------------------------------------------------------
@@ -505,14 +481,15 @@ nmap <leader>coc_prettier_format_seleced  <Plug>(coc-format-selected)
 "
 nnoremap <silent> ;y  :<C-u>CocList -A --normal yank<cr>
 
-" ================================================================================
-"     Plug 'lambdalisue/battery.vim'
-" ================================================================================
+" }}}2
+" --------------------------------------------------------------------------------
+"     Plug 'lambdalisue/battery.vim' {{{2
+" --------------------------------------------------------------------------------
 let g:battery#component_format = "%v%%"
-
-" ================================================================================
-"     Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-" ================================================================================
+" }}}2
+" --------------------------------------------------------------------------------
+"     Plug 'mg979/vim-visual-multi', {'branch': 'master'} {{{2
+" --------------------------------------------------------------------------------
 " https://github.com/mg979/vim-visual-multi
 " :help visual-multi
 " :help vm-some-topic
@@ -575,13 +552,13 @@ let g:battery#component_format = "%v%%"
 " ------------------------------------------------------------
 "     Some experiments
 " ------------------------------------------------------------
-    " let g:VM_mouse_mappings     = 1             " some text
-    " let g:VM_theme              = 'iceblue'     " some text
-    " let g:VM_highlight_matches  = 'underline'   " some text
+" let g:VM_mouse_mappings     = 1             " some text
+" let g:VM_theme              = 'iceblue'     " some text
+" let g:VM_highlight_matches  = 'underline'   " some text
 
-    " let g:VM_maps               = {}            " some text
-    " let g:VM_maps["Undo"]       = 'u'           " some text
-    " let g:VM_maps["Redo"]       = '<C-r>'       " some text
+" let g:VM_maps               = {}            " some text
+" let g:VM_maps["Undo"]       = 'u'           " some text
+" let g:VM_maps["Redo"]       = '<C-r>'       " some text
 
 " You could try some of the following, after setting a new mark and creating a
 " column of cursors with 5<C-Down>. Do the following in a single VM session:
@@ -593,14 +570,13 @@ let g:battery#component_format = "%v%%"
 " 5. now press <Tab>`dWWP`, then `A`<Space><C-v>
 " 6. exit insert mode, then press `0`, then <C-a>, then <C-x>
 " 7. still in VM, press `u` until you can, do the same with <C-r>, then again `u`
-
 " ------------------------------------------------------------
 "     settings
 " ------------------------------------------------------------
 let g:VM_leader = '_'
 
 if !exists('g:VM_maps')
-    let g:VM_maps = {}
+  let g:VM_maps = {}
 endif
 
 let g:VM_maps["Select h"] = ''
@@ -611,63 +587,65 @@ let g:VM_maps["Select l"] = ''
 " <Plug>(VM-select-l)
 " nunmap <S-Right>
 
-
-" ================================================================================
-"     Plug 'mzlogin/vim-markdown-toc'
-" ================================================================================
+" }}}2
+" --------------------------------------------------------------------------------
+"     Plug 'mzlogin/vim-markdown-toc'{{{2
+" --------------------------------------------------------------------------------
 nnoremap TocGenGFM :GenTocGFM<cr>
 
 " Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
-
-" ================================================================================
-"     Plug 'haya14busa/incsearch-fuzzy.vim'
-" ================================================================================
+" }}}2
+" --------------------------------------------------------------------------------
+"     Plug 'haya14busa/incsearch-fuzzy.vim'{{{2
+" --------------------------------------------------------------------------------
 "
 " map zf <Plug>(incsearch-fuzzy-/)
 " map zF <Plug>(incsearch-fuzzy-?)
 " map zg/ <Plug>(incsearch-fuzzy-stay)
-
-" ================================================================================
-"     Plug 'junegunn/vim-easy-align'
-" ================================================================================
+" }}}2
+" --------------------------------------------------------------------------------
+"     Plug 'junegunn/vim-easy-align' {{{2
+" --------------------------------------------------------------------------------
+" https://github.com/junegunn/vim-easy-align
+" *= Around all occurrences
 nmap <leader>easy_align_inner_paragraph              <Plug>(EasyAlign)ip
 nmap <leader>easy_align_inner_paragraph_ignore_group <Plug>(EasyAlign)ip<C-G>
-
-" ================================================================================
-"     Plug 'junegunn/limelight.vim'
-" ================================================================================
-  " Color name (:help cterm-colors) or ANSI code
+" }}}2
+" --------------------------------------------------------------------------------
+"     Plug 'junegunn/limelight.vim' {{{2
+" --------------------------------------------------------------------------------
+" Color name (:help cterm-colors) or ANSI code
 let g:limelight_conceal_ctermfg     = 'gray'
 let g:limelight_conceal_ctermfg     = 240
-  " Color name (:help gui-colors) or RGB color
+" Color name (:help gui-colors) or RGB color
 " let g:limelight_conceal_guifg = 'DarkGray'
 " let g:limelight_conceal_guifg = '#777777'
-  " default: 0.5
+" default: 0.5
 let g:limelight_default_coefficient = 0.5
-  " Number of preceding/following paragraphs to include (default: 0)
+" Number of preceding/following paragraphs to include (default: 0)
 let g:limelight_paragraph_span      = 0
-  " Beginning/end of paragraph
-  " When there's no empty line between the paragraphs
-  " and each paragraph starts with indentation
+" Beginning/end of paragraph
+" When there's no empty line between the paragraphs
+" and each paragraph starts with indentation
 " let g:limelight_bop = '^\s'
 " let g:limelight_eop = '\ze\n^\s'
-  " Highlighting priority (default: 10)
-  " Set it to -1 not to overrule hlsearch
+" Highlighting priority (default: 10)
+" Set it to -1 not to overrule hlsearch
 let g:limelight_priority            = 10
-
-" ================================================================================
-"     Plug 'junegunn/goyo.vim'
-" ================================================================================
-  " revert default colorscheme when exit goyo
+" }}}2
+" --------------------------------------------------------------------------------
+"     Plug 'junegunn/goyo.vim' {{{2
+" --------------------------------------------------------------------------------
+" revert default colorscheme when exit goyo
 nnoremap turn_goyo_off :Goyo!<CR> :hi Normal guibg=NONE ctermbg=NONE<CR>
-  " goyo and limelight integration
+" goyo and limelight integration
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
-
-" ================================================================================
-"     Plug 'mhinz/vim-startify'
-" ================================================================================
+" }}}2
+" --------------------------------------------------------------------------------
+"     Plug 'mhinz/vim-startify' {{{2
+" --------------------------------------------------------------------------------
 nnoremap startify_load_a_session   :SLoad<CR>
 nnoremap startify_save_a_session   :SSave<CR>
 nnoremap startify_delete_a_session :SDelete<CR>
@@ -684,17 +662,26 @@ let g:startify_update_oldfiles     = 1
 let g:startify_session_autoload    = 1
 let g:startify_session_persistence = 0
 
-let g:startify_skiplist = [
-        \ 'COMMIT_EDITMSG',
-        \ 'bundle/.*/doc',
-        \ '/data/repo/neovim/runtime/doc',
-        \ '/Users/mhi/local/vim/share/vim/vim74/doc',
+" https://github.com/mhinz/vim-startify/issues/461
+let g:startify_session_before_save = [
+        \ 'silent! :tabdo NERDTreeClose'
         \ ]
 
+let g:startify_skiplist = [
+      \ 'COMMIT_EDITMSG',
+      \ 'bundle/.*/doc',
+      \ '/data/repo/neovim/runtime/doc',
+      \ '/Users/mhi/local/vim/share/vim/vim74/doc',
+      \ ]
+
 let g:startify_bookmarks = [
-        \ { 'a': '~/.vim/vimrc' },
-        \ { 'b': '~/vimwiki/index.adoc' }
-        \ ]
+      \ { 'a': '~/.vim/vimrc' },
+      \ { 'b': '~/vimwiki/index.adoc' }
+      \ ]
+" }}}2
+" --------------------------------------------------------------------------------
+"     Plug 'junegunn/fzf.vim' {{{2
+" --------------------------------------------------------------------------------
 
 " --------------------------------------------------------------------------------
 " FZF.VIM CONFIG
@@ -757,8 +744,8 @@ let g:fzf_layout = { 'window': '-tabnew' }
 "   \ 'preview-bg':     ['bg', 'CursorLine'],
 "   \ 'hl+': ['bg', 'CursorLine', 'CursorColumn']}
 
-  " \ 'preview-fg':     ['fg', 'CursorLine', 'Normal'],
-  "
+" \ 'preview-fg':     ['fg', 'CursorLine', 'Normal'],
+"
 " " Enable per-command history
 " " - History files will be stored in the specified directory
 " " - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
@@ -777,7 +764,7 @@ let g:fzf_preview_window = ['up:60%:hidden', 'ctrl-/']
 " ------------------------------------------------------------
 "
 command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
-  " fzf.vim ripgrep advanced option command RG"
+" fzf.vim ripgrep advanced option command RG"
 function! RipgrepFzf(query, fullscreen)
   let command_fmt     = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
   let initial_command = printf(command_fmt, shellescape(a:query))
@@ -788,15 +775,15 @@ endfunction
 command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 
 command! -bang -nargs=* BLines
-    \ call fzf#vim#grep(
-    \   'rg --with-filename --column --line-number --no-heading --smart-case . '.fnameescape(expand('%:p')), 1,
-    \   fzf#vim#with_preview({'options': '--layout reverse --height=100% --query '.shellescape(<q-args>).' --bind change:first --with-nth=4.. --delimiter=":"'}, 'up:60%'),1)
-    " \   fzf#vim#with_preview({'options': '--layout reverse  --with-nth=-1.. --delimiter="/"'}, 'right:50%'))
+      \ call fzf#vim#grep(
+      \   'rg --with-filename --column --line-number --no-heading --smart-case . '.fnameescape(expand('%:p')), 1,
+      \   fzf#vim#with_preview({'options': '--layout reverse --height=100% --query '.shellescape(<q-args>).' --bind change:first --with-nth=4.. --delimiter=":"'}, 'up:60%'),1)
+" \   fzf#vim#with_preview({'options': '--layout reverse  --with-nth=-1.. --delimiter="/"'}, 'right:50%'))
 command! -bang -nargs=* LinesWithPreview
-    \ call fzf#vim#grep(
-    \   'rg --with-filename --column --line-number --no-heading --color=always --smart-case . '.fnameescape(expand('%')), 1,
-    \   fzf#vim#with_preview({'options': '--delimiter : --nth 4.. --no-sort'}, 'up:50%', '?'),
-    \   1)
+      \ call fzf#vim#grep(
+      \   'rg --with-filename --column --line-number --no-heading --color=always --smart-case . '.fnameescape(expand('%')), 1,
+      \   fzf#vim#with_preview({'options': '--delimiter : --nth 4.. --no-sort'}, 'up:50%', '?'),
+      \   1)
 " nnoremap H :LinesWithPreview<CR>
 
 " command! -bang -nargs=* BLines call fzf#vim#buffer_lines(<q-args>, fzf#vim#with_preview(), <bang>0)
@@ -806,12 +793,12 @@ command! -bang -nargs=* LinesWithPreview
 "     Mappings related to fzf
 " ------------------------------------------------------------
 "
-  " Mapping selecting mappings
+" Mapping selecting mappings
 nmap <leader><Space> <plug>(fzf-maps-n)
 xmap <leader><Space> <plug>(fzf-maps-x)
 omap <leader><Space> <plug>(fzf-maps-o)
 
-  " Insert mode completion
+" Insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-l> <plug>(fzf-complete-line)
@@ -821,7 +808,7 @@ nnoremap <leader>Fzf_git_ls_files                              :GFiles<CR>
 nnoremap <leader>Fzf_git_status                                :GFiles?<CR>
 nnoremap <leader>Fzf_open_buffers                              :Buffers<CR>
 " nnoremap <leader> :Colors<CR>
-    " Color schemes
+" Color schemes
 nnoremap <leader>Fzf_silver_search                             :Ag<CR>
 nnoremap <leader>Fzf_ripgrep                                   :Rg<CR>
 nnoremap <leader>Fzf_search_lines_in_loaded_buffers            :Lines<CR>
@@ -842,9 +829,9 @@ nnoremap <leader>Fzf_search_all_commands                       :Commands<CR>
 nnoremap <leader>Fzf_search_normal_mode_mappings               :Maps<CR>
 nnoremap <leader>Fzf_search_helptags                           :Helptags<CR>
 nnoremap <leader>Fzf_search_filetypes                          :Filetypes<CR>
-  " CTRL-T / CTRL-X / CTRL-V
-    " key bindings to open in a new tab, a new split, or in a new vertical split
-  " Bang-versions of the commands (e.g. Ag!) will open fzf in fullscreen
+" CTRL-T / CTRL-X / CTRL-V
+" key bindings to open in a new tab, a new split, or in a new vertical split
+" Bang-versions of the commands (e.g. Ag!) will open fzf in fullscreen
 
 "-- KIE CONFIG
 "let g:kite_supported_languages = ['python', 'javascript', 'go']
@@ -853,15 +840,16 @@ nnoremap <leader>Fzf_search_filetypes                          :Filetypes<CR>
 "-- ALE CONFIG
 let g:ale_disable_lsp = 1
 let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'javascript': ['eslint'],
-\   'javascriptreact': ['eslint'],
-\}
+      \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+      \   'javascript': ['eslint'],
+      \   'javascriptreact': ['eslint'],
+      \}
 
 
-" ================================================================================
-"     Plug 'vim-airline/vim-airline'
-" ================================================================================
+" }}}2
+" --------------------------------------------------------------------------------
+"     Plug 'vim-airline/vim-airline' {{{2
+" --------------------------------------------------------------------------------
 let g:airline#extensions#fzf#enabled = 1
 " let g:airline_statusline_ontop = 0
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
@@ -873,7 +861,7 @@ let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 " let g:airline#extensions#tabline#show_splits = 1
 
 " * switch position of buffers and tabs on splited tabline (c)
-  " (only supported for ctrlspace plugin). >
+" (only supported for ctrlspace plugin). >
 " let g:airline#extensions#tabline#switch_buffers_and_tabs = 0
 
 " * enable/disable displaying buffers with a single tab. (c) >
@@ -881,9 +869,9 @@ let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 
 " Append/Replace custom sections to default sections prepared by Airline"
 function! AirlineInit()
-  let g:airline_section_b ..= '%-0.20{getcwd()}'
+  " let g:airline_section_b ..= '%-0.10{getcwd()}'
   " let g:airline_section_c ..= '%-0.20{getcwd()}'
-  let g:airline_section_z = '%{battery#component()}%{strftime("|%y/%m/%d|%H:%m")}'
+  " let g:airline_section_z = '%{battery#component()}%{strftime("|%y/%m/%d|%H:%m")}'
 endfunction
 autocmd User AirlineAfterInit call AirlineInit()
 
@@ -895,7 +883,7 @@ let g:airline_theme='dracula'
 " some symbols works with nerd font
 " if symbols do not work correctly, make sure the settings of your app's font family."
 if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
+  let g:airline_symbols = {}
 endif
 let g:airline_left_sep = ''
 " let g:airline_left_sep  = ''
@@ -907,35 +895,43 @@ let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 
-" ================================================================================
-
-" ================================================================================
-
-""-- ULTISNIPS CONFIG
+" }}}2
+" --------------------------------------------------------------------------------
+"     ULTISNIPS CONFIG {{{2
+" --------------------------------------------------------------------------------
 "let g:UltiSnipsExpandTrigger = "<c-j>"
 "let g:UltiSnipsListSnippets  = "<c-l>"
-
-"-- INDENTLINE CONFIG
+" }}}2
+" --------------------------------------------------------------------------------
+"     INDENTLINE CONFIG {{{2
+" --------------------------------------------------------------------------------
 let g:indentLine_color_gui  = '#423d38'
 let g:indentLine_setConceal = 0
 let g:indentLine_char       = '|'
 
-"-- POLYGLOT CONFIG
-      "js concealing
+" }}}2
+" --------------------------------------------------------------------------------
+"     POLYGLOT CONFIG {{{2
+" --------------------------------------------------------------------------------
+"js concealing
 " let g:javascript_conceal_function="ƒ"
 " let g:javascript_conceal_null="ø"
 " let g:javascript_conceal_arrow_function="⇒"
 
-"-- EMMET CONFIG
+" }}}2
+" --------------------------------------------------------------------------------
+"     EMMET CONFIG {{{2
+" --------------------------------------------------------------------------------
 let g:user_emmet_settings = {
-\  'javascript' : {
-\      'extends' : 'jsx',
-\  },
-\}
+      \  'javascript' : {
+        \      'extends' : 'jsx',
+        \  },
+        \}
 
-" ================================================================================
-"     NERDTree CONFIG
-" ================================================================================
+" }}}2
+" --------------------------------------------------------------------------------
+"     NERDTree CONFIG {{{2
+" --------------------------------------------------------------------------------
 
 " <leader>n | NERD Tree
 nnoremap <leader>n :NERDTree %<cr>
@@ -945,140 +941,144 @@ let NERDTreeRespectWildIgnore = 1
 let g:NERDTreeMapToggleFiles = '_F'
 let g:NERDTreeMapToggleFilters = '_f'
 set wildignore+=*.DS_Store,*.min.*
-      " Start NERDTree when Vim is started without file arguments.
+" Start NERDTree when Vim is started without file arguments.
 " autocmd StdinReadPre * let s:std_in=1
 " autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
-      " Open the existing NERDTree on each new tab.
+" Open the existing NERDTree on each new tab.
 " autocmd BufWinEnter * silent NERDTreeMirror
 
 "-- TAGBAR CONFIG
 nmap <F8> :TagbarToggle<CR>
-      " Extend .jsx support
+" Extend .jsx support
 let g:tagbar_type_javascriptreact = {
- \ 'ctagstype': 'javascript',
- \ 'kinds': [
-       \ 'A:array',
-       \ 'P:property',
-       \ 'T:tags',
-       \ 'O:objects',
-       \ 'g:generator functions',
-       \ 'f:functions',
-       \ 'c:classes',
-       \ 'm:methods',
-       \ 'V:variables',
-       \ 'I:imports',
-       \ 'E:exports',
-       \ 's:styled components'
- \ ]}
+      \ 'ctagstype': 'javascript',
+      \ 'kinds': [
+        \ 'A:array',
+        \ 'P:property',
+        \ 'T:tags',
+        \ 'O:objects',
+        \ 'g:generator functions',
+        \ 'f:functions',
+        \ 'c:classes',
+        \ 'm:methods',
+        \ 'V:variables',
+        \ 'I:imports',
+        \ 'E:exports',
+        \ 's:styled components'
+        \ ]}
 
-"-- Prettier config
+" }}}2
+" --------------------------------------------------------------------------------
+"     Prettier config {{{2
+" --------------------------------------------------------------------------------
 " augroup fmt
 "   autocmd!
 "   autocmd BufWritePre,TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.svelte,*.yaml,*.html PrettierAsync
 " augroup END
 
-"-- Auto Save
-" augroup fmt
-"   autocmd!
-"   autocmd TextChanged,InsertLeave * :w
-" augroup END
 
-"-- The Silver Searcher"
+" }}}2
+" --------------------------------------------------------------------------------
+"     The Silver Searcher {{{2
+" --------------------------------------------------------------------------------
 " let g:ackprg = 'ag --nogroup --nocolor --column'
-" ----------------------------------------------------------------------------
-" <Leader>I/A | Prepend/Append to all adjacent lines with same indentation
+
+" }}}2
+" --------------------------------------------------------------------------------
+" <Leader>I/A | Prepend/Append to all adjacent lines with same indentation {{{2
 " ----------------------------------------------------------------------------
 nmap <silent> <leader>I ^vio<C-V>I
 nmap <silent> <leader>A ^vio<C-V>$A
 
 "-- Plug 'mileszs/ack.vim'
-  " Use ripgrep for searching ⚡️
-  " Options include:
-  " --vimgrep -> Needed to parse the rg response properly for ack.vim
-  " --type-not sql -> Avoid huge sql file dumps as it slows down the search
-  " --smart-case -> Search case insensitive if all lowercase pattern, Search case sensitively otherwise
+" Use ripgrep for searching ⚡️
+" Options include:
+" --vimgrep -> Needed to parse the rg response properly for ack.vim
+" --type-not sql -> Avoid huge sql file dumps as it slows down the search
+" --smart-case -> Search case insensitive if all lowercase pattern, Search case sensitively otherwise
 let g:ackprg                         = 'rg --vimgrep --type-not sql --smart-case'
-  " Auto close the Quickfix list after pressing '<enter>' on a list item
+" Auto close the Quickfix list after pressing '<enter>' on a list item
 let g:ack_autoclose                  = 1
-  " Any empty ack search will search for the work the cursor is on
+" Any empty ack search will search for the work the cursor is on
 let g:ack_use_cword_for_empty_search = 1
-  " Don't jump to first match
+" Don't jump to first match
 cnoreabbrev Ack Ack!
-  " Maps <leader>/ so we're ready to type the search keyword
+" Maps <leader>/ so we're ready to type the search keyword
 nnoremap <Leader>/ :Ack!<Space>
 
 " Navigate quickfix list with ease
 nnoremap <silent> [q :cprevious<CR>
 nnoremap <silent> ]q :cnext<CR>
-
-" ================================================================================
-"     so ~/.vim/autoclose.vim
-" ================================================================================
+" }}}2
+" --------------------------------------------------------------------------------
+"     Auto Close {{{2
+" --------------------------------------------------------------------------------
 "-- AUTOCLOSE NATIVE CONFIG
-      "autoclose and position cursor to write text inside
+"autoclose and position cursor to write text inside
 inoremap ' ''<left>
 inoremap ` ``<left>
 inoremap " ""<left>
 inoremap ( ()<left>
 inoremap [ []<left>
 inoremap { {}<left>
-      "autoclose with ; and position cursor to write text inside
+inoremap < <><left>
+"autoclose with ; and position cursor to write text inside
 inoremap '; '';<left><left>
 inoremap `; ``;<left><left>
 inoremap "; "";<left><left>
 inoremap (; ();<left><left>
 inoremap [; [];<left><left>
 inoremap {; {};<left><left>
-      "autoclose with : and position cursor to write text inside
+"autoclose with : and position cursor to write text inside
 inoremap ': '':<left><left>
 inoremap `: ``:<left><left>
 inoremap ": "":<left><left>
 inoremap (: ():<left><left>
 inoremap [: []:<left><left>
 inoremap {: {}:<left><left>
-      "autoclose with , and position cursor to write text inside
+"autoclose with , and position cursor to write text inside
 inoremap ', '',<left><left>
 inoremap `, ``,<left><left>
 inoremap ", "",<left><left>
 inoremap (, (),<left><left>
 inoremap [, [],<left><left>
 inoremap {, {},<left><left>
-      "autoclose and position cursor after
+"autoclose and position cursor after
 inoremap '<tab> ''
 inoremap `<tab> ``
 inoremap "<tab> ""
 inoremap (<tab> ()
 inoremap [<tab> []
 inoremap {<tab> {}
-      "autoclose with ; and position cursor after
+"autoclose with ; and position cursor after
 inoremap ';<tab> '';
 inoremap `;<tab> ``;
 inoremap ";<tab> "";
 inoremap (;<tab> ();
 inoremap [;<tab> [];
 inoremap {;<tab> {};
-      "autoclose with , and position cursor after
+"autoclose with , and position cursor after
 inoremap ',<tab> '',
 inoremap `,<tab> ``,
 inoremap ",<tab> "",
 inoremap (,<tab> (),
 inoremap [,<tab> [],
 inoremap {,<tab> {},
-      "autoclose 2 lines below and position cursor in the middle
+"autoclose 2 lines below and position cursor in the middle
 inoremap '<CR> '<CR>'<ESC>O
 inoremap `<CR> `<CR>`<ESC>O
 inoremap "<CR> "<CR>"<ESC>O
 inoremap (<CR> (<CR>)<ESC>O
 inoremap [<CR> [<CR>]<ESC>O
 inoremap {<CR> {<CR>}<ESC>O
-      "autoclose 2 lines below adding ; and position cursor in the middle
+"autoclose 2 lines below adding ; and position cursor in the middle
 inoremap ';<CR> '<CR>';<ESC>O
 inoremap `;<CR> `<CR>`;<ESC>O
 inoremap ";<CR> "<CR>";<ESC>O
 inoremap (;<CR> (<CR>);<ESC>O
 inoremap [;<CR> [<CR>];<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
-      "autoclose 2 lines below adding , and position cursor in the middle
+"autoclose 2 lines below adding , and position cursor in the middle
 inoremap ',<CR> '<CR>',<ESC>O
 inoremap `,<CR> `<CR>`,<ESC>O
 inoremap ",<CR> "<CR>",<ESC>O
@@ -1086,9 +1086,10 @@ inoremap (,<CR> (<CR>),<ESC>O
 inoremap [,<CR> [<CR>],<ESC>O
 inoremap {,<CR> {<CR>},<ESC>O
 
-" ================================================================================
-"     so ~/.vim/GoogleSearch.vim
-" ================================================================================
+" }}}2
+" --------------------------------------------------------------------------------
+"     Google Search {{{2
+" --------------------------------------------------------------------------------
 " voogle.vim - Google from vim
 " Original Author : George Papanikolaou <papanikge@ceid.upatras.gr>
 " Version         : 1.2
@@ -1101,51 +1102,51 @@ inoremap {,<CR> {<CR>},<ESC>O
 
 " Use this to set a custom search engine, like duck duck go
 if !exists("g:search_engine")
-    let g:search_engine = "https://duckduckgo.com/?q="
+  let g:search_engine = "https://duckduckgo.com/?q="
 endif
 
 " mode: 0 is normal, 1 is visual
 func! Google(mode)
 
-    " Is the browser defined via configuration?
-    if exists("g:voogle_browser") && executable(g:voogle_browser)
-        let browser = "!" . g:voogle_browser . " "
-    endif
+  " Is the browser defined via configuration?
+  if exists("g:voogle_browser") && executable(g:voogle_browser)
+    let browser = "!" . g:voogle_browser . " "
+  endif
 
-    " Find a browser
-    if !exists("browser")
-        if has("mac")
-            let browser = "!open "
-        elseif executable("chromium")
-            let browser = "!chromium "
-        elseif executable("chrome")
-            let browser = "!chrome "
-        elseif executable("firefox")
-            let browser = "!firefox "
-        elseif executable("links")
-            let browser = "!links "
-        endif
+  " Find a browser
+  if !exists("browser")
+    if has("mac")
+      let browser = "!open "
+    elseif executable("chromium")
+      let browser = "!chromium "
+    elseif executable("chrome")
+      let browser = "!chrome "
+    elseif executable("firefox")
+      let browser = "!firefox "
+    elseif executable("links")
+      let browser = "!links "
     endif
+  endif
 
-    if a:mode == 1
-        " Visual selection mode
-        " using @x for register x which is yanked with visual selection
-        let query = substitute(@x, " ", "+", "g")
-        let query = substitute(query, "\n", "", "g")
-    else
-        " word user cursor mode
-        let query = substitute(@x, "\n", "", "g")
-    endif
+  if a:mode == 1
+    " Visual selection mode
+    " using @x for register x which is yanked with visual selection
+    let query = substitute(@x, " ", "+", "g")
+    let query = substitute(query, "\n", "", "g")
+  else
+    " word user cursor mode
+    let query = substitute(@x, "\n", "", "g")
+  endif
 
-    " Prepare the shell command
-    if has("unix") || has("macunix")
-        let shell_command = browser . "\"" . g:search_engine . query . "\" > /dev/null 2>&1 &"
-    else
-        let shell_command = browser . "\"" . g:search_engine . query . "\""
-    endif
+  " Prepare the shell command
+  if has("unix") || has("macunix")
+    let shell_command = browser . "\"" . g:search_engine . query . "\" > /dev/null 2>&1 &"
+  else
+    let shell_command = browser . "\"" . g:search_engine . query . "\""
+  endif
 
-    execute shell_command
-    redraw!
+  execute shell_command
+  redraw!
 endfunc
 
 " Use this to set a custom mapping
@@ -1157,23 +1158,13 @@ let key = g:voogle_map
 exe 'nnoremap ' . key .  ' "xyiw:silent call Google(0)<CR>'
 exe 'vnoremap ' . key .  ' "xy:silent call Google(1)<CR>'
 
+" }}}2
+" --------------------------------------------------------------------------------
+" }}}1
 " ================================================================================
-"     so ~/.vim/surround-vim_mappings.vim
 " ================================================================================
-nnoremap <leader>change_surroundings_a cs"'
-nnoremap <leader>change_surroundings_b cs'<q>
-nnoremap <leader>change_surroundings_c cst"
-nnoremap <leader>delete_surroundings_   ds"
-nnoremap <leader>delete_surroundings_  ds{ds)
-nnoremap <leader>add_surroundings_inner_word_     ysiw]
-nnoremap <leader>add_surroundings_     ysiw<em>
-nnoremap <leader>add_surroundings_entire_line_     yss)
-nnoremap <leader>add_surroundings_     S<p class="important">
-
-" ------------------------------------------------------------
-"     color & theme config
-" ------------------------------------------------------------
-"
+"     Color & Theme {{{1
+" ================================================================================
 set termguicolors
 " hi Cursor gui=reverse guifg=NONE guibg=NONE
 " let g:dracula_italic = 1
@@ -1213,18 +1204,20 @@ augroup vimrc-incsearch-highlight
   autocmd CmdlineLeave /,\? :set nohlsearch
 augroup END
 
-
-"" ============================================================================
-"" BASIC SETTINGS {{{
-"" ============================================================================
+" }}}1
+" ================================================================================
+" ================================================================================
+"     Basic Settings {{{1
+" ================================================================================
+set wrap linebreak nolist
 " ------------------------------------------------------------
 "     Concealing markdown links
 " ------------------------------------------------------------
 " -- simply concealing markdown link text of which part surrounded by "()" "
-augroup markdownConcealing
-  autocmd!
-  autocmd FileType markdown call matchadd('Conceal', '(.\+)')
-augroup END
+" augroup markdownConcealing
+"   autocmd!
+"   autocmd FileType markdown call matchadd('Conceal', '(.\+)')
+" augroup END
 
 " ------------------------------------------------------------
 "     Customizing highlight of "Search"
@@ -1284,6 +1277,12 @@ set scrolloff=999
 set showcmd
 set noshowmode
 set conceallevel=1
+
+" augroup OffConceal
+"   autocmd!
+"   autocmd FileType js,json set conceal off
+" augroup end
+
 " set formatoptions-=cro
 
 " set formatoptions+=1
@@ -1387,10 +1386,11 @@ set clipboard=unnamed
 "
 let g:python3_host_prog = '/usr/local/bin/python3'
 
-"" ============================================================================
-"" MAPPINGS
-"" ============================================================================
-
+" }}}1
+" ================================================================================
+" ================================================================================
+"     Mappings {{{1
+" ================================================================================
 
 " *map-table*
 "          Mode  | Norm | Ins | Cmd | Vis | Sel | Opr | Term | Lang | ~
@@ -1414,7 +1414,19 @@ let g:python3_host_prog = '/usr/local/bin/python3'
 " s[nore]map     |  -   |  -  |  -  |  -  | yes |  -  |  -   |  -   |
 " o[nore]map     |  -   |  -  |  -  |  -  |  -  | yes |  -   |  -   |
 " t[nore]map     |  -   |  -  |  -  |  -  |  -  |  -  | yes  |  -   |
-
+" --------------------------------------------------------------------------------
+"     Send terminal I/O {{{2
+" --------------------------------------------------------------------------------
+function! Logging()
+  " let logfile = "$HOME/terminal.log"
+  !date >> $HOME/terminal.log
+  !readlink -f . >> $HOME/terminal.log
+  w !tee >> $HOME/terminal.log
+  !nvim -c ":call SingleLine() | wq" --headless $HOME/terminal.log
+endfunction
+nnoremap <leader>Logging :call Logging()<cr>
+" }}}2
+" --------------------------------------------------------------------------------
 " ------------------------------------------------------------
 "     Simply Imitation of vim-wiki
 " ------------------------------------------------------------
@@ -1441,28 +1453,59 @@ if has('nvim')
   " tnoremap <M-[> <Esc>
   " tnoremap <C-v><Esc> <Esc>
 endif
+" --------------------------------------------------------------------------------
+"     Basic Mappings {{{2
+" --------------------------------------------------------------------------------
+" -- Go to markdown header -- "
+nnoremap ;* vi[y/# <c-r>"
 
-"" ----------------------------------------------------------------------------
-"" Basic mappings
-"" ----------------------------------------------------------------------------
 nnoremap <silent> <leader>copy_current_file_path_to_clipboard :let @*=expand('%:p')<cr>
 
 nnoremap <leader>delete_all_lines ggVGd
 
 " -- open a file under the cursor. If the file does not exist, it's created automatically
 " -- :h <cfile>
-nnoremap <silent> gf :e <cfile><CR>
+nnoremap <silent> gf :tabe <cfile><CR>
+vnoremap <silent> gf :tabee <cfile><CR>
 
 nnoremap <leader>delete_all_buffer %bdelete
 vnoremap <bs> d
 " inoremap <esc>b <S-Left>
 " nnoremap <expr> <esc>b mode(n)>1 ? '<S-Left>' : ''
+" }}}2
+" --------------------------------------------------------------------------------
+" --------------------------------------------------------------------------------
+"     Resize Window {{{2
+" --------------------------------------------------------------------------------
 
+nnoremap <leader>Resize10 :resize 10<cr> :set wfh<cr>
+nnoremap <leader>Resize15 :resize 15<cr> :set wfh<cr>
+nnoremap <leader>Resize20 :resize 20<cr> :set wfh<cr>
+nnoremap <leader>Resize25 :resize 25<cr> :set wfh<cr>
+nnoremap <leader>Resize30 :resize 30<cr> :set wfh<cr>
+nnoremap <leader>Resize35 :resize 35<cr> :set wfh<cr>
+nnoremap <leader>Resize40 :resize 40<cr> :set wfh<cr>
+
+" }}}2
+" --------------------------------------------------------------------------------
+" --------------------------------------------------------------------------------
+"     Navigate Windows {{{2
+" --------------------------------------------------------------------------------
+:nnoremap <C-\><C-N><C-w>h <C-w>h
+:nnoremap <C-\><C-N><C-w>j <C-w>j
+:nnoremap <C-\><C-N><C-w>k <C-w>k
+:nnoremap <C-\><C-N><C-w>l <C-w>l
+" }}}2
+" --------------------------------------------------------------------------------
 " --------------------------------------------------------------------------------
 " Cursor Movings
 " --------------------------------------------------------------------------------
 " Some mappings with "~" work with "keybindings.json" of vscode.
-
+" -- Insert a newline below/above"
+inoremap ~p <C-o>o
+inoremap ~P <C-o>O
+nnoremap ~p o
+nnoremap ~P O
 " Move a word backward
 inoremap ~i <Esc><s-left>
 nnoremap ~i <esc><S-Left>
@@ -1519,8 +1562,9 @@ nnoremap <expr> <bs> getpos(".")[2]==1 ? "b<S-j>" : "X"
 nnoremap <expr> <del> match(getline("."),'^$') ? "x" : "dd"
 " nnoremap <expr> <bs> match(getline("."),'^.') ? "b<S-j>" : "dd"
 " --------------------------------------------------------------------------------
-" semicolon leader mappings
+" semicolon leader mappings {{{1
 " --------------------------------------------------------------------------------
+nnoremap <silent> ;; :Prettier<cr>
 " nnoremap <silent> ;gh vi[/
 
 nnoremap <silent> ;gy :Goyo<cr> :set wrap linebreak nolist<cr>
@@ -1535,14 +1579,15 @@ noremap ;n :NERDTreeToggle<cr>
 "" open terminal in the directory of the current file"
 " nnoremap ;t :let $VIM_DIR=expand('%:p:h')<CR>:terminal<CR>cd $VIM_DIR<CR>
 " nnoremap ;t :let $VIM_DIR=expand('%:p:h')<CR>:terminal<CR>cd $VIM_DIR<CR>
-nnoremap ;ter :let $VIM_DIR=expand('%:p:h')<CR>:split<bar>terminal<CR>i cd $VIM_DIR<CR>
+nnoremap ;t :let $VIM_DIR=expand('%:p:h')<CR>:split<bar>terminal<CR>i cd $VIM_DIR<CR>
 " https://github.com/neovim/neovim/issues/5073
 " command! -nargs=* T split | terminal <args>
 " command! -nargs=* VT vsplit | terminal <args>
 " quit
-nnoremap ;q :q!<cr>
-nnoremap ;qq :qa!<cr>
+" nnoremap ;a :q!<cr>
+nnoremap ;w :qa!<cr>
 " nnoremap ;qqq :tabdo NERDTreeClose<CR> :qa!<cr>
+" }}}1
 " --------------------------------------------------------------------------------
 
 " --------------------------------------------------------------------------------
@@ -1555,17 +1600,43 @@ function! ChangeToLocalDir()
   lchdir%:p:h
   return ''
 endfunction
+
+" }}}1
 " ================================================================================
-"     The Past Regex
-" ================================================================================
+" --------------------------------------------------------------------------------
+"     Regex {{{2
+" --------------------------------------------------------------------------------
 " \(\s[A-Z][a-z]\+\)$
 " The above matches ' Management'
 " Branch Management
 " Some sub-headings have two to about five words consists of an Uppercase letter with following lowercase letters.
+" }}}2
+" --------------------------------------------------------------------------------
+"     Forgetful Commands {{{2
+" --------------------------------------------------------------------------------
+" -- How to fix the window size"
+"  https://stackoverflow.com/questions/1921435/fixing-the-size-of-a-window-in-vim
+"  set wfh
+"  set wfw
+"
 
-" --------------------------------------------------------------------------------
-" forgetful commands / Snippets
-" --------------------------------------------------------------------------------
+function! SingleLine()
+  %s/\s\+$//e
+  %s/\n\{3,}/\r\r/e
+endfunction
+nnoremap <silent> <leader>condense_to_single_line :call SingleLine()<cr>
+
+" -- https://stackoverflow.com/questions/1675688/make-vim-show-all-white-spaces-as-a-character -- "
+nnoremap <leader>show_all_whitespaces_as_charactors :set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣<cr>:set list<cr>
+nnoremap <leader>hide_all_whitespaces_charactorized :set nolist<cr>
+
+nnoremap <leader>reveal_the_concealed_URL_in_markdown :%s/(/{/g<cr>
+" -- https://vim.fandom.com/wiki/Search_and_replace_in_a_visual_selection"
+nnoremap <leader>substitute_just_visual_selected :'<,'>s/\%V /-/g
+
+nnoremap <leader>insert_line_numbers :%s/^/\=printf('%-6d', line('.'))
+
+nnoremap <leader>delete_lines_include_japanese_text :g/[\u3040-\u309F\u4E00-\u9FFF\u30A0-\u30FF]/d
 " -- See :h fo-table for how text is formated."
 nnoremap <leader>formatting_text gq
 
@@ -1574,7 +1645,7 @@ nnoremap <leader>delete_lines_not_matching_pattern :g/^\(.*Warning\)\@!.*$/d
 nnoremap <leader>fix_mix_indent_file gg=G
 
 " https://vim.fandom.com/wiki/Remove_unwanted_spaces
-nnoremap <leader>remove_unwanted_trailing_whitespace :%s/\s\+$//e
+nnoremap <leader>remove_unwanted_trailing_whitespace :%s/\s\+$//e<cr>
 
 nnoremap <leader>add_line_break_for_all_lines %s/$/\r/g
 
@@ -1586,15 +1657,16 @@ nnoremap <leader>open-url-with-browser gx
 
 nnoremap <leader>match_a_line_break                               /\n
 nnoremap <leader>match_a_line_break_or_a_space                    /\_s
-nnoremap <leader>Delete_all_blank_lines                           g/^\s*$/d
+nnoremap <leader>Delete_all_blank_lines                           :g/^\s*$/d<cr>
 xnoremap <leader>Delete_all_blank_lines                           :g/^\s*$/d
 xnoremap <leader>Delete_all_lines_matching_a_pattern              :g/pattern/d
 xnoremap <leader>Delete_all_lines_not_matching_a_pattern          :g!/pattern/d
 xnoremap <leader>Double_space_the_file_                           :g/^/pu__
 xnoremap <leader>delete_whitespaces_at_the_beginning_of_line      :s/^\s\+//g<cr>
-xnoremap <leader>substitute_whitespace_to_underbar                :s/ /_/g<cr>
+xnoremap <leader>substitute_whitespace_to_underbar                :s/\%V /_/g<cr>
 xnoremap <leader>Add_text_to_end_string                           :g/^pattern/s/$/mytext
 xnoremap <leader>Run_a_macro_on_matching_lines                    :g/pattern/normal @q
+xnoremap <leader>Run_a_macro_on_selected_lines                    :normal @q
 xnoremap <leader>Move_all_lines_matching_a_pattern_to_end_of_file :g/pattern/m$
 
 nnoremap <leader>Copy_all_lines_matching_a_pattern_to_end_of_file :g/pattern/t$
@@ -1626,13 +1698,16 @@ nnoremap <leader>Insert_at_column_1_of_the_line            gI
 nnoremap <leader>Insert_where_insert_mode_was_last_stopped gi
 
 nnoremap <leader>delete_from_cursor_to_the_end_of_line D
-" --------------------------------------------------------------------------------
-
-" --------------------------------------------------------------------------------
 
 nnoremap _open_help_right_vertically :vert help<CR> <C-W>x
 
+" }}}2
+" --------------------------------------------------------------------------------
+"     Display Corner {{{2
+" --------------------------------------------------------------------------------
+
 " nnoremap <expr> show_corner ShowCorner()
+
 function! ShowCorner()
   set laststatus=2
   set showtabline=2
@@ -1650,28 +1725,18 @@ function! HideCorner()
   set noruler
 endfunction
 
-" ------------------------------------------------------------
-"     go to markdown header
-" ------------------------------------------------------------
-nnoremap ;* vi[y/# <c-r>"
-
-" ------------------------------------------------------------
-"     copy the current file path to system clipboard
-" ------------------------------------------------------------
-
-
-
+" }}}2
 " --------------------------------------------------------------------------------
-" butterfly  search
+"     Butterfly Search {{{2
 " --------------------------------------------------------------------------------
 " f, F means find
 nnoremap f /
 nnoremap F ?
 " https://vim.fandom.com/wiki/Search_for_visually_selected_text
 " vnoremap ;f y/\V<C-R>=escape(@",'/\')<CR><CR>
-" vnoremap f /
+vnoremap f /
 " vnoremap ;F y?\V<C-R>=escape(@",'/\')<CR><CR>
-" vnoremap F ?
+vnoremap F ?
 " make n/N always go in the same direction
 nnoremap <expr> n 'Nn'[v:searchforward] . "zv"
 nnoremap <expr> N 'nN'[v:searchforward] . "zv"
@@ -1708,15 +1773,15 @@ function! ButterflyPlus()
     " -- Perform other command-line prompt action
   endif
 endfunction
+" }}}2
 " --------------------------------------------------------------------------------
-
+"     Miscellaneous Mappings {{{2
 " --------------------------------------------------------------------------------
-
 " to soft-wrap at the edge of the screen, but not break in the middle of a word
 nnoremap <leader>Wrap_edge_screen_not_break_word :set wrap linebreak nolist<CR>
 "" hjkl "
-nnoremap j <C-d>
-nnoremap k <C-u>
+" nnoremap j <C-d>
+" nnoremap k <C-u>
 
 " go tab next"
 nnoremap <silent> h :tabp<CR>
@@ -1878,6 +1943,9 @@ nnoremap <silent> <C-k> :move-2<cr>
 nnoremap <silent> <C-j> :move+<cr>
 nnoremap <silent> <C-h> <<
 nnoremap <silent> <C-l> >>
+" experimental
+inoremap <silent> <C-h> <C-d>
+inoremap <silent> <C-l> <C-t>
 xnoremap <silent> <C-k> :move-2<cr>gv
 xnoremap <silent> <C-j> :move'>+<cr>gv
 xnoremap <silent> <C-h> <gv
@@ -1938,8 +2006,9 @@ cnoremap <expr> <C-F> getcmdpos()>strlen(getcmdline())?&cedit:"\<Lt>Right>"
 "   \}, args)
 " endfunction
 
+" }}}2
 " --------------------------------------------------------------------------------
-" Customizing help
+"     Customizing help {{{2
 " --------------------------------------------------------------------------------
 
 function! s:helpWindows()
@@ -1949,8 +2018,7 @@ function! s:helpWindows()
   endif
 endfunction
 autocmd vimrc BufEnter *.txt call s:helpWindows()
-" --------------------------------------------------------------------------------
-
+" }}}2
 " --------------------------------------------------------------------------------
 
 set tabline=%!MyTabLine()  " custom tab pages line
@@ -2018,7 +2086,97 @@ function! MyTabLine()
   return s
 endfunction
 
+" ================================================================================
+" markdown folding {{{1
+" ================================================================================
+" https://stackoverflow.com/questions/3828606/vim-markdown-folding
+function! MarkdownLevel()
+  if getline(v:lnum) =~ '^# .*$'
+    return ">1"
+  endif
+  if getline(v:lnum) =~ '^## .*$'
+    return ">2"
+  endif
+  if getline(v:lnum) =~ '^### .*$'
+    return ">3"
+  endif
+  if getline(v:lnum) =~ '^#### .*$'
+    return ">4"
+  endif
+  if getline(v:lnum) =~ '^##### .*$'
+    return ">5"
+  endif
+  if getline(v:lnum) =~ '^###### .*$'
+    return ">6"
+  endif
+  return "="
+endfunction
+au BufEnter *.md setlocal foldexpr=MarkdownLevel()
+au BufEnter *.md setlocal foldmethod=expr
+" }}}1
+" ================================================================================
+" ================================================================================
+" asciidoc folding {{{1
+" ================================================================================
+" https://stackoverflow.com/questions/3828606/vim-markdown-folding
+function! AsciiDocLevel()
+  if getline(v:lnum) =~ '^= .*$'
+    return ">1"
+  endif
+  if getline(v:lnum) =~ '^== .*$'
+    return ">2"
+  endif
+  if getline(v:lnum) =~ '^=== .*$'
+    return ">3"
+  endif
+  if getline(v:lnum) =~ '^==== .*$'
+    return ">4"
+  endif
+  if getline(v:lnum) =~ '^===== .*$'
+    return ">5"
+  endif
+  if getline(v:lnum) =~ '^====== .*$'
+    return ">6"
+  endif
+  return "="
+endfunction
+au BufEnter *.adoc setlocal foldexpr=AsciiDocLevel()
+au BufEnter *.adoc setlocal foldmethod=expr
+" }}}1
+" ================================================================================
+" --------------------------------------------------------------------------------
+"     Personal Formatting {{{2
+" --------------------------------------------------------------------------------
+function! FormatVertically()
+  " Prettier
+  %s/{\n/\r{\r
+  %s/\[/\r[\r
+  %s/(\n/\r(\r
+  %s/{ /\r{\r/g
+  %s/(/\r(\r/g
+  %s/};\n/\r};\r
+  %s/} /\r}\r/g
+  %s/}\n/\r}\r/g
+  %s/)/\r)
+  %s/},\n/\r},\r
+  %s/, /,\r/g
+  %s/(\n^"/("
+  %s/(\n^`/(`
+  %s/=\{1}/\r=
+  %s/?\{1}/\r?
+  %s/ :\{1}/\r:
+  normal <cr>
+  normal gg=G
+  g/^\s*$/d
+  normal gg
+  %s/\s\+$//e
+  " let @q='/("\<cr>li\<cr>\<esc>'
+  " normal @q
+endfunction
+nnoremap <leader>format_vertically :call FormatVertically()<cr>
+" }}}2
 
+" --------------------------------------------------------------------------------
 
 " ----------------------------------------------
 " special arguments
