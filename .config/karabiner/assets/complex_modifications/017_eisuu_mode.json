@@ -1563,6 +1563,40 @@
           ]
         },
         {
+          "description": "Reload",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "kana mode",
+              "value": 1
+            },
+            {
+              "type": "variable_if",
+              "name": "spacebar mode",
+              "value": 0
+            },
+            {
+              "type": "variable_if",
+              "name": "eisuu mode",
+              "value": 0
+            },
+            {
+              "file_paths": ["Google Chrome"],
+              "type": "frontmost_application_if"
+            }
+          ],
+          "from": {
+            "key_code": "u"
+          },
+          "to": [
+            {
+              "key_code": "r",
+              "modifiers": ["left_command"]
+            }
+          ]
+        },
+        {
           "description": "go next tab",
           "type": "basic",
           "conditions": [
@@ -1587,7 +1621,7 @@
             }
           ],
           "from": {
-            "key_code": "y"
+            "key_code": "h"
           },
           "to": [
             {
@@ -1621,7 +1655,7 @@
             }
           ],
           "from": {
-            "key_code": "u"
+            "key_code": "l"
           },
           "to": [
             {
@@ -1881,7 +1915,10 @@
             }
           ],
           "from": {
-            "key_code": "h"
+            "key_code": "h",
+            "modifiers": {
+              "optional": ["shift"]
+            }
           },
           "to": [{ "key_code": "left_arrow" }]
         },
@@ -1905,7 +1942,10 @@
             }
           ],
           "from": {
-            "key_code": "j"
+            "key_code": "j",
+            "modifiers": {
+              "optional": ["shift"]
+            }
           },
           "to": [{ "key_code": "down_arrow" }]
         },
@@ -1929,7 +1969,10 @@
             }
           ],
           "from": {
-            "key_code": "k"
+            "key_code": "k",
+            "modifiers": {
+              "optional": ["shift"]
+            }
           },
           "to": [{ "key_code": "up_arrow" }]
         },
@@ -1953,7 +1996,10 @@
             }
           ],
           "from": {
-            "key_code": "l"
+            "key_code": "l",
+            "modifiers": {
+              "optional": ["shift"]
+            }
           },
           "to": [{ "key_code": "right_arrow" }]
         },

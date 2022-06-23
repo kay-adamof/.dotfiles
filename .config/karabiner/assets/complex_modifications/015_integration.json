@@ -2,72 +2,6 @@
   "title": "015 integrate karabiner key mapping",
   "rules": [
     {
-      "description": "015 spacebar to fn",
-      "manipulators": [
-        {
-          "type": "basic",
-          "conditions": [
-            {
-              "type": "variable_if",
-              "name": "eisuu mode",
-              "value": 0
-            }
-          ],
-          "from": {
-            "key_code": "spacebar",
-            "modifiers": {
-              "optional": ["any"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "fn"
-            }
-          ],
-          "to_if_alone": [
-            {"key_code": "spacebar"}
-          ]
-        }
-      ]
-    },
-    {
-      "description": "015_semicolon to shift, colon to right command",
-      "manipulators": [
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "quote"
-          },
-          "to": [
-            {
-              "key_code": "right_command"
-            }
-          ],
-          "to_if_alone": [
-            {
-              "key_code": "quote"
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "semicolon"
-          },
-          "to": [
-            {
-              "key_code": "right_shift"
-            }
-          ],
-          "to_if_alone": [
-            {
-              "key_code": "semicolon"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "description": "015_Notion of chrome",
       "manipulators": [
         {
@@ -126,508 +60,145 @@
       ]
     },
     {
-      "description": "015_Spark",
-      "manipulators": [
-        {
-          "description": "Search Mailbox",
-          "type": "basic",
-          "conditions": [
-            {
-             "type": "frontmost_application_if",
-             "bundle_identifiers": [
-                "^com\\.readdle\\.smartemail-Mac$"
-              ]
-            }
-          ],
-          "from": {
-            "key_code": "l",
-            "modifiers": {
-              "mandatory": ["left_option"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "f",
-              "modifiers": [ "left_command", "left_option" ]
-            }
-          ]
-        },
-        {
-          "description": "Reply",
-          "type": "basic",
-          "conditions": [
-            {
-             "type": "frontmost_application_if",
-             "bundle_identifiers": [
-                "^com\\.readdle\\.smartemail-Mac$"
-              ]
-            }
-          ],
-          "from": {
-            "key_code": "k",
-            "modifiers": {
-              "mandatory": ["left_option"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "r",
-              "modifiers": [ "left_command" ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "description": "015_VScode",
-      "manipulators": [
-        {
-          "description": "open/close command pallette",
-          "type": "basic",
-          "conditions": [
-            {
-             "type": "frontmost_application_if",
-             "bundle_identifiers": [
-                "jhdpafkbedbgckdnecbbppbpboebapeb",
-                "^com\\.microsoft\\.VSCode$",
-                "^com\\.microsoft\\.VSCodeInsiders$"
-              ]
-            }
-          ],
-          "from": {
-            "key_code": "l",
-            "modifiers": {
-              "mandatory": ["left_option"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "p",
-              "modifiers": [ "left_command", "left_shift" ]
-            }
-          ]
-        },
-        {
-          "description": "Close Window",
-          "type": "basic",
-          "conditions": [
-            {
-             "type": "frontmost_application_if",
-             "bundle_identifiers": [
-                "jhdpafkbedbgckdnecbbppbpboebapeb",
-                "^com\\.microsoft\\.VSCode$",
-                "^com\\.microsoft\\.VSCodeInsiders$"
-              ]
-            }
-          ],
-          "from": {
-            "key_code": "w",
-            "modifiers": {
-              "mandatory": ["left_option"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "w",
-              "modifiers": [ "left_command" ]
-            }
-          ]
-        },
-        {
-          "description": "Switch between editor and panel",
-          "type": "basic",
-          "conditions": [
-            {
-             "type": "frontmost_application_if",
-             "bundle_identifiers": [
-                "jhdpafkbedbgckdnecbbppbpboebapeb",
-                "^com\\.microsoft\\.VSCode$",
-                "^com\\.microsoft\\.VSCodeInsiders$"
-              ]
-            }
-          ],
-          "from": {
-            "key_code": "o",
-            "modifiers": {
-              "mandatory": ["left_option"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "k",
-              "modifiers": [ "left_command" ]
-            },
-            {
-              "key_code": "o",
-              "modifiers": [ "left_command" ]
-            }
-          ]
-        },
-        {
-          "description": "focus next terminal in active terminal group",
-          "type": "basic",
-          "conditions": [
-            {
-             "type": "frontmost_application_if",
-             "bundle_identifiers": [
-                "jhdpafkbedbgckdnecbbppbpboebapeb",
-                "^com\\.microsoft\\.VSCode$",
-                "^com\\.microsoft\\.VSCodeInsiders$"
-              ]
-            }
-          ],
-          "from": {
-            "key_code": "i",
-            "modifiers": {
-              "mandatory": ["left_option"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "left_arrow",
-              "modifiers": [ "left_command", "left_option" ]
-            }
-          ]
-        },
-        {
-          "description": "Navigate Window: Left",
-          "type": "basic",
-          "conditions": [
-            {
-             "type": "frontmost_application_if",
-             "bundle_identifiers": [
-                "jhdpafkbedbgckdnecbbppbpboebapeb",
-                "^com\\.microsoft\\.VSCode$",
-                "^com\\.microsoft\\.VSCodeInsiders$"
-              ]
-            }
-          ],
-          "from": {
-            "key_code": "h",
-            "modifiers": {
-              "mandatory": ["fn", "left_control"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "international3",
-              "modifiers": "left_control"
-            },
-            {
-              "key_code": "n",
-              "modifiers": "left_control"
-            },
-            {
-              "key_code": "w",
-              "modifiers": "left_control"
-            },
-            {
-              "key_code": "h",
-              "modifiers": "left_control"
-            }
-          ]
-        },
-        {
-          "description": "Navigate Window: Left",
-          "type": "basic",
-          "conditions": [
-            {
-             "type": "frontmost_application_if",
-             "bundle_identifiers": [
-                "jhdpafkbedbgckdnecbbppbpboebapeb",
-                "^com\\.microsoft\\.VSCode$",
-                "^com\\.microsoft\\.VSCodeInsiders$"
-              ]
-            }
-          ],
-          "from": {
-            "key_code": "j",
-            "modifiers": {
-              "mandatory": ["fn", "left_control"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "international3",
-              "modifiers": "left_control"
-            },
-            {
-              "key_code": "n",
-              "modifiers": "left_control"
-            },
-            {
-              "key_code": "w",
-              "modifiers": "left_control"
-            },
-            {
-              "key_code": "j",
-              "modifiers": "left_control"
-            }
-          ]
-        },
-        {
-          "description": "Navigate Window: Left",
-          "type": "basic",
-          "conditions": [
-            {
-             "type": "frontmost_application_if",
-             "bundle_identifiers": [
-                "jhdpafkbedbgckdnecbbppbpboebapeb",
-                "^com\\.microsoft\\.VSCode$",
-                "^com\\.microsoft\\.VSCodeInsiders$"
-              ]
-            }
-          ],
-          "from": {
-            "key_code": "k",
-            "modifiers": {
-              "mandatory": ["fn", "left_control"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "international3",
-              "modifiers": "left_control"
-            },
-            {
-              "key_code": "n",
-              "modifiers": "left_control"
-            },
-            {
-              "key_code": "w",
-              "modifiers": "left_control"
-            },
-            {
-              "key_code": "k",
-              "modifiers": "left_control"
-            }
-          ]
-        },
-        {
-          "description": "Navigate Window: Left",
-          "type": "basic",
-          "conditions": [
-            {
-             "type": "frontmost_application_if",
-             "bundle_identifiers": [
-                "jhdpafkbedbgckdnecbbppbpboebapeb",
-                "^com\\.microsoft\\.VSCode$",
-                "^com\\.microsoft\\.VSCodeInsiders$"
-              ]
-            }
-          ],
-          "from": {
-            "key_code": "l",
-            "modifiers": {
-              "mandatory": ["fn", "left_control"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "international3",
-              "modifiers": "left_control"
-            },
-            {
-              "key_code": "n",
-              "modifiers": "left_control"
-            },
-            {
-              "key_code": "w",
-              "modifiers": "left_control"
-            },
-            {
-              "key_code": "l",
-              "modifiers": "left_control"
-            }
-          ]
-        },
-        {
-          "description": "next tab",
-          "type": "basic",
-          "conditions": [
-            {
-             "type": "frontmost_application_if",
-             "bundle_identifiers": [
-                "jhdpafkbedbgckdnecbbppbpboebapeb",
-                "^com\\.microsoft\\.VSCode$",
-                "^com\\.microsoft\\.VSCodeInsiders$"
-              ]
-            }
-          ],
-          "from": {
-            "key_code": "k",
-            "modifiers": {
-              "mandatory": ["left_option"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "close_bracket",
-              "modifiers": [ "left_command", "left_shift" ]
-            }
-          ]
-        },
-        {
-          "description": "previous tab",
-          "type": "basic",
-          "conditions": [
-            {
-             "type": "frontmost_application_if",
-             "bundle_identifiers": [
-                "jhdpafkbedbgckdnecbbppbpboebapeb",
-                "^com\\.microsoft\\.VSCode$",
-                "^com\\.microsoft\\.VSCodeInsiders$"
-              ]
-            }
-          ],
-          "from": {
-            "key_code": "j",
-            "modifiers": {
-              "mandatory": ["left_option"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "backslash",
-              "modifiers": [ "left_command", "left_shift" ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "description": "015_Deep escaping",
+      "description": "015_switch inpur source",
       "manipulators": [
         {
           "type": "basic",
-          "conditions": [
-            {
-              "type": "variable_if",
-              "name": "eisuu mode",
-              "value": 1
-            }
-          ],
           "from": {
             "key_code": "left_control"
           },
           "to": [
+              {
+                  "key_code": "left_control",
+                  "lazy": true
+              }
+          ],
+          "to_if_alone": [
             {
-              "key_code": "international3",
-              "modifiers": "left_control"
-            },
+              "key_code": "c",
+              "modifiers": [ "left_control","left_shift" ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "left_command"
+          },
+          "to": [
+              {
+                  "key_code": "left_command",
+                  "lazy": true
+              }
+          ],
+          "to_if_alone": [
             {
-              "key_code": "n",
-              "modifiers": "left_control"
+              "key_code": "b",
+              "modifiers": [ "left_control","left_shift" ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "right_command"
+          },
+          "to": [
+              {
+                  "key_code": "right_command",
+                  "lazy": true
+              }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "z",
+              "modifiers": [ "left_control","left_shift" ]
             }
           ]
         }
       ]
     },
     {
-      "description": "015_eisuu : set eisuu mode",
+      "description": "015_copy_paste",
       "manipulators": [
         {
+          "description": "copy",
           "type": "basic",
           "from": {
-            "key_code": "japanese_eisuu",
+            "key_code": "c",
             "modifiers": {
-              "optional": ["any"]
+                "mandatory": ["fn"]
             }
           },
           "to": [
             {
-              "set_variable": {
-                "name": "eisuu mode",
-                "value": 1
-              }
+              "key_code": "c",
+              "modifiers": ["left_command"]
             }
-          ],
-          "to_after_key_up": [
+          ]
+        },
+        {
+          "description": "paste",
+          "type": "basic",
+          "from": {
+            "key_code": "v",
+            "modifiers": {
+                "mandatory": ["fn"]
+            }
+          },
+          "to": [
             {
-              "set_variable": {
-                "name": "eisuu mode",
-                "value": 0
-              }
+              "key_code": "v",
+              "modifiers": ["left_command"]
             }
-          ],
-          "to_if_alone": [
+          ]
+        },
+        {
+          "description": "cut",
+          "type": "basic",
+          "from": {
+            "key_code": "x",
+            "modifiers": {
+                "mandatory": ["fn"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "x",
+              "modifiers": ["left_command"]
+            }
+          ]
+        },
+        {
+          "description": "undo",
+          "type": "basic",
+          "from": {
+            "key_code": "z",
+            "modifiers": {
+                "mandatory": ["fn"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "z",
+              "modifiers": ["left_command"]
+            }
+          ]
+        },
+        {
+          "description": "escape",
+          "type": "basic",
+          "from": {
+            "key_code": "q",
+            "modifiers": {
+                "mandatory": ["fn"]
+            }
+          },
+          "to": [
             {
               "key_code": "escape"
             }
           ]
-        }
-      ]
-    },
-    {
-      "description": "015_eisuu : ctrl+[",
-      "manipulators": [
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "japanese_eisuu",
-            "modifiers": {
-              "optional": ["any"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "left_control",
-              "modifiers": "fn"
-            }
-          ],
-          "to_if_alone": [
-            {
-              "key_code": "escape"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "description": "015_02_spacebar to fn",
-      "manipulators": [
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "spacebar",
-            "modifiers": {
-              "optional": [
-                "left_option",
-                "left_shift",
-                "right_shift",
-                "left_command",
-                "right_command"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "fn",
-              "lazy": true
-            }
-          ],
-          "to_if_alone": [{ "key_code": "spacebar" }]
-        }
-      ]
-    },
-    {
-      "description": "015_kana to enter",
-      "manipulators": [
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "japanese_kana",
-            "modifiers": {
-              "optional": ["any"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "left_option",
-              "lazy": true
-            }
-          ],
-          "to_if_alone": [{ "key_code": "return_or_enter" }]
         }
       ]
     },
@@ -1133,162 +704,66 @@
       ]
     },
     {
-      "description": "015_weio_to_brackets.json",
+      "description": "015_eisuu : set eisuu mode",
       "manipulators": [
         {
-            "type": "basic",
-            "from": {
-                "key_code": "w",
-                "modifiers": {
-                    "mandatory": ["fn","left_control"],
-                    "optional": ["any"]
-                }
-            },
-            "to": [
-                {
-                    "key_code": "close_bracket"
-                }
-            ]
-        },
-        {
-            "type": "basic",
-            "from": {
-                "key_code": "e",
-                "modifiers": {
-                    "mandatory": ["fn","left_control"],
-                    "optional": ["any"]
-                }
-            },
-            "to": [
-                {
-                    "key_code": "backslash"
-                }
-            ]
-        },
-        {
-            "type": "basic",
-            "from": {
-                "key_code": "i",
-                "modifiers": {
-                    "mandatory": ["fn","left_control"],
-                    "optional": ["any"]
-                }
-            },
-            "to": [
-                {
-                    "key_code": "comma"
-                }
-            ]
-        },
-        {
-            "type": "basic",
-            "from": {
-                "key_code": "o",
-                "modifiers": {
-                    "mandatory": ["fn","left_control"],
-                    "optional": ["any"]
-                }
-            },
-            "to": [
-                {
-                    "key_code": "period"
-                }
-            ]
+          "type": "basic",
+          "from": {
+            "key_code": "japanese_eisuu",
+            "modifiers": {
+              "optional": ["any"]
+            }
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "eisuu mode",
+                "value": 1
+              }
+            }
+          ],
+          "to_after_key_up": [
+            {
+              "set_variable": {
+                "name": "eisuu mode",
+                "value": 0
+              }
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "escape"
+            }
+          ]
         }
       ]
     },
     {
-      "description": "015_other_pairs.json",
+      "description": "015 spacebar to fn",
       "manipulators": [
         {
-            "type": "basic",
-            "from": {
-                "key_code": "r",
-                "modifiers": {
-                    "mandatory": ["fn","left_control"],
-                    "optional": ["any"]
-                }
-            },
-            "to": [
-                {
-                    "key_code": "hyphen"
-                }
-            ]
-        },
-        {
-            "type": "basic",
-            "from": {
-                "key_code": "u",
-                "modifiers": {
-                    "mandatory": ["fn","left_control"],
-                    "optional": ["any"]
-                }
-            },
-            "to": [
-                {
-                    "key_code": "international1"
-                }
-            ]
-        },
-        {
-            "type": "basic",
-            "from": {
-                "key_code": "v",
-                "modifiers": {
-                    "mandatory": ["fn","left_control"],
-                    "optional": ["any"]
-                }
-            },
-            "to": [
-                {
-                    "key_code": "slash"
-                }
-            ]
-        },
-        {
-            "type": "basic",
-            "from": {
-                "key_code": "b",
-                "modifiers": {
-                    "mandatory": ["fn","left_control"],
-                    "optional": ["any"]
-                }
-            },
-            "to": [
-                {
-                    "key_code": "international3"
-                }
-            ]
-        },
-        {
-            "type": "basic",
-            "from": {
-                "key_code": "n",
-                "modifiers": {
-                    "mandatory": ["fn","left_control"],
-                    "optional": ["any"]
-                }
-            },
-            "to": [
-                {
-                    "key_code": "open_bracket"
-                }
-            ]
-        },
-        {
-            "type": "basic",
-            "from": {
-                "key_code": "m",
-                "modifiers": {
-                    "mandatory": ["fn","left_control"],
-                    "optional": ["any"]
-                }
-            },
-            "to": [
-                {
-                    "key_code": "equal_sign"
-                }
-            ]
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "eisuu mode",
+              "value": 0
+            }
+          ],
+          "from": {
+            "key_code": "spacebar",
+            "modifiers": {
+              "optional": ["any"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "fn"
+            }
+          ],
+          "to_if_alone": [
+            {"key_code": "spacebar"}
+          ]
         }
       ]
     },
@@ -1329,358 +804,74 @@
       ]
     },
     {
-      "description": "015_switch inpur source",
+      "description": "015_kana to enter",
       "manipulators": [
         {
           "type": "basic",
           "from": {
-            "key_code": "left_control"
+            "key_code": "japanese_kana",
+            "modifiers": {
+              "optional": ["any"]
+            }
           },
           "to": [
-              {
-                  "key_code": "left_control",
-                  "lazy": true
-              }
-          ],
-          "to_if_alone": [
             {
-              "key_code": "c",
-              "modifiers": [ "left_control","left_shift" ]
+              "key_code": "left_option",
+              "lazy": true
             }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "left_command"
-          },
-          "to": [
-              {
-                  "key_code": "left_command",
-                  "lazy": true
-              }
           ],
-          "to_if_alone": [
-            {
-              "key_code": "b",
-              "modifiers": [ "left_control","left_shift" ]
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "right_command"
-          },
-          "to": [
-              {
-                  "key_code": "right_command",
-                  "lazy": true
-              }
-          ],
-          "to_if_alone": [
-            {
-              "key_code": "z",
-              "modifiers": [ "left_control","left_shift" ]
-            }
-          ]
+          "to_if_alone": [{ "key_code": "return_or_enter" }]
         }
       ]
     },
     {
-      "description": "015_Manipulate chrome",
+      "description": "015_Spark",
       "manipulators": [
         {
-          "description": "Save Contents as markdown via chrome extension",
+          "description": "Search Mailbox",
           "type": "basic",
           "conditions": [
             {
-             "file_paths": [
-                "Google Chrome"
-              ],
-              "type": "frontmost_application_if"
+             "type": "frontmost_application_if",
+             "bundle_identifiers": [
+                "^com\\.readdle\\.smartemail-Mac$"
+              ]
             }
           ],
           "from": {
-            "key_code": "o",
+            "key_code": "l",
             "modifiers": {
-                "mandatory": ["left_option"]
+              "mandatory": ["left_option"]
             }
           },
           "to": [
             {
-              "key_code": "j",
-              "modifiers": ["left_shift", "left_option"],
-              "hold_down_milliseconds": 100
+              "key_code": "f",
+              "modifiers": [ "left_command", "left_option" ]
             }
           ]
         },
         {
-          "description": "Open DevTools",
+          "description": "Reply",
           "type": "basic",
           "conditions": [
             {
-             "file_paths": [
-                "Google Chrome"
-              ],
-              "type": "frontmost_application_if"
-            }
-          ],
-          "from": {
-            "key_code": "i",
-            "modifiers": {
-                "mandatory": ["left_option"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "i",
-              "modifiers": ["left_command", "left_option"]
-            }
-          ]
-        },
-        {
-          "description": "go next tab",
-          "type": "basic",
-          "conditions": [
-            {
-             "file_paths": [
-                "Google Chrome"
-              ],
-              "type": "frontmost_application_if"
-            }
-          ],
-          "from": {
-            "key_code": "y",
-            "modifiers": {
-                "mandatory": ["left_option"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "y",
-              "modifiers": ["left_command"]
-            }
-          ]
-        },
-        {
-          "description": "go previous tab",
-          "type": "basic",
-          "conditions": [
-            {
-             "file_paths": [
-                "Google Chrome"
-              ],
-              "type": "frontmost_application_if"
-            }
-          ],
-          "from": {
-            "key_code": "u",
-            "modifiers": {
-                "mandatory": ["left_option"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "u",
-              "modifiers": ["left_command"]
-            }
-          ]
-        },
-        {
-          "description": "history up",
-          "type": "basic",
-          "conditions": [
-            {
-             "file_paths": [
-                "Google Chrome"
-              ],
-              "type": "frontmost_application_if"
+             "type": "frontmost_application_if",
+             "bundle_identifiers": [
+                "^com\\.readdle\\.smartemail-Mac$"
+              ]
             }
           ],
           "from": {
             "key_code": "k",
             "modifiers": {
-                "mandatory": ["left_option"]
+              "mandatory": ["left_option"]
             }
           },
           "to": [
             {
-              "key_code": "close_bracket",
-              "modifiers": ["left_command"]
-            }
-          ]
-        },
-        {
-          "description": "history down",
-          "type": "basic",
-          "conditions": [
-            {
-             "file_paths": [
-                "Google Chrome"
-              ],
-              "type": "frontmost_application_if"
-            }
-          ],
-          "from": {
-            "key_code": "j",
-            "modifiers": {
-                "mandatory": ["left_option"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "backslash",
-              "modifiers": ["left_command"]
-            }
-          ]
-        },
-        {
-          "description": "Close a chrome tab",
-          "type": "basic",
-          "conditions": [
-            {
-             "file_paths": [
-                "Google Chrome"
-              ],
-              "type": "frontmost_application_if"
-            }
-          ],
-          "from": {
-            "key_code": "w",
-            "modifiers": {
-                "mandatory": ["left_option"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "w",
-              "modifiers": ["left_command"]
-            }
-          ]
-        },
-        {
-          "description": "Open a new window in chrome",
-          "type": "basic",
-          "conditions": [
-            {
-             "file_paths": [
-                "Google Chrome"
-              ],
-              "type": "frontmost_application_if"
-            }
-          ],
-          "from": {
-            "key_code": "n",
-            "modifiers": {
-                "mandatory": ["left_option"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "n",
-              "modifiers": ["left_command"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "description": "Other Utils",
-      "manipulators": [
-        {
-          "description": "Shiftit Move to next window",
-          "type": "basic",
-          "from": {
-            "key_code": "9",
-            "modifiers": {
-                "mandatory": ["left_option"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "n",
-              "modifiers": ["left_command","left_option","left_control"]
-            }
-          ]
-        },
-        {
-          "description": "Shiftit Maxmize a window",
-          "type": "basic",
-          "from": {
-            "key_code": "0",
-            "modifiers": {
-                "mandatory": ["left_option"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "m",
-              "modifiers": ["left_command","left_option","left_control"]
-            }
-          ]
-        },
-        {
-          "description": "Shiftit move a window to left",
-          "type": "basic",
-          "from": {
-            "key_code": "1",
-            "modifiers": {
-                "mandatory": ["left_option"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "left_arrow",
-              "modifiers": ["left_command","left_option","left_control"]
-            }
-          ]
-        },
-        {
-          "description": "Shiftit move a window to downside",
-          "type": "basic",
-          "from": {
-            "key_code": "2",
-            "modifiers": {
-                "mandatory": ["left_option"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "down_arrow",
-              "modifiers": ["left_command","left_option","left_control"]
-            }
-          ]
-        },
-        {
-          "description": "Shiftit move a window to upside",
-          "type": "basic",
-          "from": {
-            "key_code": "3",
-            "modifiers": {
-                "mandatory": ["left_option"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "up_arrow",
-              "modifiers": ["left_command","left_option","left_control"]
-            }
-          ]
-        },
-        {
-          "description": "Shiftit move a window to right",
-          "type": "basic",
-          "from": {
-            "key_code": "4",
-            "modifiers": {
-                "mandatory": ["left_option"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "right_arrow",
-              "modifiers": ["left_command","left_option","left_control"]
+              "key_code": "r",
+              "modifiers": [ "left_command" ]
             }
           ]
         }
@@ -1916,84 +1107,198 @@
       ]
     },
     {
-      "description": "015_copy_paste",
+      "description": "015_Manipulate chrome",
       "manipulators": [
         {
-          "description": "copy",
+          "description": "Save Contents as markdown via chrome extension",
           "type": "basic",
+          "conditions": [
+            {
+             "file_paths": [
+                "Google Chrome"
+              ],
+              "type": "frontmost_application_if"
+            }
+          ],
           "from": {
-            "key_code": "c",
+            "key_code": "o",
             "modifiers": {
-                "mandatory": ["fn"]
+                "mandatory": ["left_option"]
             }
           },
           "to": [
             {
-              "key_code": "c",
+              "key_code": "j",
+              "modifiers": ["left_shift", "left_option"],
+              "hold_down_milliseconds": 100
+            }
+          ]
+        },
+        {
+          "description": "Open DevTools",
+          "type": "basic",
+          "conditions": [
+            {
+             "file_paths": [
+                "Google Chrome"
+              ],
+              "type": "frontmost_application_if"
+            }
+          ],
+          "from": {
+            "key_code": "i",
+            "modifiers": {
+                "mandatory": ["left_option"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "i",
+              "modifiers": ["left_command", "left_option"]
+            }
+          ]
+        },
+        {
+          "description": "go next tab",
+          "type": "basic",
+          "conditions": [
+            {
+             "file_paths": [
+                "Google Chrome"
+              ],
+              "type": "frontmost_application_if"
+            }
+          ],
+          "from": {
+            "key_code": "y",
+            "modifiers": {
+                "mandatory": ["left_option"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "y",
               "modifiers": ["left_command"]
             }
           ]
         },
         {
-          "description": "paste",
+          "description": "go previous tab",
           "type": "basic",
+          "conditions": [
+            {
+             "file_paths": [
+                "Google Chrome"
+              ],
+              "type": "frontmost_application_if"
+            }
+          ],
           "from": {
-            "key_code": "v",
+            "key_code": "u",
             "modifiers": {
-                "mandatory": ["fn"]
+                "mandatory": ["left_option"]
             }
           },
           "to": [
             {
-              "key_code": "v",
+              "key_code": "u",
               "modifiers": ["left_command"]
             }
           ]
         },
         {
-          "description": "cut",
+          "description": "history up",
           "type": "basic",
+          "conditions": [
+            {
+             "file_paths": [
+                "Google Chrome"
+              ],
+              "type": "frontmost_application_if"
+            }
+          ],
           "from": {
-            "key_code": "x",
+            "key_code": "k",
             "modifiers": {
-                "mandatory": ["fn"]
+                "mandatory": ["left_option"]
             }
           },
           "to": [
             {
-              "key_code": "x",
+              "key_code": "close_bracket",
               "modifiers": ["left_command"]
             }
           ]
         },
         {
-          "description": "undo",
+          "description": "history down",
           "type": "basic",
+          "conditions": [
+            {
+             "file_paths": [
+                "Google Chrome"
+              ],
+              "type": "frontmost_application_if"
+            }
+          ],
           "from": {
-            "key_code": "z",
+            "key_code": "j",
             "modifiers": {
-                "mandatory": ["fn"]
+                "mandatory": ["left_option"]
             }
           },
           "to": [
             {
-              "key_code": "z",
+              "key_code": "backslash",
               "modifiers": ["left_command"]
             }
           ]
         },
         {
-          "description": "escape",
+          "description": "Close a chrome tab",
           "type": "basic",
+          "conditions": [
+            {
+             "file_paths": [
+                "Google Chrome"
+              ],
+              "type": "frontmost_application_if"
+            }
+          ],
           "from": {
-            "key_code": "q",
+            "key_code": "w",
             "modifiers": {
-                "mandatory": ["fn"]
+                "mandatory": ["left_option"]
             }
           },
           "to": [
             {
-              "key_code": "escape"
+              "key_code": "w",
+              "modifiers": ["left_command"]
+            }
+          ]
+        },
+        {
+          "description": "Open a new window in chrome",
+          "type": "basic",
+          "conditions": [
+            {
+             "file_paths": [
+                "Google Chrome"
+              ],
+              "type": "frontmost_application_if"
+            }
+          ],
+          "from": {
+            "key_code": "n",
+            "modifiers": {
+                "mandatory": ["left_option"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "n",
+              "modifiers": ["left_command"]
             }
           ]
         }
@@ -2281,6 +1586,701 @@
               "key_code": "delete_forward"
             }
           ]
+        }
+      ]
+    },
+    {
+      "description": "Other Utils",
+      "manipulators": [
+        {
+          "description": "Shiftit Move to next window",
+          "type": "basic",
+          "from": {
+            "key_code": "9",
+            "modifiers": {
+                "mandatory": ["left_option"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "n",
+              "modifiers": ["left_command","left_option","left_control"]
+            }
+          ]
+        },
+        {
+          "description": "Shiftit Maxmize a window",
+          "type": "basic",
+          "from": {
+            "key_code": "0",
+            "modifiers": {
+                "mandatory": ["left_option"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "m",
+              "modifiers": ["left_command","left_option","left_control"]
+            }
+          ]
+        },
+        {
+          "description": "Shiftit move a window to left",
+          "type": "basic",
+          "from": {
+            "key_code": "1",
+            "modifiers": {
+                "mandatory": ["left_option"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_arrow",
+              "modifiers": ["left_command","left_option","left_control"]
+            }
+          ]
+        },
+        {
+          "description": "Shiftit move a window to downside",
+          "type": "basic",
+          "from": {
+            "key_code": "2",
+            "modifiers": {
+                "mandatory": ["left_option"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "down_arrow",
+              "modifiers": ["left_command","left_option","left_control"]
+            }
+          ]
+        },
+        {
+          "description": "Shiftit move a window to upside",
+          "type": "basic",
+          "from": {
+            "key_code": "3",
+            "modifiers": {
+                "mandatory": ["left_option"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "up_arrow",
+              "modifiers": ["left_command","left_option","left_control"]
+            }
+          ]
+        },
+        {
+          "description": "Shiftit move a window to right",
+          "type": "basic",
+          "from": {
+            "key_code": "4",
+            "modifiers": {
+                "mandatory": ["left_option"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_arrow",
+              "modifiers": ["left_command","left_option","left_control"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "015_semicolon to shift, colon to right command",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "quote"
+          },
+          "to": [
+            {
+              "key_code": "right_command"
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "quote"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "semicolon"
+          },
+          "to": [
+            {
+              "key_code": "right_shift"
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "semicolon"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "015_VScode",
+      "manipulators": [
+        {
+          "description": "open/close command pallette",
+          "type": "basic",
+          "conditions": [
+            {
+             "type": "frontmost_application_if",
+             "bundle_identifiers": [
+                "jhdpafkbedbgckdnecbbppbpboebapeb",
+                "^com\\.microsoft\\.VSCode$",
+                "^com\\.microsoft\\.VSCodeInsiders$"
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "l",
+            "modifiers": {
+              "mandatory": ["left_option"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "p",
+              "modifiers": [ "left_command", "left_shift" ]
+            }
+          ]
+        },
+        {
+          "description": "Close Window",
+          "type": "basic",
+          "conditions": [
+            {
+             "type": "frontmost_application_if",
+             "bundle_identifiers": [
+                "jhdpafkbedbgckdnecbbppbpboebapeb",
+                "^com\\.microsoft\\.VSCode$",
+                "^com\\.microsoft\\.VSCodeInsiders$"
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "w",
+            "modifiers": {
+              "mandatory": ["left_option"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "w",
+              "modifiers": [ "left_command" ]
+            }
+          ]
+        },
+        {
+          "description": "Switch between editor and panel",
+          "type": "basic",
+          "conditions": [
+            {
+             "type": "frontmost_application_if",
+             "bundle_identifiers": [
+                "jhdpafkbedbgckdnecbbppbpboebapeb",
+                "^com\\.microsoft\\.VSCode$",
+                "^com\\.microsoft\\.VSCodeInsiders$"
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "o",
+            "modifiers": {
+              "mandatory": ["left_option"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "k",
+              "modifiers": [ "left_command" ]
+            },
+            {
+              "key_code": "o",
+              "modifiers": [ "left_command" ]
+            }
+          ]
+        },
+        {
+          "description": "focus next terminal in active terminal group",
+          "type": "basic",
+          "conditions": [
+            {
+             "type": "frontmost_application_if",
+             "bundle_identifiers": [
+                "jhdpafkbedbgckdnecbbppbpboebapeb",
+                "^com\\.microsoft\\.VSCode$",
+                "^com\\.microsoft\\.VSCodeInsiders$"
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "i",
+            "modifiers": {
+              "mandatory": ["left_option"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_arrow",
+              "modifiers": [ "left_command", "left_option" ]
+            }
+          ]
+        },
+        {
+          "description": "Navigate Window: Left",
+          "type": "basic",
+          "conditions": [
+            {
+             "type": "frontmost_application_if",
+             "bundle_identifiers": [
+                "jhdpafkbedbgckdnecbbppbpboebapeb",
+                "^com\\.microsoft\\.VSCode$",
+                "^com\\.microsoft\\.VSCodeInsiders$"
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "h",
+            "modifiers": {
+              "mandatory": ["fn", "left_control"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "international3",
+              "modifiers": "left_control"
+            },
+            {
+              "key_code": "n",
+              "modifiers": "left_control"
+            },
+            {
+              "key_code": "w",
+              "modifiers": "left_control"
+            },
+            {
+              "key_code": "h",
+              "modifiers": "left_control"
+            }
+          ]
+        },
+        {
+          "description": "Navigate Window: Left",
+          "type": "basic",
+          "conditions": [
+            {
+             "type": "frontmost_application_if",
+             "bundle_identifiers": [
+                "jhdpafkbedbgckdnecbbppbpboebapeb",
+                "^com\\.microsoft\\.VSCode$",
+                "^com\\.microsoft\\.VSCodeInsiders$"
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "j",
+            "modifiers": {
+              "mandatory": ["fn", "left_control"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "international3",
+              "modifiers": "left_control"
+            },
+            {
+              "key_code": "n",
+              "modifiers": "left_control"
+            },
+            {
+              "key_code": "w",
+              "modifiers": "left_control"
+            },
+            {
+              "key_code": "j",
+              "modifiers": "left_control"
+            }
+          ]
+        },
+        {
+          "description": "Navigate Window: Left",
+          "type": "basic",
+          "conditions": [
+            {
+             "type": "frontmost_application_if",
+             "bundle_identifiers": [
+                "jhdpafkbedbgckdnecbbppbpboebapeb",
+                "^com\\.microsoft\\.VSCode$",
+                "^com\\.microsoft\\.VSCodeInsiders$"
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "k",
+            "modifiers": {
+              "mandatory": ["fn", "left_control"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "international3",
+              "modifiers": "left_control"
+            },
+            {
+              "key_code": "n",
+              "modifiers": "left_control"
+            },
+            {
+              "key_code": "w",
+              "modifiers": "left_control"
+            },
+            {
+              "key_code": "k",
+              "modifiers": "left_control"
+            }
+          ]
+        },
+        {
+          "description": "Navigate Window: Left",
+          "type": "basic",
+          "conditions": [
+            {
+             "type": "frontmost_application_if",
+             "bundle_identifiers": [
+                "jhdpafkbedbgckdnecbbppbpboebapeb",
+                "^com\\.microsoft\\.VSCode$",
+                "^com\\.microsoft\\.VSCodeInsiders$"
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "l",
+            "modifiers": {
+              "mandatory": ["fn", "left_control"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "international3",
+              "modifiers": "left_control"
+            },
+            {
+              "key_code": "n",
+              "modifiers": "left_control"
+            },
+            {
+              "key_code": "w",
+              "modifiers": "left_control"
+            },
+            {
+              "key_code": "l",
+              "modifiers": "left_control"
+            }
+          ]
+        },
+        {
+          "description": "next tab",
+          "type": "basic",
+          "conditions": [
+            {
+             "type": "frontmost_application_if",
+             "bundle_identifiers": [
+                "jhdpafkbedbgckdnecbbppbpboebapeb",
+                "^com\\.microsoft\\.VSCode$",
+                "^com\\.microsoft\\.VSCodeInsiders$"
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "k",
+            "modifiers": {
+              "mandatory": ["left_option"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "close_bracket",
+              "modifiers": [ "left_command", "left_shift" ]
+            }
+          ]
+        },
+        {
+          "description": "previous tab",
+          "type": "basic",
+          "conditions": [
+            {
+             "type": "frontmost_application_if",
+             "bundle_identifiers": [
+                "jhdpafkbedbgckdnecbbppbpboebapeb",
+                "^com\\.microsoft\\.VSCode$",
+                "^com\\.microsoft\\.VSCodeInsiders$"
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "j",
+            "modifiers": {
+              "mandatory": ["left_option"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "backslash",
+              "modifiers": [ "left_command", "left_shift" ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "015_Deep escaping Not using belows",
+      "manipulators": [
+        {
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "eisuu mode",
+              "value": 1
+            }
+          ],
+          "from": {
+            "key_code": "left_control"
+          },
+          "to": [
+            {
+              "key_code": "international3",
+              "modifiers": "left_control"
+            },
+            {
+              "key_code": "n",
+              "modifiers": "left_control"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "015_eisuu : ctrl+[",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "japanese_eisuu",
+            "modifiers": {
+              "optional": ["any"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_control",
+              "modifiers": "fn"
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "escape"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "015_02_spacebar to fn",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "spacebar",
+            "modifiers": {
+              "optional": [
+                "left_option",
+                "left_shift",
+                "right_shift",
+                "left_command",
+                "right_command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "fn",
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [{ "key_code": "spacebar" }]
+        }
+      ]
+    },
+    {
+      "description": "015_weio_to_brackets.json",
+      "manipulators": [
+        {
+            "type": "basic",
+            "from": {
+                "key_code": "w",
+                "modifiers": {
+                    "mandatory": ["fn","left_control"],
+                    "optional": ["any"]
+                }
+            },
+            "to": [
+                {
+                    "key_code": "close_bracket"
+                }
+            ]
+        },
+        {
+            "type": "basic",
+            "from": {
+                "key_code": "e",
+                "modifiers": {
+                    "mandatory": ["fn","left_control"],
+                    "optional": ["any"]
+                }
+            },
+            "to": [
+                {
+                    "key_code": "backslash"
+                }
+            ]
+        },
+        {
+            "type": "basic",
+            "from": {
+                "key_code": "i",
+                "modifiers": {
+                    "mandatory": ["fn","left_control"],
+                    "optional": ["any"]
+                }
+            },
+            "to": [
+                {
+                    "key_code": "comma"
+                }
+            ]
+        },
+        {
+            "type": "basic",
+            "from": {
+                "key_code": "o",
+                "modifiers": {
+                    "mandatory": ["fn","left_control"],
+                    "optional": ["any"]
+                }
+            },
+            "to": [
+                {
+                    "key_code": "period"
+                }
+            ]
+        }
+      ]
+    },
+    {
+      "description": "015_other_pairs.json",
+      "manipulators": [
+        {
+            "type": "basic",
+            "from": {
+                "key_code": "r",
+                "modifiers": {
+                    "mandatory": ["fn","left_control"],
+                    "optional": ["any"]
+                }
+            },
+            "to": [
+                {
+                    "key_code": "hyphen"
+                }
+            ]
+        },
+        {
+            "type": "basic",
+            "from": {
+                "key_code": "u",
+                "modifiers": {
+                    "mandatory": ["fn","left_control"],
+                    "optional": ["any"]
+                }
+            },
+            "to": [
+                {
+                    "key_code": "international1"
+                }
+            ]
+        },
+        {
+            "type": "basic",
+            "from": {
+                "key_code": "v",
+                "modifiers": {
+                    "mandatory": ["fn","left_control"],
+                    "optional": ["any"]
+                }
+            },
+            "to": [
+                {
+                    "key_code": "slash"
+                }
+            ]
+        },
+        {
+            "type": "basic",
+            "from": {
+                "key_code": "b",
+                "modifiers": {
+                    "mandatory": ["fn","left_control"],
+                    "optional": ["any"]
+                }
+            },
+            "to": [
+                {
+                    "key_code": "international3"
+                }
+            ]
+        },
+        {
+            "type": "basic",
+            "from": {
+                "key_code": "n",
+                "modifiers": {
+                    "mandatory": ["fn","left_control"],
+                    "optional": ["any"]
+                }
+            },
+            "to": [
+                {
+                    "key_code": "open_bracket"
+                }
+            ]
+        },
+        {
+            "type": "basic",
+            "from": {
+                "key_code": "m",
+                "modifiers": {
+                    "mandatory": ["fn","left_control"],
+                    "optional": ["any"]
+                }
+            },
+            "to": [
+                {
+                    "key_code": "equal_sign"
+                }
+            ]
         }
       ]
     }

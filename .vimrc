@@ -1,3 +1,4 @@
+
 " vim: set foldmethod=marker foldlevel=0 nomodeline:
 
 " ================================================================================
@@ -44,10 +45,11 @@ let maplocalleader = ' '
 
 call plug#begin('~/.vim/plugged')
 
+" Plug 'dsznajder/vscode-es7-javascript-react-snippets', { 'do': 'yarn install --frozen-lockfile && yarn compile' }
 Plug 'pangloss/vim-javascript'
 Plug 'plasticboy/vim-markdown'
 " Plug 'unblevable/quick-scope'
-Plug 'MattesGroeger/vim-bookmarks'
+" Plug 'MattesGroeger/vim-bookmarks'
 " -- Not using yet
 " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " Plug 'nvim-lua/plenary.nvim'
@@ -1198,6 +1200,13 @@ augroup vimrc
 
 augroup END
 
+" https://vi.stackexchange.com/questions/3670/how-to-enter-insert-mode-when-entering-neovim-terminal-pane
+augroup terminal_cmd
+  " autocmd TermOpen * startinsert
+  autocmd BufWinEnter,WinEnter term://* startinsert!
+  autocmd Filetype gitcommit startinsert!
+augroup END
+
 augroup vimrc-incsearch-highlight
   autocmd!
   autocmd CmdlineEnter /,\? :set hlsearch
@@ -1415,6 +1424,75 @@ let g:python3_host_prog = '/usr/local/bin/python3'
 " o[nore]map     |  -   |  -  |  -  |  -  |  -  | yes |  -   |  -   |
 " t[nore]map     |  -   |  -  |  -  |  -  |  -  |  -  | yes  |  -   |
 " --------------------------------------------------------------------------------
+"     Save log of current terminal buffer before leaving terminal {{{2
+" --------------------------------------------------------------------------------
+
+autocmd TermOpen * call CreateNewTerminalLog()
+autocmd TermLeave * call OverWriteLog()
+" autocmd BufDelete term://* SaveTerminalLog()
+" autocmd BufWinLeave term://* OverWrittenLog()
+
+function! CreateNewTerminalLog()
+  " see "variable-scope"
+  let b:terminal_path=expand('%')
+  " get only path from terminal_path by regex
+  let b:right_path=matchstr(b:terminal_path,"//.*//")
+  " delete double slash form head and tail"
+  let b:len=strlen(b:right_path)
+  " get current terminal path
+    " 2 is to delete slashes at the top of path
+    " 3 is to delete one slash at the end of path
+  let b:right_path=strpart(b:right_path, 2,b:len-3)
+  " get date
+  let b:current_date=strftime("%Y-%m-%d-%H-%M-%S")
+  " make file extension 
+  let b:file_extension=".term.log"
+  " set file name
+  let b:file_name=b:current_date.b:file_extension
+  " create directory to store log files
+  let b:log_dir_name="terminal_logs/"
+  " echo log_dir_name
+  let b:log_dir_path=b:right_path.b:log_dir_name
+  " echo b:log_dir_path
+  exe "silent !mkdir -p " b:log_dir_path
+  " make file path
+  let b:file_path=b:log_dir_path.b:file_name
+  " create a new log file"
+  exe "silent !touch " b:file_path
+endfunction
+
+
+function! OverWriteLog()
+  "I wonder why this command works well"
+  " See, :w_c
+  " silent is not working
+  exe "silent w !tee -i >" b:file_path
+endfunction
+
+
+" }}}2
+" --------------------------------------------------------------------------------
+" --------------------------------------------------------------------------------
+"     Do Git add and commit just at current file {{{2
+" --------------------------------------------------------------------------------
+" Content
+function! GitAddandCommit()
+  Git add %
+  Git commit
+endfunction
+" }}}2
+" --------------------------------------------------------------------------------
+" --------------------------------------------------------------------------------
+"     Open terminal in insert mode {{{2
+" --------------------------------------------------------------------------------
+"-- To use in nterm in zsh"
+function! OpenTerminalInInsertMode()
+  terminal
+  execute "normal i<cr>"
+endfunction
+" }}}2
+" --------------------------------------------------------------------------------
+" --------------------------------------------------------------------------------
 "     Send terminal I/O {{{2
 " --------------------------------------------------------------------------------
 function! Logging()
@@ -1442,10 +1520,10 @@ nnoremap zZ zRzXzMzr
 nnoremap : q:i
 
 " -- "
-map [[ ?{<CR>w99[{
-map ][ /}<CR>b99]}
-map ]] j0[[%/{<CR>
-map [] k$][%?}<CR>
+" map [[ ?{<CR>w99[{
+" map ][ /}<CR>b99]}
+" map ]] j0[[%/{<CR>
+" map [] k$][%?}<CR>
 
 " http://vimcasts.org/episodes/neovim-terminal-mappings/
 if has('nvim')
@@ -1489,12 +1567,18 @@ nnoremap <leader>Resize40 :resize 40<cr> :set wfh<cr>
 " }}}2
 " --------------------------------------------------------------------------------
 " --------------------------------------------------------------------------------
+"     Deep Escape {{{2
+" --------------------------------------------------------------------------------
+" tnoremap <silent> ;<esc> <C-\><C-N>
+" }}}2
+" --------------------------------------------------------------------------------
+" --------------------------------------------------------------------------------
 "     Navigate Windows {{{2
 " --------------------------------------------------------------------------------
-:nnoremap <C-\><C-N><C-w>h <C-w>h
-:nnoremap <C-\><C-N><C-w>j <C-w>j
-:nnoremap <C-\><C-N><C-w>k <C-w>k
-:nnoremap <C-\><C-N><C-w>l <C-w>l
+nnoremap <silent> <C-\><C-N><C-w>h <C-w>h
+nnoremap <silent> <C-\><C-N><C-w>j <C-w>j
+nnoremap <silent> <C-\><C-N><C-w>k <C-w>k
+nnoremap <silent> <C-\><C-N><C-w>l <C-w>l
 " }}}2
 " --------------------------------------------------------------------------------
 " --------------------------------------------------------------------------------
@@ -1502,6 +1586,7 @@ nnoremap <leader>Resize40 :resize 40<cr> :set wfh<cr>
 " --------------------------------------------------------------------------------
 " Some mappings with "~" work with "keybindings.json" of vscode.
 " -- Insert a newline below/above"
+"  These are related to VScode and Karabiner keybindings .
 inoremap ~p <C-o>o
 inoremap ~P <C-o>O
 nnoremap ~p o
@@ -1564,13 +1649,16 @@ nnoremap <expr> <del> match(getline("."),'^$') ? "x" : "dd"
 " --------------------------------------------------------------------------------
 " semicolon leader mappings {{{1
 " --------------------------------------------------------------------------------
+
+nnoremap <silent> ;gc :call GitAddandCommit()<cr>
 nnoremap <silent> ;; :Prettier<cr>
 " nnoremap <silent> ;gh vi[/
 
 nnoremap <silent> ;gy :Goyo<cr> :set wrap linebreak nolist<cr>
 
 nnoremap <silent> ;so :so $MYVIMRC<cr>
-nnoremap <silent> ;c :clo<cr>
+" Quit current window, or exit vim when in last window"
+nnoremap <silent> ;c <C-w>q
 " nnoremap <silent> ;nu :set nu rnu<cr>
 
 
@@ -1585,6 +1673,7 @@ nnoremap ;t :let $VIM_DIR=expand('%:p:h')<CR>:split<bar>terminal<CR>i cd $VIM_DI
 " command! -nargs=* VT vsplit | terminal <args>
 " quit
 " nnoremap ;a :q!<cr>
+" Exit vim, anyway
 nnoremap ;w :qa!<cr>
 " nnoremap ;qqq :tabdo NERDTreeClose<CR> :qa!<cr>
 " }}}1
@@ -2191,4 +2280,3 @@ nnoremap <leader>format_vertically :call FormatVertically()<cr>
 " <unique>
 
 " Set FileTypes"
-

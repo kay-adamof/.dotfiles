@@ -1,5 +1,7 @@
 # vim: set foldmethod=marker foldlevel=0 nomodeline:
 #
+# 
+#
 # PATH settings
 export PATH="$HOME/bin:$PATH"
 
@@ -249,7 +251,7 @@ alias vr="code -r" # Open a file in current vscode window
 alias zshrc="vi ~/.zshrc"
 alias vimrc="vi ~/.vimrc"
 alias ldd="l -d */" # Show only directory
-alias nterm="nvim --cmd term"
+alias nterm="nvim -c 'call OpenTerminalInInsertMode()'"
 alias ls="exa --long --tree --level=1 --git --ignore-glob=.git --group --blocks --all --header --inode --accessed --created --sort=inode # --reverse # fancy exaiii;"
 # }}}1
 # ================================================================================
@@ -495,8 +497,13 @@ alias memo_fuzzy='$HOME/git-fuzzy/bin --git-dir=$HOME/.memo/ --work-tree=$HOME'
 # }}}2
 # --------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------
-#     Combinations {{{2
+#     Functions {{{2
 # --------------------------------------------------------------------------------
+make_symlink_to_previous_directory(){
+  TEMP_DIR="$(readlink -f .)"
+  -
+  ln -s $TEMP_DIR "$(basename "$TEMP_DIR")"
+}
 git_push_to_Github_initially(){
   git remote add origin $1
   git branch -M main
@@ -511,13 +518,25 @@ git_init(){
   git remote add origin https://github.com/kay-adamof/"$1".git
   git push -u origin main
 }
+node_project_in_here() {
+  mkdir -p ./"$1"
+  cd ./"$1"
+  git init
+  cp $HOME/templates/node_gitignore ./.gitignore
+  cp $HOME/templates/node_README ./README.md
+  cp $HOME/templates/terminal.log ./terminal.log
+  git add .
+  git commit -m "Initial Commit"
+  npm init -y
+  touch DUMMY
+}
 node_project() {
   mkdir -p $HOME/07_playground/"$1"
   cd $HOME/07_playground/"$1"
   git init
   cp $HOME/templates/node_gitignore ./.gitignore
   cp $HOME/templates/node_README ./README.md
-  touch terminal.log
+  cp $HOME/templates/terminal.log ./terminal.log
   git add .
   git commit -m "Initial Commit"
   npm init -y
