@@ -1,6 +1,6 @@
 # vim: set foldmethod=marker foldlevel=0 nomodeline:
 #
-# 
+#
 #
 # PATH settings
 export PATH="$HOME/bin:$PATH"
@@ -90,7 +90,7 @@ plugins=(git docker macos)
 # ------------------------------------------------------------
 #     Usage
 # ------------------------------------------------------------
-# In Normal mode you can use vv to edit current command line in an editor 
+# In Normal mode you can use vv to edit current command line in an editor
 # (e.g. vi/vim/nvim...), because it is bound to the Visual mode.
 # You can change the editor by ZVM_VI_EDITOR option, by default it is $EDITOR.
 # ------------------------------------------------------------
@@ -99,12 +99,12 @@ plugins=(git docker macos)
 # S" : Add " for visual selection
 # ys" : Add " for visual selection
 # cs"' : Change " to '
-# ds" : Delete " 
+# ds" : Delete "
 # ------------------------------------------------------------
 #     Increment and Decrement
 # ------------------------------------------------------------
-#  inc: ctrl-a 
-#  dec: ctrl-x 
+#  inc: ctrl-a
+#  dec: ctrl-x
 # - Number   (Decimal, Hexadecimal, Binary...)
 # - Boolean  (True or False, Yes or No, On or Off...)
 # - Weekday  (Sunday, Monday, Tuesday, Wednesday...)
@@ -131,7 +131,7 @@ ZVM_VI_EDITOR="$VISUAL"
 # insert the actual date in the form yyyy-mm-dd
 # }}}
 # ================================================================================
-#     [pierpo/fzf-docker: 🐳 Docker completion in zsh using fzf 🌸](https://github.com/pierpo/fzf-docker) 
+#     [pierpo/fzf-docker: 🐳 Docker completion in zsh using fzf 🌸](https://github.com/pierpo/fzf-docker)
 # ================================================================================
 #
 # Usage
@@ -161,7 +161,7 @@ plugins+=(zsh-autosuggestions)
 #
 plugins+=(zsh-syntax-highlighting)
 #
-# 
+#
 # ================================================================================
 #     https://github.com/agkozak/zsh-z
 # ================================================================================
@@ -182,7 +182,7 @@ source $ZSH/oh-my-zsh.sh
 # find out all zsh options:
 # % man zshoptions
 # ------------------------------------------------------------
-#     settings 
+#     settings
 # ------------------------------------------------------------
 # case insensitive globbing
 setopt NO_CASE_GLOB
@@ -312,7 +312,7 @@ alias ls="exa --long --tree --level=1 --git --ignore-glob=.git --group --blocks 
 # If you want to see the commands in chronological order, press CTRL-R again which toggles sorting by relevance
 # Set FZF_CTRL_R_OPTS   : to pass additional options
 # Set FZF_ALT_C_COMMAND : to override the default command
-# Set FZF_ALT_C_OPTS    : to pass additional options 
+# Set FZF_ALT_C_OPTS    : to pass additional options
 
 # ------------------------------------------------------------
 #     FZF default settings
@@ -340,8 +340,8 @@ export FZF_REVERSE_ISEARCH_OPTS='--preview-window=up:10 --preview="echo {}" --he
 # ------------------------------------------------------------
 #     Search syntax
 # ------------------------------------------------------------
-# Unless otherwise specified, fzf starts in "extended-search mode" 
-# where you can type in multiple search terms delimited by spaces. 
+# Unless otherwise specified, fzf starts in "extended-search mode"
+# where you can type in multiple search terms delimited by spaces.
 # e.g. ^music .mp3$ sbtrkt !fire
 
 # Token  	Match_type                	Description
@@ -410,19 +410,19 @@ eval "$(zoxide init zsh)"
 # ------------------------------------------------------------
 # Supported sub-commands:
 #
-# git fuzzy status 
+# git fuzzy status
 # - Interact with staged and unstaged changes.
-# git fuzzy branch 
+# git fuzzy branch
 # - Search for, checkout and look at branches.
-# git fuzzy log 
+# git fuzzy log
 # - Look for commits in git log. Typing in the search simply filters in the usual fzf style.
-# git fuzzy reflog 
+# git fuzzy reflog
 # - Look for entries in git reflog. Typing in the search simply filters in the usual fzf style.
-# git fuzzy stash 
+# git fuzzy stash
 # - Look for entries in git stash. Typing in the search simply filters in the usual fzf style.
-# git fuzzy diff 
+# git fuzzy diff
 # - Interactively select diff subjects. Drilling down enables searching through diff contents in a diff browser.
-# git fuzzy pr 
+# git fuzzy pr
 # - Interactively select and open/diff GitHub pull requests.
 # ------------------------------------------------------------
 #     set PATH
@@ -461,8 +461,8 @@ export GIT_FUZZY_BRANCH_DELETE_BRANCH_KEY='Ctrl-D'
 # --------------------------------------------------------------------------------
 #     Basic Commands {{{2
 # --------------------------------------------------------------------------------
-mdcd() { 
-  mkdir -p "$1" && 
+mdcd() {
+  mkdir -p "$1" &&
   cd "$1"
   }
 # }}}2
@@ -675,7 +675,7 @@ source $HOME/bin/google_search.sh
 # "^[^M" self-insert-unmeta                  # "^[<"  beginning-of-buffer-or-history
 # "^[^_" copy-prev-word                      # "^[>"  end-of-buffer-or-history
 # "^[ "  expand-history                      # "^[?"  which-command
-# "^[!"  expand-history                      
+# "^[!"  expand-history
 # "^[A"   accept-and-hold                    # "^[[1;5C"  forward-word
 # "^[B"   backward-word                      # "^[[1;5D"  backward-word
 # "^[C"   capitalize-word                    # "^[[200~"  bracketed-paste

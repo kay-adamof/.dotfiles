@@ -1427,10 +1427,12 @@ let g:python3_host_prog = '/usr/local/bin/python3'
 "     Save log of current terminal buffer before leaving terminal {{{2
 " --------------------------------------------------------------------------------
 
-autocmd TermOpen * call CreateNewTerminalLog()
-autocmd TermLeave * call OverWriteLog()
-" autocmd BufDelete term://* SaveTerminalLog()
-" autocmd BufWinLeave term://* OverWrittenLog()
+augroup terminalLogging
+  " au! is needed because fzf preview window will not be working"
+  au!
+  autocmd TermOpen * call CreateNewTerminalLog()
+  autocmd TermLeave * call OverWriteLog()
+augroup END
 
 function! CreateNewTerminalLog()
   " see "variable-scope"
@@ -1445,7 +1447,7 @@ function! CreateNewTerminalLog()
   let b:right_path=strpart(b:right_path, 2,b:len-3)
   " get date
   let b:current_date=strftime("%Y-%m-%d-%H-%M-%S")
-  " make file extension 
+  " make file extension
   let b:file_extension=".term.log"
   " set file name
   let b:file_name=b:current_date.b:file_extension
@@ -1463,10 +1465,15 @@ endfunction
 
 
 function! OverWriteLog()
-  "I wonder why this command works well"
-  " See, :w_c
-  " silent is not working
-  exe "silent w !tee -i >" b:file_path
+  " In case of opening fzf preview window, that makes error to this function.
+  " So, Nothing is done, when some error occurs. 
+  try
+    " I wonder why this command works well"
+    " See, :w_c
+    " I wonder why silent is not working
+    exe "silent w !tee -i >" b:file_path
+  catch
+  endtry
 endfunction
 
 
